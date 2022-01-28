@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="846.0" prefWidth="1670.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.LlamamientosCreateController">
+   <children>
+      <HBox layoutX="482.0" layoutY="640.0" prefHeight="46.0" prefWidth="515.0" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#addRowGridPane" prefHeight="46.0" prefWidth="205.0" text="Crear Llamamiento">
+               <font>
+                  <Font size="19.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="46.0" prefWidth="133.0" text="Menu">
+               <font>
+                  <Font size="19.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#hacerLlamamientos" prefHeight="46.0" prefWidth="216.0" text="Hacer LLamamientos">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+      <GridPane layoutX="8.0" prefHeight="78.0" prefWidth="1660.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TIPO MOVIMIENTO" textAlignment="CENTER" wrappingWidth="206.13671875" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TRABAJADOR" textAlignment="CENTER" wrappingWidth="206.13671875" GridPane.columnIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CENTRO" textAlignment="CENTER" wrappingWidth="206.13671875" GridPane.columnIndex="2" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORIA" textAlignment="CENTER" wrappingWidth="206.13671875" GridPane.columnIndex="3" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HORARIO" textAlignment="CENTER" wrappingWidth="206.13671875" GridPane.columnIndex="4" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA INICIO" textAlignment="CENTER" wrappingWidth="206.13671875" GridPane.columnIndex="5" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA FIN" textAlignment="CENTER" wrappingWidth="206.13671875" GridPane.columnIndex="6" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IMPORTE BAJA" textAlignment="CENTER" wrappingWidth="206.13671875" GridPane.columnIndex="7" />
+         </children>
+      </GridPane>
+      <ScrollPane layoutY="63.0" prefHeight="725.0" prefWidth="1660.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="783.0" prefWidth="1656.0">
+               <children>
+                  <GridPane fx:id="gridId" prefHeight="68.0" prefWidth="1660.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                  </GridPane>
+               </children></AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

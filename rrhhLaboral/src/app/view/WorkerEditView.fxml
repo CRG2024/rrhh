@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.WorkersEditController">
+   <children>
+      <GridPane layoutX="153.0" layoutY="2.0" prefHeight="628.0" prefWidth="780.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="2.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.0" minWidth="10.0" prefWidth="369.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="1.0" prefWidth="411.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="411.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label fx:id="dniLabel" text="Dni">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="nombreLabel" text="Nombre" GridPane.rowIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="apellido1Label" text="Primer Apellido" GridPane.rowIndex="2">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="apellido2Label" text="Segundo Apellido" GridPane.rowIndex="3">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="fechaNacimientoLabel" text="Fecha de Nacimiento" GridPane.rowIndex="4">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="nacionalidadLabel" text="Nacionalidad" GridPane.rowIndex="5">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="domicilioLabel" text="Domicilio" GridPane.rowIndex="6">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="ciudadLabel" text="Ciudad" GridPane.rowIndex="7">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="poblacionLabel" text="Población" GridPane.rowIndex="8">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="cpLabel" text="Código Postal" GridPane.rowIndex="9">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="nssLabel" text="Nº Seguridad Social " GridPane.rowIndex="10">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="emailLabel" text="Correo Electrónico" GridPane.rowIndex="11">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="telefono1Label" text="Teléfono 1" GridPane.rowIndex="12">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="telefono2Label" text="Teléfono 2" GridPane.rowIndex="13">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="cuentaLabel" text="Cuenta Bancaria" GridPane.rowIndex="14">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="carnetLabel" text="Carnet de conducir" GridPane.rowIndex="15">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="vehiculoLabel" text="Vehículo Propio" GridPane.rowIndex="16">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="permisoTrabajoLabel" text="Permiso de Trabajo" GridPane.rowIndex="17">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="dscapacidadesLabel" text="Discapacidades" GridPane.rowIndex="18">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <TextField fx:id="dniField" promptText="dni" text="dni" GridPane.columnIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <TextField fx:id="nombreField" promptText="nombre" text="nombre" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <TextField fx:id="apellido1Field" promptText="primer apellido" text="primer apellido" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <TextField fx:id="apellido2Field" promptText="segundo apellido" text="segundo apellido" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <DatePicker fx:id="fechaNacimientoDatePicker" prefHeight="35.0" prefWidth="282.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="nacionalidadField" promptText="nacionalidad" text="nacionalidad" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <TextField fx:id="domicilioField" promptText="domicilio" text="domicilio" GridPane.columnIndex="1" GridPane.rowIndex="6">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <TextField fx:id="ciudadField" promptText="ciudad" text="ciudad" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <TextField fx:id="poblacionField" promptText="poblacion" text="poblacion" GridPane.columnIndex="1" GridPane.rowIndex="8">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <TextField fx:id="cpField" promptText="codigo postal" text="cp" GridPane.columnIndex="1" GridPane.rowIndex="9">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <TextField fx:id="nssField" promptText="nº seguridad social" text="nss" GridPane.columnIndex="1" GridPane.rowIndex="10">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <TextField fx:id="emailField" promptText="email" text="email" GridPane.columnIndex="1" GridPane.rowIndex="11">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <TextField fx:id="telefono1Field" promptText="telf1" text="telf1" GridPane.columnIndex="1" GridPane.rowIndex="12">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <TextField fx:id="telefono2Field" promptText="telf2" text="telf2" GridPane.columnIndex="1" GridPane.rowIndex="13">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <TextField fx:id="cuentaField" promptText="cuenta bancaria" text="cuenta" GridPane.columnIndex="1" GridPane.rowIndex="14">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <CheckBox fx:id="carnetCheckbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="15" />
+            <CheckBox fx:id="vehiculoCheckbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+            <CheckBox fx:id="permisoTrabajoCheckbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="17" />
+            <CheckBox fx:id="discapacidadesCheckbox" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="18" />
+         </children>
+      </GridPane>
+      <HBox layoutX="482.0" layoutY="640.0" AnchorPane.bottomAnchor="35.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleOk" text="Editar">
+               <font>
+                  <Font size="19.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="42.0" prefWidth="133.0" text="Cancelar...">
+               <font>
+                  <Font size="19.0" />
+               </font></Button>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
