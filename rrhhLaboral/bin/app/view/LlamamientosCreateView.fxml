@@ -12,6 +12,40 @@
 
 <AnchorPane prefHeight="846.0" prefWidth="1670.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.LlamamientosCreateController">
    <children>
+      <HBox layoutY="791.0" prefHeight="55.0" prefWidth="511.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="100.0" text="+Mov">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#showNewTrabajador" prefHeight="46.0" prefWidth="100.0" text="+Trab">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#showNewCentro" prefHeight="46.0" prefWidth="100.0" text="+Cen">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#showNewCategoria" prefHeight="46.0" prefWidth="100.0" text="+Cat">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#showNewContrato" prefHeight="46.0" prefWidth="100.0" text="+Cont">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#showNewHorario" prefHeight="46.0" prefWidth="100.0" text="+Hor">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
       <HBox layoutX="482.0" layoutY="640.0" prefHeight="46.0" prefWidth="876.0" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="20.0">
          <children>
             <Button mnemonicParsing="false" onAction="#addRowGridPane" prefHeight="46.0" prefWidth="296.0" text="Crear Llamamiento">
@@ -46,19 +80,21 @@
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TIPO MOVIMIENTO" textAlignment="CENTER" wrappingWidth="206.13671875" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TRABAJADOR" textAlignment="CENTER" wrappingWidth="206.13671875" GridPane.columnIndex="1" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CENTRO" textAlignment="CENTER" wrappingWidth="206.13671875" GridPane.columnIndex="2" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORIA" textAlignment="CENTER" wrappingWidth="206.13671875" GridPane.columnIndex="3" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HORARIO" textAlignment="CENTER" wrappingWidth="206.13671875" GridPane.columnIndex="4" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA INICIO" textAlignment="CENTER" wrappingWidth="206.13671875" GridPane.columnIndex="5" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA FIN" textAlignment="CENTER" wrappingWidth="206.13671875" GridPane.columnIndex="6" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IMPORTE BAJA" textAlignment="CENTER" wrappingWidth="206.13671875" GridPane.columnIndex="7" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TIPO MOVIMIENTO" textAlignment="CENTER" wrappingWidth="164.13671875" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TRABAJADOR" textAlignment="CENTER" wrappingWidth="164.13671875" GridPane.columnIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CENTRO" textAlignment="CENTER" wrappingWidth="165.13671875" GridPane.columnIndex="2" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORIA" textAlignment="CENTER" wrappingWidth="168.13671875" GridPane.columnIndex="3" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HORARIO" textAlignment="CENTER" wrappingWidth="168.13671875" GridPane.columnIndex="5" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA INICIO" textAlignment="CENTER" wrappingWidth="167.13671875" GridPane.columnIndex="6" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA FIN" textAlignment="CENTER" wrappingWidth="168.13671875" GridPane.columnIndex="7" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IMPORTE BAJA" textAlignment="CENTER" wrappingWidth="164.13671875" GridPane.columnIndex="8" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TIPO CONTRATO" textAlignment="CENTER" wrappingWidth="164.13671875" GridPane.columnIndex="4" />
          </children>
       </GridPane>
       <ScrollPane layoutY="63.0" prefHeight="725.0" prefWidth="1660.0">
@@ -71,6 +107,7 @@
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
