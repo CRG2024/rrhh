@@ -21,6 +21,7 @@ import javafx.util.StringConverter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import app.model.Categoria;
 import app.model.Centro;
@@ -105,6 +106,8 @@ public class LlamamientosCreateController {
     
     private ObservableList<TipoContrato> contratos = FXCollections.observableArrayList();
     
+    private ArrayList<CheckBox> listaCheckDelete = new ArrayList<CheckBox>();
+    
     @FXML
     private void initialize() throws SQLException {
     	DataBase bbdd = new DataBase();
@@ -122,7 +125,9 @@ public class LlamamientosCreateController {
     	centros = bbdd.obtenerDatosCentros();
     	categorias = bbdd.obtenerDatosCategorias();
     	horarios = bbdd.obtenerDatosHorarios();
-    	contratos = bbdd.obtenerDatosContratos();    	
+    	contratos = bbdd.obtenerDatosContratos();
+    	
+    	
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -185,10 +190,9 @@ public class LlamamientosCreateController {
     
     @FXML
     private void addRowGridPane() throws SQLException {
-    	
     	ComboBox<String> tipoMovimientoCombo = new ComboBox<String>();
     	tipoMovimientoCombo.getItems().addAll(movimientosTipoSelect);
-    	tipoMovimientoCombo.setId(Integer.toString(gridId.getRowCount()-1) + "movimientoTipoCombo");
+    	tipoMovimientoCombo.setId(Integer.toString(gridId.getRowCount()) + "movimientoTipoCombo");
     	
     	ComboBox<Trabajador> trabajadoresCombo = new ComboBox<Trabajador>();
     	trabajadoresCombo.getItems().addAll(trabajadores);
@@ -215,7 +219,7 @@ public class LlamamientosCreateController {
 				}
 			}
 		});
-    	trabajadoresCombo.setId(Integer.toString(gridId.getRowCount()-1) + "trabajadoresCombo");
+    	trabajadoresCombo.setId(Integer.toString(gridId.getRowCount()) + "trabajadoresCombo");
     	
     	ComboBox<Centro> centrosCombo = new ComboBox<Centro>();
     	centrosCombo.getItems().addAll(centros);
@@ -233,7 +237,7 @@ public class LlamamientosCreateController {
 				return arg0 == null ? "" : arg0.getNombre();
 			}
 		});
-    	centrosCombo.setId(Integer.toString(gridId.getRowCount()-1) + "centrosCombo");
+    	centrosCombo.setId(Integer.toString(gridId.getRowCount()) + "centrosCombo");
     	
     	ComboBox<Categoria> categoriasCombo = new ComboBox<Categoria>();
     	categoriasCombo.getItems().addAll(categorias);
@@ -251,7 +255,7 @@ public class LlamamientosCreateController {
 				return null;
 			}
 		});
-    	categoriasCombo.setId(Integer.toString(gridId.getRowCount()-1) + "categoriaCombo");
+    	categoriasCombo.setId(Integer.toString(gridId.getRowCount()) + "categoriaCombo");
     	
     	ComboBox<Horario> horariosCombo = new ComboBox<Horario>();
     	horariosCombo.getItems().addAll(horarios);
@@ -269,19 +273,21 @@ public class LlamamientosCreateController {
 				return null;
 			}
 		});
-    	horariosCombo.setId(Integer.toString(gridId.getRowCount()-1) + "horarioCombo");
+    	horariosCombo.setId(Integer.toString(gridId.getRowCount()) + "horarioCombo");
     	
     	DatePicker fechaInicio = new DatePicker();
-    	fechaInicio.setId(Integer.toString(gridId.getRowCount()-1) + "fechaInicio");
+    	fechaInicio.setId(Integer.toString(gridId.getRowCount()) + "fechaInicio");
     	
     	DatePicker fechaFin = new DatePicker();
-    	fechaFin.setId(Integer.toString(gridId.getRowCount()-1) + "fechaFin");
+    	fechaFin.setId(Integer.toString(gridId.getRowCount()) + "fechaFin");
     	
     	TextField importeBaja = new TextField();
-    	importeBaja.setId(Integer.toString(gridId.getRowCount()-1) + "importebaja");
+    	importeBaja.setId(Integer.toString(gridId.getRowCount()) + "importebaja");
     	
     	CheckBox checkDelete = new CheckBox();
-    	checkDelete.setId(Integer.toString(gridId.getRowCount()-1) + "checkDelete");
+    	checkDelete.setId(Integer.toString(gridId.getRowCount()) + "checkDelete");
+    	
+    	listaCheckDelete.add(checkDelete);
     	
     	gridId.addRow(gridId.getRowCount(),
     			tipoMovimientoCombo,
@@ -294,9 +300,11 @@ public class LlamamientosCreateController {
     			importeBaja,
     			checkDelete);
     }
+    
+    
     @FXML
     private void hacerLlamamientos(ActionEvent event) throws SQLException {
-    	//LA PRIMERA ROW ES 0
+    	//EXISTE UNA FILA 0 DEMÁS
         if (isInputValid()) {
         	 Scene app_stage =  ((Node) event.getSource()).getScene();
         	 ComboBox<Trabajador> tb = (ComboBox<Trabajador>) app_stage.lookup("#1trabajadoresCombo");
@@ -304,9 +312,62 @@ public class LlamamientosCreateController {
         }
     }
     
-
- 
+    
     @FXML
+    private void eliminarFilas(ActionEvent event) throws SQLException {
+    	//EXISTE UNA FILA 0 DEMÁS
+        if (isInputValid()) {
+        	int filasInicio = gridId.getRowCount() -2;
+        	List<Integer> borrar = new ArrayList<Integer>();
+        	ArrayList<CheckBox> borrarCheck = new ArrayList<CheckBox>();
+        	System.out.println("filas");
+        	System.out.println(filasInicio);
+        	for (int i = filasInicio; i > -1; i--) {
+        		CheckBox check = listaCheckDelete.get(i);
+        		if(check.isSelected()) {
+        			
+        			String id = check.getId();
+        			String[] separarId = id.split("checkDelete");
+        			int indiceFila = Integer.parseInt(separarId[0]);
+        			borrar.add(indiceFila);
+        			borrarCheck.add(check);
+        			//gridId.getChildren().removeIf(node -> gridId.getRowIndex(node) == indiceFila);
+        			//listaCheckDelete.remove(i);
+        			
+        		}
+			}
+        	
+        	//Borramos las filas
+        	for (int i = borrar.size()-1;i > -1; i--) {
+        		int indiceBorrar = borrar.get(i);
+        		gridId.getChildren().removeIf(node -> gridId.getRowIndex(node) == indiceBorrar);
+        	}
+        	System.out.println(listaCheckDelete.size());
+        	//Borramos los check de la lista
+        	for(CheckBox borrado:borrarCheck) {
+        		listaCheckDelete.remove(borrado);
+        	}
+        	System.out.println(listaCheckDelete.size());
+        	//Renombramos los checks que quedan
+        	int sizeChecks = listaCheckDelete.size();
+        	for (int i = 0; i < sizeChecks; i++ ) {
+        		CheckBox cambiar = listaCheckDelete.get(i);
+        		String[] separarId = cambiar.getId().split("checkDelete");
+        		String nuevo = Integer.toString(i+1) +"checkDelete";
+        		listaCheckDelete.get(i).setId(nuevo);
+        		System.out.println(nuevo);
+        	}
+
+        }
+    }
+ 
+    private void renameCheckDeleteList(int ind) {
+		// TODO Auto-generated method stub
+    	
+   
+	}
+
+	@FXML
     private void handleCancel(ActionEvent event) throws IOException {
     	Parent home_page_parent = FXMLLoader.load(getClass().getResource("MainMovimientosView.fxml"));
 	    Scene home_page_scene = new Scene(home_page_parent);

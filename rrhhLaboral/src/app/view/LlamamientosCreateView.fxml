@@ -12,17 +12,23 @@
 
 <AnchorPane prefHeight="846.0" prefWidth="1670.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.LlamamientosCreateController">
    <children>
-      <HBox layoutX="482.0" layoutY="640.0" prefHeight="46.0" prefWidth="515.0" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="20.0">
+      <HBox layoutX="482.0" layoutY="640.0" prefHeight="46.0" prefWidth="876.0" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="20.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#addRowGridPane" prefHeight="46.0" prefWidth="205.0" text="Crear Llamamiento">
+            <Button mnemonicParsing="false" onAction="#addRowGridPane" prefHeight="46.0" prefWidth="296.0" text="Crear Llamamiento">
                <font>
                   <Font size="19.0" />
                </font></Button>
-            <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="46.0" prefWidth="133.0" text="Menu">
+            <Button mnemonicParsing="false" onAction="#eliminarFilas" prefHeight="46.0" prefWidth="216.0" text="Eliminar Llamamientos">
                <font>
                   <Font size="19.0" />
-               </font></Button>
+               </font>
+            </Button>
             <Button mnemonicParsing="false" onAction="#hacerLlamamientos" prefHeight="46.0" prefWidth="216.0" text="Hacer LLamamientos">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="46.0" prefWidth="133.0" text="Menu">
                <font>
                   <Font size="19.0" />
                </font>
