@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="682.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.MainMovimientosController">
+   <children>
+      <Button layoutX="123.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleButtonLlamamientos" prefHeight="95.0" prefWidth="245.0" text="LLAMAMIENTOS">
+         <font>
+            <Font size="26.0" />
+         </font></Button>
+      <Button layoutX="435.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleButtonHistoricoLlamamientos" prefHeight="95.0" prefWidth="245.0" text="HISTORICO">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <Button layoutX="123.0" layoutY="475.0" mnemonicParsing="false" onAction="#buttonVolver" prefHeight="95.0" prefWidth="245.0" text="MENU">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
