@@ -108,6 +108,8 @@ public class LlamamientosCreateController {
     
     private ArrayList<CheckBox> listaCheckDelete = new ArrayList<CheckBox>();
     
+    private int totalFilas = 0;
+    
     @FXML
     private void initialize() throws SQLException {
     	DataBase bbdd = new DataBase();
@@ -299,6 +301,7 @@ public class LlamamientosCreateController {
     			fechaFin,
     			importeBaja,
     			checkDelete);
+    	totalFilas++;
     }
     
     
@@ -317,12 +320,10 @@ public class LlamamientosCreateController {
     private void eliminarFilas(ActionEvent event) throws SQLException {
     	//EXISTE UNA FILA 0 DEMÁS
         if (isInputValid()) {
-        	int filasInicio = gridId.getRowCount() -2;
+        	
         	List<Integer> borrar = new ArrayList<Integer>();
         	ArrayList<CheckBox> borrarCheck = new ArrayList<CheckBox>();
-        	System.out.println("filas");
-        	System.out.println(filasInicio);
-        	for (int i = filasInicio; i > -1; i--) {
+        	for (int i = totalFilas-1; i > -1; i--) {
         		CheckBox check = listaCheckDelete.get(i);
         		if(check.isSelected()) {
         			
@@ -341,21 +342,12 @@ public class LlamamientosCreateController {
         	for (int i = borrar.size()-1;i > -1; i--) {
         		int indiceBorrar = borrar.get(i);
         		gridId.getChildren().removeIf(node -> gridId.getRowIndex(node) == indiceBorrar);
+        		totalFilas--;
         	}
-        	System.out.println(listaCheckDelete.size());
+        
         	//Borramos los check de la lista
         	for(CheckBox borrado:borrarCheck) {
         		listaCheckDelete.remove(borrado);
-        	}
-        	System.out.println(listaCheckDelete.size());
-        	//Renombramos los checks que quedan
-        	int sizeChecks = listaCheckDelete.size();
-        	for (int i = 0; i < sizeChecks; i++ ) {
-        		CheckBox cambiar = listaCheckDelete.get(i);
-        		String[] separarId = cambiar.getId().split("checkDelete");
-        		String nuevo = Integer.toString(i+1) +"checkDelete";
-        		listaCheckDelete.get(i).setId(nuevo);
-        		System.out.println(nuevo);
         	}
 
         }
