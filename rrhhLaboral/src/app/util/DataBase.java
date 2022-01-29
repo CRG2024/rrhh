@@ -14,6 +14,7 @@ import app.model.Categoria;
 import app.model.Centro;
 import app.model.Horario;
 import app.model.TipoContrato;
+import app.model.TipoMovimiento;
 import app.model.Trabajador;
 
 public class DataBase {
@@ -411,6 +412,60 @@ public class DataBase {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+	}
+
+	public ObservableList<TipoMovimiento> obtenerDatosTipoMovimientos() throws SQLException {
+		ObservableList<TipoMovimiento> datosMovimientos = FXCollections.observableArrayList();
+		 String query = "SELECT * FROM tipomovimientos";
+	     java.sql.Statement st = connection.createStatement();
+	     ResultSet rs = st.executeQuery(query);
+
+	     while (rs.next())
+	      {
+	    	 TipoMovimiento movimiento = new TipoMovimiento();
+	    	 movimiento.setIdTipoMovimiento(rs.getInt("idtipomovimiento"));
+	    	 movimiento.setNombre(rs.getString("nombre"));
+
+	    	 datosMovimientos.add(movimiento);
+	      }
+		return datosMovimientos;
+	}
+
+	public void eliminarTipoMovimiento(int idTipoMovimiento) throws SQLException {
+		// TODO Auto-generated method stub
+		java.sql.Statement st = connection.createStatement();
+		String sql = String.format("DELETE FROM tipomovimientos WHERE idtipomovimiento='%s'",idTipoMovimiento);
+		st.execute(sql);
+	}
+
+	public void actualizarTipoMovimiento(TipoMovimiento tipoMovimiento, int idTipoMovimiento) {
+		try {
+		final PreparedStatement pstmt = connection.prepareStatement(
+				"UPDATE tipomovimientos SET nombre=? WHERE idtipomovimiento=?");
+		pstmt.setString(1, tipoMovimiento.getNombre());
+		pstmt.setLong(2, tipoMovimiento.getIdTipoMovimiento());
+		pstmt.executeQuery();
+		
+		
+		} catch (SQLException e) {
+				// TODO Auto-generated catch block
+		e.printStackTrace();
+		}
+		
+	}
+
+	public void insertarTipoMovimiento(TipoMovimiento tipoMovimiento) {
+		try {
+			final PreparedStatement pstmt = connection.prepareStatement(
+							"INSERT INTO tipomovimientos (nombre) "
+									+ "VALUES (?)");
+			pstmt.setString(1, tipoMovimiento.getNombre());
+			pstmt.executeQuery();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 

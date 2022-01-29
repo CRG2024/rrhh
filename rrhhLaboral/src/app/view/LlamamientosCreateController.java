@@ -100,7 +100,7 @@ public class LlamamientosCreateController {
     private boolean okClicked = false;
     private DataBase bbdd;
     
-    private ArrayList<String> movimientosTipoSelect = new ArrayList<>();
+    private ObservableList<TipoMovimiento> movimientosTipoSelect = FXCollections.observableArrayList();
 
     private ObservableList<Trabajador> trabajadores = FXCollections.observableArrayList();
     private ObservableList<Trabajador> filtroTrabajadores = FXCollections.observableArrayList();
@@ -131,16 +131,7 @@ public class LlamamientosCreateController {
     
     private void crearListas() throws SQLException {
     	//TODO
-    	movimientosTipoSelect.add("Alta Nueva");
-    	movimientosTipoSelect.add("Llamamiento");
-    	movimientosTipoSelect.add("Baja fin actividad");
-    	movimientosTipoSelect.add("Baja voluntaria");
-    	movimientosTipoSelect.add("Período prueba no superado");
-    	movimientosTipoSelect.add("Cambio de categoría");
-    	movimientosTipoSelect.add("Modificación");
-    	movimientosTipoSelect.add("Cambio tipo contrato");
-    	
-    	trabajadores = bbdd.obtenerDatosTrabajadores();
+    	movimientosTipoSelect = bbdd.obtenerDatosTipoMovimientos();
     	centros = bbdd.obtenerDatosCentros();
     	categorias = bbdd.obtenerDatosCategorias();
     	horarios = bbdd.obtenerDatosHorarios();
@@ -203,8 +194,27 @@ public class LlamamientosCreateController {
     
     @FXML
     private void addRowGridPane() throws SQLException {
-    	ComboBox<String> tipoMovimientoCombo = new ComboBox<String>();
+    	ComboBox<TipoMovimiento> tipoMovimientoCombo = new ComboBox<TipoMovimiento>();
     	tipoMovimientoCombo.getItems().addAll(movimientosTipoSelect);
+    	tipoMovimientoCombo.setConverter(new StringConverter<TipoMovimiento>() {
+
+			@Override
+			public TipoMovimiento fromString(String arg0) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public String toString(TipoMovimiento arg0) {
+				// TODO Auto-generated method stub
+				if (arg0 == null) {
+					return "";
+				}else {
+					
+					return arg0.getNombre();
+				}
+			}
+		});
     	tipoMovimientoCombo.setId(Integer.toString(gridId.getRowCount()) + "movimientoTipoCombo");
     	tipoMovimientoCombo.setEditable(true);
     	

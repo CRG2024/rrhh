@@ -10,9 +10,9 @@
          <font>
             <Font size="26.0" />
          </font></Button>
-      <Button layoutX="439.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleButtonMovimientos" prefHeight="95.0" prefWidth="245.0" text="MOVIMIENTOS">
+      <Button layoutX="439.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleButtonMovimientos" prefHeight="95.0" prefWidth="245.0" text="MOV.TRAB.">
          <font>
-            <Font size="26.0" />
+            <Font size="24.0" />
          </font></Button>
       <Button layoutX="132.0" layoutY="193.0" mnemonicParsing="false" onAction="#handleButtonCentros" prefHeight="95.0" prefWidth="245.0" text="CENTROS">
          <font>
@@ -32,6 +32,11 @@
       <Button layoutX="433.0" layoutY="329.0" mnemonicParsing="false" onAction="#handleButtonHorarios" prefHeight="95.0" prefWidth="245.0" text="HORARIOS">
          <font>
             <Font size="26.0" />
+         </font>
+      </Button>
+      <Button layoutX="132.0" layoutY="466.0" mnemonicParsing="false" onAction="#handleButtonTipoMovimientos" prefHeight="95.0" prefWidth="245.0" text="TIPOS MOV.">
+         <font>
+            <Font size="24.0" />
          </font>
       </Button>
    </children>
