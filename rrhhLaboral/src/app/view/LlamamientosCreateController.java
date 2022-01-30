@@ -447,7 +447,7 @@ public class LlamamientosCreateController {
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             crearListas();
-
+            
             return controller.isOkClicked();
         } catch (IOException e) {
             e.printStackTrace();
