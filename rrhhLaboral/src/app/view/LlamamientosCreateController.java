@@ -1,8 +1,10 @@
 package app.view;
 
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,6 +29,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.JComboBox;
+
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import app.Main;
 import app.model.Categoria;
@@ -103,7 +109,6 @@ public class LlamamientosCreateController {
     private ObservableList<TipoMovimiento> movimientosTipoSelect = FXCollections.observableArrayList();
 
     private ObservableList<Trabajador> trabajadores = FXCollections.observableArrayList();
-    private ObservableList<Trabajador> filtroTrabajadores = FXCollections.observableArrayList();
  
     private ObservableList<Centro> centros = FXCollections.observableArrayList();
     
@@ -131,6 +136,7 @@ public class LlamamientosCreateController {
     
     private void crearListas() throws SQLException {
     	//TODO
+    	trabajadores = bbdd.obtenerDatosTrabajadores();
     	movimientosTipoSelect = bbdd.obtenerDatosTipoMovimientos();
     	centros = bbdd.obtenerDatosCentros();
     	categorias = bbdd.obtenerDatosCategorias();
@@ -216,7 +222,7 @@ public class LlamamientosCreateController {
 			}
 		});
     	tipoMovimientoCombo.setId(Integer.toString(gridId.getRowCount()) + "movimientoTipoCombo");
-    	tipoMovimientoCombo.setEditable(true);
+    	//tipoMovimientoCombo.setEditable(true);    	
     	
     	ComboBox<Trabajador> trabajadoresCombo = new ComboBox<Trabajador>();
     	trabajadoresCombo.getItems().addAll(trabajadores);
@@ -244,8 +250,8 @@ public class LlamamientosCreateController {
 			}
 		});
     	trabajadoresCombo.setId(Integer.toString(gridId.getRowCount()) + "trabajadoresCombo");
-    	trabajadoresCombo.setEditable(true);
-    	
+    	//trabajadoresCombo.setEditable(true);
+
     	ComboBox<Centro> centrosCombo = new ComboBox<Centro>();
     	centrosCombo.getItems().addAll(centros);
     	centrosCombo.setConverter(new StringConverter<Centro>() {
@@ -263,7 +269,7 @@ public class LlamamientosCreateController {
 			}
 		});
     	centrosCombo.setId(Integer.toString(gridId.getRowCount()) + "centrosCombo");
-    	centrosCombo.setEditable(true);
+    	//centrosCombo.setEditable(true);
     	
     	ComboBox<Categoria> categoriasCombo = new ComboBox<Categoria>();
     	categoriasCombo.getItems().addAll(categorias);
@@ -282,7 +288,7 @@ public class LlamamientosCreateController {
 			}
 		});
     	categoriasCombo.setId(Integer.toString(gridId.getRowCount()) + "categoriaCombo");
-    	categoriasCombo.setEditable(true);
+    	//categoriasCombo.setEditable(true);
     	
     	ComboBox<TipoContrato> contratosCombo = new ComboBox<TipoContrato>();
     	contratosCombo.getItems().addAll(contratos);
@@ -301,7 +307,7 @@ public class LlamamientosCreateController {
 			}
 		});
     	contratosCombo.setId(Integer.toString(gridId.getRowCount()) + "contratoCombo");
-    	contratosCombo.setEditable(true);
+    	//contratosCombo.setEditable(true);
     	
     	ComboBox<Horario> horariosCombo = new ComboBox<Horario>();
     	horariosCombo.getItems().addAll(horarios);
@@ -320,7 +326,7 @@ public class LlamamientosCreateController {
 			}
 		});
     	horariosCombo.setId(Integer.toString(gridId.getRowCount()) + "horarioCombo");
-    	horariosCombo.setEditable(true);
+    	//horariosCombo.setEditable(true);
     	
     	DatePicker fechaInicio = new DatePicker();
     	fechaInicio.setId(Integer.toString(gridId.getRowCount()) + "fechaInicio");
@@ -356,8 +362,34 @@ public class LlamamientosCreateController {
     	//EXISTE UNA FILA 0 DEMÁS
         if (isInputValid()) {
         	 Scene app_stage =  ((Node) event.getSource()).getScene();
-        	 ComboBox<Trabajador> tb = (ComboBox<Trabajador>) app_stage.lookup("#1trabajadoresCombo");
-        	 System.out.println(tb.getSelectionModel().getSelectedItem().getNombre());
+        	 /*ComboBox<Trabajador> tb = (ComboBox<Trabajador>) app_stage.lookup("#1trabajadoresCombo");
+        	 System.out.println(tb.getSelectionModel().getSelectedItem().getNombre());*/
+        	 for (CheckBox check:listaCheckDelete) {
+        		 String id = check.getId();
+        		 String[] separarId = id.split("checkDelete");
+        		 String indiceFila = separarId[0];
+        		 String comboTipoMovimiento = "#"+indiceFila+"movimientoTipoCombo";
+        		 String comboTrabajador = "#"+indiceFila+"trabajadoresCombo";
+        		 String comboCentro = "#"+indiceFila+"centrosCombo";
+        		 String comboCategoria = "#"+indiceFila+"categoriaCombo";
+        		 String comboContrato = "#"+indiceFila+"contratoCombo";
+        		 String comboHorario = "#"+indiceFila+"horarioCombo";
+        		 String comboFechaInicio = "#"+indiceFila+"fechaInicio";
+        		 String comboFechaFin = "#"+indiceFila+"fechaFin";
+        		 String comboImporteBaja = "#"+indiceFila+"importebaja";
+        		 ComboBox<TipoMovimiento> tipoMovimiento = (ComboBox<TipoMovimiento>) app_stage.lookup(comboTipoMovimiento);
+        		 ComboBox<Trabajador> trabajador = (ComboBox<Trabajador>) app_stage.lookup(comboTrabajador);
+        		 ComboBox<Centro> centro = (ComboBox<Centro>) app_stage.lookup(comboCentro);
+        		 ComboBox<Categoria> categoria = (ComboBox<Categoria>) app_stage.lookup(comboCategoria);
+        		 ComboBox<TipoContrato> contrato = (ComboBox<TipoContrato>) app_stage.lookup(comboContrato);
+        		 ComboBox<Horario> horario = (ComboBox<Horario>) app_stage.lookup(comboHorario);
+        		 DatePicker fechaInicio = (DatePicker) app_stage.lookup(comboFechaInicio);
+        		 DatePicker fechaFin = (DatePicker) app_stage.lookup(comboFechaFin);
+        		 TextField importeBaja = (TextField) app_stage.lookup(comboImporteBaja);
+        		 trabajador.getSelectionModel().getSelectedItem().getNombre();
+        		 
+        		 
+        	 }
         }
     }
     
@@ -378,8 +410,6 @@ public class LlamamientosCreateController {
         			int indiceFila = Integer.parseInt(separarId[0]);
         			borrar.add(indiceFila);
         			borrarCheck.add(check);
-        			//gridId.getChildren().removeIf(node -> gridId.getRowIndex(node) == indiceFila);
-        			//listaCheckDelete.remove(i);
         			
         		}
 			}
@@ -480,7 +510,12 @@ public class LlamamientosCreateController {
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
-            crearListas();
+            
+            for(int i = 1; i < gridId.getRowCount(); i++) {
+            	
+            }
+            
+            
             return controller.isOkClicked();
         } catch (IOException e) {
             e.printStackTrace();

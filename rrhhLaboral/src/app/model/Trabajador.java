@@ -112,7 +112,6 @@ public class Trabajador {
 		this.fechaNacimiento.set(fechaNacimiento);
 	}
 	public ObjectProperty<LocalDate> fechaNacimientoProperty() {
-
 		return fechaNacimiento;
 	}
 

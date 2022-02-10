@@ -4,6 +4,7 @@ package app.view;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 
@@ -22,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
@@ -97,6 +99,26 @@ public class WorkersOverviewController {
     	apellido1Column.setCellValueFactory(cellData -> cellData.getValue().apellido1Property());
     	apellido2Column.setCellValueFactory(cellData -> cellData.getValue().apellido2Property());
     	fechaNacimientoColumn.setCellValueFactory(cellData -> cellData.getValue().fechaNacimientoProperty());
+    	
+    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    	 
+    	fechaNacimientoColumn.setCellFactory(column -> {
+            return new TableCell<Trabajador, LocalDate>() {
+                @Override
+                protected void updateItem(LocalDate item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                        setText(null);
+                    } else {
+                        setText(formatter.format(item));
+
+                    }
+                }
+            };
+        });
+        
+        
     	nacionalidadColumn.setCellValueFactory(cellData -> cellData.getValue().nacionalidadProperty());
     	domicilioColumn.setCellValueFactory(cellData -> cellData.getValue().domicilioProperty());
     	ciudadColumn.setCellValueFactory(cellData -> cellData.getValue().ciudadProperty());
