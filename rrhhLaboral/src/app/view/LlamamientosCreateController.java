@@ -110,14 +110,19 @@ public class LlamamientosCreateController {
     private ArrayList<ComboBox<TipoMovimiento>> listaComboTipoMovimiento = new ArrayList<ComboBox<TipoMovimiento>>();
 
     private ObservableList<Trabajador> trabajadores = FXCollections.observableArrayList();
+    private ArrayList<ComboBox<Trabajador>> listaComboTrabajadores = new ArrayList<ComboBox<Trabajador>>();
  
     private ObservableList<Centro> centros = FXCollections.observableArrayList();
+    private ArrayList<ComboBox<Centro>> listaComboCentros = new ArrayList<ComboBox<Centro>>();
     
     private ObservableList<Categoria> categorias = FXCollections.observableArrayList();
+    private ArrayList<ComboBox<Categoria>> listaComboCategorias = new ArrayList<ComboBox<Categoria>>();
 
     private ObservableList<Horario> horarios = FXCollections.observableArrayList();
+    private ArrayList<ComboBox<Horario>> listaComboHorarios = new ArrayList<ComboBox<Horario>>();
     
     private ObservableList<TipoContrato> contratos = FXCollections.observableArrayList();
+    private ArrayList<ComboBox<TipoContrato>> listaComboContratos = new ArrayList<ComboBox<TipoContrato>>();
     
     private ArrayList<CheckBox> listaCheckDelete = new ArrayList<CheckBox>();
     
@@ -223,7 +228,6 @@ public class LlamamientosCreateController {
 			}
 		});
     	tipoMovimientoCombo.setId(Integer.toString(gridId.getRowCount()) + "movimientoTipoCombo");
-    	//tipoMovimientoCombo.setEditable(true);
     	listaComboTipoMovimiento.add(tipoMovimientoCombo);
     	
     	ComboBox<Trabajador> trabajadoresCombo = new ComboBox<Trabajador>();
@@ -252,7 +256,7 @@ public class LlamamientosCreateController {
 			}
 		});
     	trabajadoresCombo.setId(Integer.toString(gridId.getRowCount()) + "trabajadoresCombo");
-    	//trabajadoresCombo.setEditable(true);
+    	listaComboTrabajadores.add(trabajadoresCombo);
 
     	ComboBox<Centro> centrosCombo = new ComboBox<Centro>();
     	centrosCombo.getItems().addAll(centros);
@@ -271,7 +275,7 @@ public class LlamamientosCreateController {
 			}
 		});
     	centrosCombo.setId(Integer.toString(gridId.getRowCount()) + "centrosCombo");
-    	//centrosCombo.setEditable(true);
+    	listaComboCentros.add(centrosCombo);
     	
     	ComboBox<Categoria> categoriasCombo = new ComboBox<Categoria>();
     	categoriasCombo.getItems().addAll(categorias);
@@ -290,7 +294,7 @@ public class LlamamientosCreateController {
 			}
 		});
     	categoriasCombo.setId(Integer.toString(gridId.getRowCount()) + "categoriaCombo");
-    	//categoriasCombo.setEditable(true);
+    	listaComboCategorias.add(categoriasCombo);
     	
     	ComboBox<TipoContrato> contratosCombo = new ComboBox<TipoContrato>();
     	contratosCombo.getItems().addAll(contratos);
@@ -309,7 +313,7 @@ public class LlamamientosCreateController {
 			}
 		});
     	contratosCombo.setId(Integer.toString(gridId.getRowCount()) + "contratoCombo");
-    	//contratosCombo.setEditable(true);
+    	listaComboContratos.add(contratosCombo);
     	
     	ComboBox<Horario> horariosCombo = new ComboBox<Horario>();
     	horariosCombo.getItems().addAll(horarios);
@@ -328,7 +332,7 @@ public class LlamamientosCreateController {
 			}
 		});
     	horariosCombo.setId(Integer.toString(gridId.getRowCount()) + "horarioCombo");
-    	//horariosCombo.setEditable(true);
+    	listaComboHorarios.add(horariosCombo);
     	
     	DatePicker fechaInicio = new DatePicker();
     	fechaInicio.setId(Integer.toString(gridId.getRowCount()) + "fechaInicio");
@@ -404,6 +408,12 @@ public class LlamamientosCreateController {
         	List<Integer> borrar = new ArrayList<Integer>();
         	ArrayList<CheckBox> borrarCheck = new ArrayList<CheckBox>();
         	ArrayList<ComboBox<TipoMovimiento>> borrarTipoMov = new ArrayList<ComboBox<TipoMovimiento>>();
+        	ArrayList<ComboBox<Trabajador>> borrarTrab = new ArrayList<ComboBox<Trabajador>>();
+        	ArrayList<ComboBox<Centro>> borrarCentro = new ArrayList<ComboBox<Centro>>();
+        	ArrayList<ComboBox<Categoria>> borrarCategoria = new ArrayList<ComboBox<Categoria>>();
+        	ArrayList<ComboBox<TipoContrato>> borrarTipoContr= new ArrayList<ComboBox<TipoContrato>>();
+        	ArrayList<ComboBox<Horario>> borrarHorario = new ArrayList<ComboBox<Horario>>();
+        	
         	for (int i = totalFilas-1; i > -1; i--) {
         		CheckBox check = listaCheckDelete.get(i);
         		if(check.isSelected()) {
@@ -414,6 +424,11 @@ public class LlamamientosCreateController {
         			borrar.add(indiceFila);
         			borrarCheck.add(check);
         			borrarTipoMov.add(listaComboTipoMovimiento.get(i));
+        			borrarTrab.add(listaComboTrabajadores.get(i));
+        			borrarCentro.add(listaComboCentros.get(i));
+        			borrarCategoria.add(listaComboCategorias.get(i));
+        			borrarTipoContr.add(listaComboContratos.get(i));
+        			borrarHorario.add(listaComboHorarios.get(i));	
         			
         		}
 			}
@@ -433,7 +448,28 @@ public class LlamamientosCreateController {
         	for(ComboBox<TipoMovimiento> borrado: borrarTipoMov) {
         		listaComboTipoMovimiento.remove(borrado);
         	}
+        	
+        	for(ComboBox<Trabajador> borrado: borrarTrab) {
+        		listaComboTrabajadores.remove(borrado);
+        	}
 
+        	
+        	for(ComboBox<Centro> borrado: borrarCentro) {
+        		listaComboCentros.remove(borrado);
+        	}
+
+        	
+        	for(ComboBox<Categoria> borrado: borrarCategoria) {
+        		listaComboCategorias.remove(borrado);
+        	}
+
+        	for(ComboBox<TipoContrato> borrado: borrarTipoContr) {
+        		listaComboContratos.remove(borrado);
+        	}
+        	
+        	for(ComboBox<Horario> borrado: borrarHorario) {
+        		listaComboHorarios.remove(borrado);
+        	}
         }
     }
  
@@ -685,8 +721,6 @@ public class LlamamientosCreateController {
     		            					combo.setValue(movs);
     		            				}
     		            			}
-    		            			
-    		            			//combo.setValue(mov);;
     		            		}
     		            	}    		            	
     		            }
