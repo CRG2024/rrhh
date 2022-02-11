@@ -46,57 +46,6 @@ import app.util.DataBase;
 
 public class LlamamientosCreateController {
 
-	@FXML
-	private TextField dniField;
-	@FXML
-	private TextField nombreField;
-	@FXML
-	private TextField apellido1Field;
-	@FXML
-	private TextField apellido2Field;
-	@FXML
-	private TextField fechaNacimientoField;
-
-	@FXML
-	private DatePicker fechaNacimientoDatePicker;
-	@FXML
-	private TextField nacionalidadField;
-	@FXML
-	private TextField domicilioField;
-	@FXML
-	private TextField ciudadField;
-	@FXML
-	private TextField poblacionField;
-	@FXML
-	private TextField cpField;
-	@FXML
-	private TextField nssField;
-	@FXML
-	private TextField emailField;
-	@FXML
-	private TextField telefono1Field;
-	@FXML
-	private TextField telefono2Field;
-	@FXML
-	private TextField cuentaField;
-	@FXML
-	private TextField carnetField;
-	@FXML
-	private CheckBox carnetCheckbox;
-
-	@FXML
-	private TextField vehiculoField;
-	@FXML
-	private CheckBox vehiculoCheckbox;
-	@FXML
-	private TextField permisoTrabajoField;
-	@FXML
-	private CheckBox permisoTrabajoCheckbox;
-
-	@FXML
-	private TextField discapacidadesField;
-	@FXML
-	private CheckBox discapacidadesCheckbox;
 
 	@FXML
 	private GridPane gridId;
@@ -141,7 +90,6 @@ public class LlamamientosCreateController {
     }
     
     private void crearListas() throws SQLException {
-    	//TODO
     	trabajadores = bbdd.obtenerDatosTrabajadores();
     	movimientosTipoSelect = bbdd.obtenerDatosTipoMovimientos();
     	centros = bbdd.obtenerDatosCentros();
@@ -158,51 +106,51 @@ public class LlamamientosCreateController {
      * Called when the user clicks ok.
      * @throws SQLException
      */
-    @FXML
-    private void handleOk() throws SQLException {
-        if (isInputValid()) {
-
-        	worker.setDni(dniField.getText());
-        	worker.setNombre(nombreField.getText());
-        	worker.setApellido1(apellido1Field.getText());
-        	worker.setApellido2(apellido2Field.getText());
-        	worker.setFechaNacimiento(fechaNacimientoDatePicker.getValue());
-        	worker.setNacionalidad(nacionalidadField.getText());
-        	worker.setDomicilio(domicilioField.getText());
-        	worker.setCiudad(ciudadField.getText());
-        	worker.setPoblacion(poblacionField.getText());
-        	worker.setCp(Integer.parseInt(cpField.getText()));
-        	worker.setnss(nssField.getText());
-        	worker.setEmail(emailField.getText());
-        	worker.setTelefono1(telefono1Field.getText());
-        	worker.setTelefono2(telefono2Field.getText());
-        	worker.setCuenta(cuentaField.getText());
-        	if(carnetCheckbox.isSelected()){
-        		worker.setCarnet("1");
-        	}else{
-        		worker.setCarnet("0");
-        	}
-        	if(vehiculoCheckbox.isSelected()){
-        		worker.setVehiculo("1");
-        	}else{
-        		worker.setVehiculo("0");
-        	}
-        	if(permisoTrabajoCheckbox.isSelected()){
-        		worker.setPermisoTrabajo("1");
-        	}else{
-        		worker.setPermisoTrabajo("0");
-        	}
-        	if(discapacidadesCheckbox.isSelected()){
-        		worker.setDiscapacidades("1");
-        	}else{
-        		worker.setDiscapacidades("0");
-        	}
-
-            okClicked = true;
-            bbdd.actualizarTrabajador(worker, worker.getDni());
-            dialogStage.close();
-        }
-    }
+//    @FXML
+//    private void handleOk() throws SQLException {
+//        if (isInputValid()) {
+//
+//        	worker.setDni(dniField.getText());
+//        	worker.setNombre(nombreField.getText());
+//        	worker.setApellido1(apellido1Field.getText());
+//        	worker.setApellido2(apellido2Field.getText());
+//        	worker.setFechaNacimiento(fechaNacimientoDatePicker.getValue());
+//        	worker.setNacionalidad(nacionalidadField.getText());
+//        	worker.setDomicilio(domicilioField.getText());
+//        	worker.setCiudad(ciudadField.getText());
+//        	worker.setPoblacion(poblacionField.getText());
+//        	worker.setCp(Integer.parseInt(cpField.getText()));
+//        	worker.setnss(nssField.getText());
+//        	worker.setEmail(emailField.getText());
+//        	worker.setTelefono1(telefono1Field.getText());
+//        	worker.setTelefono2(telefono2Field.getText());
+//        	worker.setCuenta(cuentaField.getText());
+//        	if(carnetCheckbox.isSelected()){
+//        		worker.setCarnet("1");
+//        	}else{
+//        		worker.setCarnet("0");
+//        	}
+//        	if(vehiculoCheckbox.isSelected()){
+//        		worker.setVehiculo("1");
+//        	}else{
+//        		worker.setVehiculo("0");
+//        	}
+//        	if(permisoTrabajoCheckbox.isSelected()){
+//        		worker.setPermisoTrabajo("1");
+//        	}else{
+//        		worker.setPermisoTrabajo("0");
+//        	}
+//        	if(discapacidadesCheckbox.isSelected()){
+//        		worker.setDiscapacidades("1");
+//        	}else{
+//        		worker.setDiscapacidades("0");
+//        	}
+//
+//            okClicked = true;
+//            bbdd.actualizarTrabajador(worker, worker.getDni());
+//            dialogStage.close();
+//        }
+//    }
     
     @FXML
     private void addRowGridPane() throws SQLException {
@@ -212,13 +160,11 @@ public class LlamamientosCreateController {
 
 			@Override
 			public TipoMovimiento fromString(String arg0) {
-				// TODO Auto-generated method stub
 				return null;
 			}
 
 			@Override
 			public String toString(TipoMovimiento arg0) {
-				// TODO Auto-generated method stub
 				if (arg0 == null) {
 					return "";
 				}else {
@@ -236,13 +182,11 @@ public class LlamamientosCreateController {
 
 			@Override
 			public Trabajador fromString(String arg0) {
-				// TODO Auto-generated method stub
 				return null;
 			}
 
 			@Override
 			public String toString(Trabajador arg0) {
-				// TODO Auto-generated method stub
 				if (arg0 == null) {
 					return "";
 				}else {
@@ -264,13 +208,11 @@ public class LlamamientosCreateController {
 
 			@Override
 			public Centro fromString(String arg0) {
-				// TODO Auto-generated method stub
 				return null;
 			}
 
 			@Override
 			public String toString(Centro arg0) {
-				// TODO Auto-generated method stub
 				return arg0 == null ? "" : arg0.getNombre();
 			}
 		});
@@ -283,13 +225,11 @@ public class LlamamientosCreateController {
 			
 			@Override
 			public String toString(Categoria arg0) {
-				// TODO Auto-generated method stub
 				return arg0 == null ? "" : arg0.getNombre();
 			}
 			
 			@Override
 			public Categoria fromString(String arg0) {
-				// TODO Auto-generated method stub
 				return null;
 			}
 		});
@@ -302,13 +242,11 @@ public class LlamamientosCreateController {
 			
 			@Override
 			public String toString(TipoContrato arg0) {
-				// TODO Auto-generated method stub
 				return arg0 == null ? "" : arg0.getNombre();
 			}
 			
 			@Override
 			public TipoContrato fromString(String arg0) {
-				// TODO Auto-generated method stub
 				return null;
 			}
 		});
@@ -321,13 +259,11 @@ public class LlamamientosCreateController {
 			
 			@Override
 			public String toString(Horario arg0) {
-				// TODO Auto-generated method stub
 				return arg0 == null ? "" : arg0.getHorario();
 			}
 			
 			@Override
 			public Horario fromString(String arg0) {
-				// TODO Auto-generated method stub
 				return null;
 			}
 		});
@@ -363,13 +299,12 @@ public class LlamamientosCreateController {
     }
     
     
-    @FXML
+    @SuppressWarnings("unchecked")
+	@FXML
     private void hacerLlamamientos(ActionEvent event) throws SQLException {
     	//EXISTE UNA FILA 0 DEMÁS
         if (isInputValid()) {
         	 Scene app_stage =  ((Node) event.getSource()).getScene();
-        	 /*ComboBox<Trabajador> tb = (ComboBox<Trabajador>) app_stage.lookup("#1trabajadoresCombo");
-        	 System.out.println(tb.getSelectionModel().getSelectedItem().getNombre());*/
         	 for (CheckBox check:listaCheckDelete) {
         		 String id = check.getId();
         		 String[] separarId = id.split("checkDelete");
@@ -440,7 +375,7 @@ public class LlamamientosCreateController {
         		totalFilas--;
         	}
         
-        	//Borramos los check de la lista
+        	//Borramos los check de la lista y los combo de las listas correspondientes
         	for(CheckBox borrado:borrarCheck) {
         		listaCheckDelete.remove(borrado);
         	}
@@ -481,16 +416,11 @@ public class LlamamientosCreateController {
     	Parent home_page_parent = FXMLLoader.load(getClass().getResource("MainMovimientosView.fxml"));
 	    Scene home_page_scene = new Scene(home_page_parent);
 	    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-	    app_stage.hide(); //optional
+	    app_stage.hide(); 
 	    app_stage.setScene(home_page_scene);
 	    app_stage.show();
     }
 
-    /**
-     * Validates the user input in the text fields.
-     *
-     * @return true if the input is valid
-     */
     private boolean isInputValid() {
 
     	return true;
@@ -500,25 +430,21 @@ public class LlamamientosCreateController {
     public boolean showNewCategoria() throws SQLException {
         try {
 
-            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/CategoriasCreateView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Categoria categoria = new Categoria();
 
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Crear Categoria");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the controller.
             CategoriasEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setCategoria(categoria, bbdd);
 
-            // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             actualizarListasSelect();
             
@@ -534,25 +460,21 @@ public class LlamamientosCreateController {
     public boolean showNewHorario() throws SQLException {
         try {
 
-            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/HorariosCreateView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             
             Horario horario = new Horario();
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Crear Horario");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the controller.
             HorariosEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setHorario(horario, bbdd);
 
-            // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             actualizarListasSelect();
             
@@ -569,24 +491,20 @@ public class LlamamientosCreateController {
     public boolean showNewCentro() throws SQLException {
         try {
 
-            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/CentroCreateView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Centro centro = new Centro();
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Centro");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the controller.
             CentrosEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setCentro(centro, bbdd);
 
-            // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             actualizarListasSelect();
 
@@ -602,24 +520,20 @@ public class LlamamientosCreateController {
     public boolean showNewContrato() throws SQLException {
         try {
 
-            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/ContratosCreateView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             TipoContrato contrato = new TipoContrato();
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Contrato");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the controller.
             ContratosEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setContrato(contrato, bbdd);
 
-            // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             actualizarListasSelect();
             
@@ -635,25 +549,21 @@ public class LlamamientosCreateController {
     public boolean showNewTrabajador() throws SQLException {
         try {
 
-            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/WorkerCreateView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             Trabajador trabajador = new Trabajador();
 
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Person");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the controller.
             WorkersEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setPerson(trabajador, bbdd);
 
-            // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             actualizarListasSelect();
             
@@ -669,25 +579,21 @@ public class LlamamientosCreateController {
     public boolean showNewTipoMovimiento() throws SQLException {
         try {
 
-            // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("view/TipoMovimientoCreateView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
             TipoMovimiento tipoMovimiento = new TipoMovimiento();
 
-            // Create the dialog Stage.
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Crear Movimiento");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
-            // Set the person into the controller.
             TiposMovimientosEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
             controller.setMovimiento(tipoMovimiento, bbdd);
 
-            // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
             actualizarListasSelect();
 
@@ -724,25 +630,89 @@ public class LlamamientosCreateController {
     		            		}
     		            	}    		            	
     		            }
+    		            
     		            //TRABAJADOR
     		            if (col == 1) {
-    		            	
+    		            	for (ComboBox<Trabajador> combo:listaComboTrabajadores) {
+    		            		if(node.getId() == combo.getId()) {
+    		            			Trabajador trabaj = combo.getValue();
+    		            			combo.getItems().removeAll(trabajadores);
+    		            			trabajadores = bbdd.obtenerDatosTrabajadores();
+    		            			combo.setItems(trabajadores);
+    		            			for(Trabajador trabs: trabajadores) {
+    		            				if (trabs.getDni().equals(trabaj.getDni())) {
+    		            					combo.setValue(trabs);
+    		            				}
+    		            			}
+    		            		}
+    		            	}    
     		            }
+    		            
     		            //CENTRO
     		            if (col == 2) {
-    		            	
+    		            	for (ComboBox<Centro> combo:listaComboCentros) {
+    		            		if(node.getId() == combo.getId()) {
+    		            			Centro centro = combo.getValue();
+    		            			combo.getItems().removeAll(centros);
+    		            			centros = bbdd.obtenerDatosCentros();
+    		            			combo.setItems(centros);
+    		            			for(Centro ctros: centros) {
+    		            				if (ctros.getNombre().equals(centro.getNombre())) {
+    		            					combo.setValue(ctros);
+    		            				}
+    		            			}
+    		            		}
+    		            	}    
     		            }
+    		            
     		            //CATEGORIA
     		            if (col == 3) {
-	
+    		            	for (ComboBox<Categoria> combo:listaComboCategorias) {
+    		            		if(node.getId() == combo.getId()) {
+    		            			Categoria cat = combo.getValue();
+    		            			combo.getItems().removeAll(categorias);
+    		            			categorias = bbdd.obtenerDatosCategorias();
+    		            			combo.setItems(categorias);
+    		            			for(Categoria cats: categorias) {
+    		            				if (cats.getNombre().equals(cat.getNombre())) {
+    		            					combo.setValue(cats);
+    		            				}
+    		            			}
+    		            		}
+    		            	}    
     		            }
+    		            
     		            //TIPOCONTRATO
     		            if (col == 4) {
-    		            	
+    		            	for (ComboBox<TipoContrato> combo:listaComboContratos) {
+    		            		if(node.getId() == combo.getId()) {
+    		            			TipoContrato contrato = combo.getValue();
+    		            			combo.getItems().removeAll(contratos);
+    		            			contratos = bbdd.obtenerDatosContratos();
+    		            			combo.setItems(contratos);
+    		            			for(TipoContrato ctrs: contratos) {
+    		            				if (ctrs.getNombre().equals(contrato.getNombre())) {
+    		            					combo.setValue(ctrs);
+    		            				}
+    		            			}
+    		            		}
+    		            	}    
     		            }
     		            //HORARIO
     		            if (col == 5) {
-    		            	
+    		            	for (ComboBox<Horario> combo:listaComboHorarios) {
+    		            		if(node.getId() == combo.getId()) {
+    		            			Horario hor = combo.getValue();
+    		            			combo.getItems().removeAll(horarios);
+    		            			horarios = bbdd.obtenerDatosHorarios();
+    		            			combo.setItems(horarios);
+    		            			for(Horario hors: horarios) {
+    		            				if (hors.getNombre().equals(hor.getNombre())) {
+    		            					combo.setValue(hors);
+    		            				}
+    		            			}
+    		            		}
+    		            	}    
     		            }
     		        	
     		        }
