@@ -14,7 +14,7 @@
    <children>
       <HBox layoutY="791.0" prefHeight="55.0" prefWidth="511.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="100.0" text="+Mov">
+            <Button mnemonicParsing="false" onAction="#showNewTipoMovimiento" prefHeight="46.0" prefWidth="100.0" text="+Mov">
                <font>
                   <Font size="19.0" />
                </font>

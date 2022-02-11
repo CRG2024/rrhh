@@ -107,6 +107,7 @@ public class LlamamientosCreateController {
     private DataBase bbdd;
     
     private ObservableList<TipoMovimiento> movimientosTipoSelect = FXCollections.observableArrayList();
+    private ArrayList<ComboBox<TipoMovimiento>> listaComboTipoMovimiento = new ArrayList<ComboBox<TipoMovimiento>>();
 
     private ObservableList<Trabajador> trabajadores = FXCollections.observableArrayList();
  
@@ -222,7 +223,8 @@ public class LlamamientosCreateController {
 			}
 		});
     	tipoMovimientoCombo.setId(Integer.toString(gridId.getRowCount()) + "movimientoTipoCombo");
-    	//tipoMovimientoCombo.setEditable(true);    	
+    	//tipoMovimientoCombo.setEditable(true);
+    	listaComboTipoMovimiento.add(tipoMovimientoCombo);
     	
     	ComboBox<Trabajador> trabajadoresCombo = new ComboBox<Trabajador>();
     	trabajadoresCombo.getItems().addAll(trabajadores);
@@ -401,6 +403,7 @@ public class LlamamientosCreateController {
         	
         	List<Integer> borrar = new ArrayList<Integer>();
         	ArrayList<CheckBox> borrarCheck = new ArrayList<CheckBox>();
+        	ArrayList<ComboBox<TipoMovimiento>> borrarTipoMov = new ArrayList<ComboBox<TipoMovimiento>>();
         	for (int i = totalFilas-1; i > -1; i--) {
         		CheckBox check = listaCheckDelete.get(i);
         		if(check.isSelected()) {
@@ -410,6 +413,7 @@ public class LlamamientosCreateController {
         			int indiceFila = Integer.parseInt(separarId[0]);
         			borrar.add(indiceFila);
         			borrarCheck.add(check);
+        			borrarTipoMov.add(listaComboTipoMovimiento.get(i));
         			
         		}
 			}
@@ -424,6 +428,10 @@ public class LlamamientosCreateController {
         	//Borramos los check de la lista
         	for(CheckBox borrado:borrarCheck) {
         		listaCheckDelete.remove(borrado);
+        	}
+        	
+        	for(ComboBox<TipoMovimiento> borrado: borrarTipoMov) {
+        		listaComboTipoMovimiento.remove(borrado);
         	}
 
         }
@@ -476,7 +484,7 @@ public class LlamamientosCreateController {
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
-            crearListas();
+            actualizarListasSelect();
             
             return controller.isOkClicked();
         } catch (IOException e) {
@@ -510,10 +518,7 @@ public class LlamamientosCreateController {
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
-            
-            for(int i = 1; i < gridId.getRowCount(); i++) {
-            	
-            }
+            actualizarListasSelect();
             
             
             return controller.isOkClicked();
@@ -547,7 +552,7 @@ public class LlamamientosCreateController {
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
-            crearListas();
+            actualizarListasSelect();
 
             return controller.isOkClicked();
         } catch (IOException e) {
@@ -580,7 +585,8 @@ public class LlamamientosCreateController {
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
-
+            actualizarListasSelect();
+            
             return controller.isOkClicked();
         } catch (IOException e) {
             e.printStackTrace();
@@ -613,6 +619,41 @@ public class LlamamientosCreateController {
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
+            actualizarListasSelect();
+            
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+    
+    @FXML
+    public boolean showNewTipoMovimiento() throws SQLException {
+        try {
+
+            // Load the fxml file and create a new stage for the popup dialog.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/TipoMovimientoCreateView.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            TipoMovimiento tipoMovimiento = new TipoMovimiento();
+
+            // Create the dialog Stage.
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Crear Movimiento");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            // Set the person into the controller.
+            TiposMovimientosEditController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMovimiento(tipoMovimiento, bbdd);
+
+            // Show the dialog and wait until the user closes it
+            dialogStage.showAndWait();
+            actualizarListasSelect();
 
             return controller.isOkClicked();
         } catch (IOException e) {
@@ -620,5 +661,59 @@ public class LlamamientosCreateController {
             return false;
         }
 
+    }
+    
+    private void actualizarListasSelect() throws SQLException, IOException {
+    	//HAY UNA FILA OCULTA, HAY QUE EMPEZAR EN UNO
+    	int rows = gridId.getRowCount();
+    	int cols = gridId.getColumnCount();
+    	for (int row = 1; row < rows; row ++) {
+    		for (int col = 0; col < cols; col ++) {
+    			for (Node node : gridId.getChildren()) {
+    		        if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col){
+    		            
+    		            //TIPO MOVIMIENTO
+    		            if (col == 0) {
+    		            	for (ComboBox<TipoMovimiento> combo:listaComboTipoMovimiento) {
+    		            		if(node.getId() == combo.getId()) {
+    		            			TipoMovimiento mov = combo.getValue();
+    		            			combo.getItems().removeAll(movimientosTipoSelect);
+    		            			movimientosTipoSelect = bbdd.obtenerDatosTipoMovimientos();
+    		            			combo.setItems(movimientosTipoSelect);
+    		            			for(TipoMovimiento movs: movimientosTipoSelect) {
+    		            				if (movs.getNombre().equals(mov.getNombre())) {
+    		            					combo.setValue(movs);
+    		            				}
+    		            			}
+    		            			
+    		            			//combo.setValue(mov);;
+    		            		}
+    		            	}    		            	
+    		            }
+    		            //TRABAJADOR
+    		            if (col == 1) {
+    		            	
+    		            }
+    		            //CENTRO
+    		            if (col == 2) {
+    		            	
+    		            }
+    		            //CATEGORIA
+    		            if (col == 3) {
+	
+    		            }
+    		            //TIPOCONTRATO
+    		            if (col == 4) {
+    		            	
+    		            }
+    		            //HORARIO
+    		            if (col == 5) {
+    		            	
+    		            }
+    		        	
+    		        }
+    		    }		
+        	}	
+    	}
     }
 }
