@@ -27,6 +27,7 @@ import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,6 +74,11 @@ public class LlamamientosCreateController {
     private ObservableList<TipoContrato> contratos = FXCollections.observableArrayList();
     private ArrayList<ComboBox<TipoContrato>> listaComboContratos = new ArrayList<ComboBox<TipoContrato>>();
     
+    private ArrayList<DatePicker> listaPickerInicio = new ArrayList<DatePicker>();
+    private ArrayList<DatePicker> listaPickerFin = new ArrayList<DatePicker>();
+    private ArrayList<TextField> listaComboBajas = new ArrayList<TextField>();
+    
+    
     private ArrayList<CheckBox> listaCheckDelete = new ArrayList<CheckBox>();
     
     private int totalFilas = 0;
@@ -102,55 +108,6 @@ public class LlamamientosCreateController {
         return okClicked;
     }
 
-    /**
-     * Called when the user clicks ok.
-     * @throws SQLException
-     */
-//    @FXML
-//    private void handleOk() throws SQLException {
-//        if (isInputValid()) {
-//
-//        	worker.setDni(dniField.getText());
-//        	worker.setNombre(nombreField.getText());
-//        	worker.setApellido1(apellido1Field.getText());
-//        	worker.setApellido2(apellido2Field.getText());
-//        	worker.setFechaNacimiento(fechaNacimientoDatePicker.getValue());
-//        	worker.setNacionalidad(nacionalidadField.getText());
-//        	worker.setDomicilio(domicilioField.getText());
-//        	worker.setCiudad(ciudadField.getText());
-//        	worker.setPoblacion(poblacionField.getText());
-//        	worker.setCp(Integer.parseInt(cpField.getText()));
-//        	worker.setnss(nssField.getText());
-//        	worker.setEmail(emailField.getText());
-//        	worker.setTelefono1(telefono1Field.getText());
-//        	worker.setTelefono2(telefono2Field.getText());
-//        	worker.setCuenta(cuentaField.getText());
-//        	if(carnetCheckbox.isSelected()){
-//        		worker.setCarnet("1");
-//        	}else{
-//        		worker.setCarnet("0");
-//        	}
-//        	if(vehiculoCheckbox.isSelected()){
-//        		worker.setVehiculo("1");
-//        	}else{
-//        		worker.setVehiculo("0");
-//        	}
-//        	if(permisoTrabajoCheckbox.isSelected()){
-//        		worker.setPermisoTrabajo("1");
-//        	}else{
-//        		worker.setPermisoTrabajo("0");
-//        	}
-//        	if(discapacidadesCheckbox.isSelected()){
-//        		worker.setDiscapacidades("1");
-//        	}else{
-//        		worker.setDiscapacidades("0");
-//        	}
-//
-//            okClicked = true;
-//            bbdd.actualizarTrabajador(worker, worker.getDni());
-//            dialogStage.close();
-//        }
-//    }
     
     @FXML
     private void addRowGridPane() throws SQLException {
@@ -272,12 +229,15 @@ public class LlamamientosCreateController {
     	
     	DatePicker fechaInicio = new DatePicker();
     	fechaInicio.setId(Integer.toString(gridId.getRowCount()) + "fechaInicio");
+    	listaPickerInicio.add(fechaInicio);
     	
     	DatePicker fechaFin = new DatePicker();
     	fechaFin.setId(Integer.toString(gridId.getRowCount()) + "fechaFin");
+    	listaPickerFin.add(fechaFin);
     	
     	TextField importeBaja = new TextField();
     	importeBaja.setId(Integer.toString(gridId.getRowCount()) + "importebaja");
+    	listaComboBajas.add(importeBaja);
     	
     	CheckBox checkDelete = new CheckBox();
     	checkDelete.setId(Integer.toString(gridId.getRowCount()) + "checkDelete");
@@ -304,33 +264,89 @@ public class LlamamientosCreateController {
     private void hacerLlamamientos(ActionEvent event) throws SQLException {
     	//EXISTE UNA FILA 0 DEMÁS
         if (isInputValid()) {
-        	 Scene app_stage =  ((Node) event.getSource()).getScene();
-        	 for (CheckBox check:listaCheckDelete) {
-        		 String id = check.getId();
-        		 String[] separarId = id.split("checkDelete");
-        		 String indiceFila = separarId[0];
-        		 String comboTipoMovimiento = "#"+indiceFila+"movimientoTipoCombo";
-        		 String comboTrabajador = "#"+indiceFila+"trabajadoresCombo";
-        		 String comboCentro = "#"+indiceFila+"centrosCombo";
-        		 String comboCategoria = "#"+indiceFila+"categoriaCombo";
-        		 String comboContrato = "#"+indiceFila+"contratoCombo";
-        		 String comboHorario = "#"+indiceFila+"horarioCombo";
-        		 String comboFechaInicio = "#"+indiceFila+"fechaInicio";
-        		 String comboFechaFin = "#"+indiceFila+"fechaFin";
-        		 String comboImporteBaja = "#"+indiceFila+"importebaja";
-        		 ComboBox<TipoMovimiento> tipoMovimiento = (ComboBox<TipoMovimiento>) app_stage.lookup(comboTipoMovimiento);
-        		 ComboBox<Trabajador> trabajador = (ComboBox<Trabajador>) app_stage.lookup(comboTrabajador);
-        		 ComboBox<Centro> centro = (ComboBox<Centro>) app_stage.lookup(comboCentro);
-        		 ComboBox<Categoria> categoria = (ComboBox<Categoria>) app_stage.lookup(comboCategoria);
-        		 ComboBox<TipoContrato> contrato = (ComboBox<TipoContrato>) app_stage.lookup(comboContrato);
-        		 ComboBox<Horario> horario = (ComboBox<Horario>) app_stage.lookup(comboHorario);
-        		 DatePicker fechaInicio = (DatePicker) app_stage.lookup(comboFechaInicio);
-        		 DatePicker fechaFin = (DatePicker) app_stage.lookup(comboFechaFin);
-        		 TextField importeBaja = (TextField) app_stage.lookup(comboImporteBaja);
-        		 trabajador.getSelectionModel().getSelectedItem().getNombre();
-        		 
-        		 
-        	 }
+        	int rows = gridId.getRowCount();
+        	int cols = gridId.getColumnCount();
+        	for (int row = 1; row < rows; row ++) {
+        		for (int col = 0; col < cols; col ++) {
+        			for (Node node : gridId.getChildren()) {
+        		        if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col){
+        		        	if (col == 0) {
+        		            	for (ComboBox<TipoMovimiento> combo:listaComboTipoMovimiento) {
+        		            		if(node.getId() == combo.getId()) {
+        		            			TipoMovimiento mov = combo.getValue();
+        		            			System.out.println(mov.getNombre());
+        		            		}
+        		            	}    		            	
+        		            }
+        		        	if (col == 1) {
+        		            	for (ComboBox<Trabajador> combo:listaComboTrabajadores) {
+        		            		if(node.getId() == combo.getId()) {
+        		            			Trabajador trab = combo.getValue();
+        		            			System.out.println(trab.getNombre());
+        		            		}
+        		            	}    		            	
+        		            }
+        		        	if (col == 2) {
+        		            	for (ComboBox<Centro> combo:listaComboCentros) {
+        		            		if(node.getId() == combo.getId()) {
+        		            			Centro centro = combo.getValue();
+        		            			System.out.println(centro.getNombre());
+        		            		}
+        		            	}    		            	
+        		            }
+        		        	if (col == 3) {
+        		            	for (ComboBox<Categoria> combo:listaComboCategorias) {
+        		            		if(node.getId() == combo.getId()) {
+        		            			Categoria categ = combo.getValue();
+        		            			System.out.println(categ.getNombre());
+        		            		}
+        		            	}    		            	
+        		            }
+        		        	if (col == 4) {
+        		            	for (ComboBox<TipoContrato> combo:listaComboContratos) {
+        		            		if(node.getId() == combo.getId()) {
+        		            			TipoContrato tc = combo.getValue();
+        		            			System.out.println(tc.getNombre());
+        		            		}
+        		            	}    		            	
+        		            }
+        		        	if (col == 5) {
+        		            	for (ComboBox<Horario> combo:listaComboHorarios) {
+        		            		if(node.getId() == combo.getId()) {
+        		            			Horario horario = combo.getValue();
+        		            			System.out.println(horario.getNombre());
+        		            		}
+        		            	}    		            	
+        		            }
+        		        	if (col == 6) {
+        		            	for (DatePicker combo:listaPickerInicio) {
+        		            		if(node.getId() == combo.getId()) {
+        		            			LocalDate inicio = combo.getValue();
+        		            			System.out.println(inicio);
+        		            		}
+        		            	}    		            	
+        		            }
+        		        	if (col == 7) {
+        		            	for (DatePicker combo:listaPickerFin) {
+        		            		if(node.getId() == combo.getId()) {
+        		            			LocalDate fin = combo.getValue();
+        		            			System.out.println(fin);
+        		            		}
+        		            	}    		            	
+        		            }
+        		        	if (col == 8) {
+        		            	for (TextField combo:listaComboBajas) {
+        		            		if(node.getId() == combo.getId()) {
+        		            			String baja = combo.getText();
+        		            			System.out.println(baja);
+        		            		}
+        		            	}    		            	
+        		            }
+        		        }
+        			}
+        		}
+        		System.out.println("-----------");
+        	}
         }
     }
     
@@ -348,6 +364,9 @@ public class LlamamientosCreateController {
         	ArrayList<ComboBox<Categoria>> borrarCategoria = new ArrayList<ComboBox<Categoria>>();
         	ArrayList<ComboBox<TipoContrato>> borrarTipoContr= new ArrayList<ComboBox<TipoContrato>>();
         	ArrayList<ComboBox<Horario>> borrarHorario = new ArrayList<ComboBox<Horario>>();
+        	ArrayList<DatePicker> borrarFechaInicio = new ArrayList<DatePicker>();
+        	ArrayList<DatePicker> borrarFechaFin = new ArrayList<DatePicker>();
+        	ArrayList<TextField> borrarImporteBaja = new ArrayList<TextField>();
         	
         	for (int i = totalFilas-1; i > -1; i--) {
         		CheckBox check = listaCheckDelete.get(i);
@@ -363,7 +382,10 @@ public class LlamamientosCreateController {
         			borrarCentro.add(listaComboCentros.get(i));
         			borrarCategoria.add(listaComboCategorias.get(i));
         			borrarTipoContr.add(listaComboContratos.get(i));
-        			borrarHorario.add(listaComboHorarios.get(i));	
+        			borrarHorario.add(listaComboHorarios.get(i));
+        			borrarFechaInicio.add(listaPickerInicio.get(i));
+        			borrarFechaFin.add(listaPickerFin.get(i));
+        			borrarImporteBaja.add(listaComboBajas.get(i));
         			
         		}
 			}
@@ -404,6 +426,17 @@ public class LlamamientosCreateController {
         	
         	for(ComboBox<Horario> borrado: borrarHorario) {
         		listaComboHorarios.remove(borrado);
+        	}
+        	
+        	for(DatePicker borrado: borrarFechaInicio) {
+        		listaPickerInicio.remove(borrado);
+        	}
+        	
+        	for(DatePicker borrado: borrarFechaFin) {
+        		listaPickerFin.remove(borrado);
+        	}
+        	for(TextField borrado: borrarImporteBaja) {
+        		listaComboBajas.remove(borrado);
         	}
         }
     }

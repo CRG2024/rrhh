@@ -6,14 +6,21 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.StringProperty;
 
 public class Movimiento {
 
 	private IntegerProperty   idMovimiento;
+	private StringProperty  dni;
+	private IntegerProperty   idCentro;
+	private IntegerProperty   idHorario;
 	private ObjectProperty<LocalDate> fechaCreacion;
 	private ObjectProperty<LocalDate> fechaInicio;
 	private ObjectProperty<LocalDate> fechaFin;
 	private IntegerProperty   importeBaja;
+	private IntegerProperty   idCategoria;
+	private IntegerProperty   idTipoContrato;
+	private IntegerProperty   idTipoMovimiento;
 
 
 	public Movimiento() {
