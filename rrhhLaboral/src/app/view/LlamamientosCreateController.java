@@ -25,6 +25,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -35,6 +38,15 @@ import javax.swing.JComboBox;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
+import com.itextpdf.text.Anchor;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+
 import app.Main;
 import app.model.Categoria;
 import app.model.Centro;
@@ -44,6 +56,7 @@ import app.model.TipoContrato;
 import app.model.TipoMovimiento;
 import app.model.Trabajador;
 import app.util.DataBase;
+import app.util.PdfCreator;
 
 public class LlamamientosCreateController {
 
@@ -752,5 +765,19 @@ public class LlamamientosCreateController {
     		    }		
         	}	
     	}
+    }
+    
+    @FXML
+    private void createPdf() throws DocumentException {
+    	
+        PdfCreator creadorPdf = new PdfCreator();
+        Trabajador worker = new Trabajador();
+        worker.setNombre("hola");
+        LocalDate inicio = LocalDate.of(2020, 1, 8);
+        LocalDate fin = LocalDate.of(2022, 1, 8);
+        creadorPdf.crearAnexoTrabajador(worker, inicio, fin);
+     
+       
+        
     }
 }
