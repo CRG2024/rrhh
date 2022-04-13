@@ -771,13 +771,56 @@ public class LlamamientosCreateController {
     private void createPdf() throws DocumentException {
     	
         PdfCreator creadorPdf = new PdfCreator();
-        Trabajador worker = new Trabajador();
-        worker.setNombre("hola");
-        LocalDate inicio = LocalDate.of(2020, 1, 8);
-        LocalDate fin = LocalDate.of(2022, 1, 8);
-        creadorPdf.crearAnexoTrabajador(worker, inicio, fin);
-     
-       
         
+        //Obtener datos de cada llamamiento y crear pdf
+        
+        //EXISTE UNA FILA 0 DEMÁS
+        
+        ObservableList<Trabajador> trabajadoresMovs = FXCollections.observableArrayList();
+        ObservableList<LocalDate> inicioMovs = FXCollections.observableArrayList();
+        ObservableList<LocalDate> finMovs = FXCollections.observableArrayList();
+        
+        if (isInputValid()) {
+        	int rows = gridId.getRowCount();
+        	int cols = gridId.getColumnCount();
+        	for (int row = 1; row < rows; row ++) {
+        		for (int col = 0; col < cols; col ++) {
+        			for (Node node : gridId.getChildren()) {
+        		        if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col){
+        		        	
+        		        	if (col == 1) {
+        		            	for (ComboBox<Trabajador> combo:listaComboTrabajadores) {
+        		            		if(node.getId() == combo.getId()) {
+        		            			Trabajador trab = combo.getValue();
+        		            			trabajadoresMovs.add(trab);
+        		            		}
+        		            	}    		            	
+        		            }
+        		        	
+        		        	if (col == 6) {
+        		            	for (DatePicker combo:listaPickerInicio) {
+        		            		if(node.getId() == combo.getId()) {
+        		            			LocalDate inicio = combo.getValue();
+        		            			inicioMovs.add(inicio);
+        		            		}
+        		            	}    		            	
+        		            }
+        		        	if (col == 7) {
+        		            	for (DatePicker combo:listaPickerFin) {
+        		            		if(node.getId() == combo.getId()) {
+        		            			LocalDate fin = combo.getValue();
+        		            			finMovs.add(fin);
+        		            		}
+        		            	}    		            	
+        		            }
+        		        }
+        		        
+        			}
+        		}
+        	}
+        }
+        for (int i = 0; i < trabajadoresMovs.size(); i++) {
+			creadorPdf.crearAnexoTrabajador(trabajadoresMovs.get(i), inicioMovs.get(i), finMovs.get(i));
+		}
     }
 }
