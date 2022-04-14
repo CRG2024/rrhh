@@ -821,6 +821,8 @@ public class LlamamientosCreateController {
         }
         for (int i = 0; i < trabajadoresMovs.size(); i++) {
 			creadorPdf.crearAnexoTrabajador(trabajadoresMovs.get(i), inicioMovs.get(i), finMovs.get(i));
+			creadorPdf.crearLlamamientoRealizadoTrabajador(trabajadoresMovs.get(i), inicioMovs.get(i), finMovs.get(i));
+			creadorPdf.crearConsentimientoTrabajador(trabajadoresMovs.get(i), inicioMovs.get(i));
 		}
     }
 }
