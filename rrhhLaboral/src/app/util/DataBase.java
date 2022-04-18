@@ -467,6 +467,21 @@ public class DataBase {
 		}
 		
 	}
+	
+//	public TipoMovimiento obtenerIdTipoMovimiento( TipoMovimiento tipoMovimiento) throws SQLException {
+//		String query = "SELECT * FROM tipomovimientos WHERE nombre='"+tipoMovimiento+"'";
+//	    java.sql.Statement st = connection.createStatement();
+//	    ResultSet rs = st.executeQuery(query);
+//	    
+//	    TipoMovimiento movimiento = new TipoMovimiento();
+//	    while (rs.next())
+//	    {
+//	    	movimiento.setIdTipoMovimiento(rs.getInt("idtipomovimiento"));
+//	    	movimiento.setNombre(rs.getString("nombre"));
+//	    }
+//		return movimiento;
+//		
+//	}
 
 
 }

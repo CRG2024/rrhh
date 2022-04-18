@@ -94,6 +94,8 @@ public class LlamamientosCreateController {
     
     private ArrayList<CheckBox> listaCheckDelete = new ArrayList<CheckBox>();
     
+    private ObservableList<Movimiento> movimientos = FXCollections.observableArrayList();
+    
     private int totalFilas = 0;
     
     @FXML
@@ -281,6 +283,7 @@ public class LlamamientosCreateController {
         	int cols = gridId.getColumnCount();
         	for (int row = 1; row < rows; row ++) {
         		for (int col = 0; col < cols; col ++) {
+        			Movimiento movimientoActual = new Movimiento();
         			for (Node node : gridId.getChildren()) {
         		        if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col){
         		        	if (col == 0) {
@@ -768,7 +771,7 @@ public class LlamamientosCreateController {
     }
     
     @FXML
-    private void createPdf() throws DocumentException {
+    private void createPdf() throws DocumentException, IOException {
     	
         PdfCreator creadorPdf = new PdfCreator();
         
@@ -823,6 +826,7 @@ public class LlamamientosCreateController {
 			creadorPdf.crearAnexoTrabajador(trabajadoresMovs.get(i), inicioMovs.get(i), finMovs.get(i));
 			creadorPdf.crearLlamamientoRealizadoTrabajador(trabajadoresMovs.get(i), inicioMovs.get(i), finMovs.get(i));
 			creadorPdf.crearConsentimientoTrabajador(trabajadoresMovs.get(i), inicioMovs.get(i));
+			creadorPdf.crearExcelNuevasAltas();
 		}
     }
 }

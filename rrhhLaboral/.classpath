@@ -23,5 +23,6 @@
 	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/jar_files/jfoenix-9.0.10.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/swingx-all-1.6.4.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/itextpdf-5.0.6.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/poi-1.8.0-dev-20020919.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
