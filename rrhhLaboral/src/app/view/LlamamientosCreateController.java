@@ -290,7 +290,8 @@ public class LlamamientosCreateController {
         		            	for (ComboBox<TipoMovimiento> combo:listaComboTipoMovimiento) {
         		            		if(node.getId() == combo.getId()) {
         		            			TipoMovimiento mov = combo.getValue();
-        		            			System.out.println(mov.getNombre());
+        		            			movimientoActual.setIdTipoMovimiento(combo.getValue().getIdTipoMovimiento());
+        		            			//System.out.println(mov.getNombre());
         		            		}
         		            	}    		            	
         		            }
@@ -298,7 +299,8 @@ public class LlamamientosCreateController {
         		            	for (ComboBox<Trabajador> combo:listaComboTrabajadores) {
         		            		if(node.getId() == combo.getId()) {
         		            			Trabajador trab = combo.getValue();
-        		            			System.out.println(trab.getNombre());
+        		            			movimientoActual.setDni(combo.getValue().getDni());
+        		            			//System.out.println(trab.getNombre());
         		            		}
         		            	}    		            	
         		            }
@@ -306,7 +308,8 @@ public class LlamamientosCreateController {
         		            	for (ComboBox<Centro> combo:listaComboCentros) {
         		            		if(node.getId() == combo.getId()) {
         		            			Centro centro = combo.getValue();
-        		            			System.out.println(centro.getNombre());
+        		            			movimientoActual.setIdCentro(combo.getValue().getIdCentro());
+        		            			//System.out.println(centro.getNombre());
         		            		}
         		            	}    		            	
         		            }
@@ -314,7 +317,8 @@ public class LlamamientosCreateController {
         		            	for (ComboBox<Categoria> combo:listaComboCategorias) {
         		            		if(node.getId() == combo.getId()) {
         		            			Categoria categ = combo.getValue();
-        		            			System.out.println(categ.getNombre());
+        		            			movimientoActual.setIdCategoria(combo.getValue().getIdCategoria());
+        		            			//System.out.println(categ.getNombre());
         		            		}
         		            	}    		            	
         		            }
@@ -322,7 +326,8 @@ public class LlamamientosCreateController {
         		            	for (ComboBox<TipoContrato> combo:listaComboContratos) {
         		            		if(node.getId() == combo.getId()) {
         		            			TipoContrato tc = combo.getValue();
-        		            			System.out.println(tc.getNombre());
+        		            			movimientoActual.setIdTipoContrato(combo.getValue().getIdTipoContrato());
+        		            			//System.out.println(tc.getNombre());
         		            		}
         		            	}    		            	
         		            }
@@ -330,15 +335,18 @@ public class LlamamientosCreateController {
         		            	for (ComboBox<Horario> combo:listaComboHorarios) {
         		            		if(node.getId() == combo.getId()) {
         		            			Horario horario = combo.getValue();
-        		            			System.out.println(horario.getNombre());
+        		            			movimientoActual.setIdHorario(combo.getValue().getIdHorario());
+        		            			//System.out.println(horario.getNombre());
         		            		}
         		            	}    		            	
         		            }
+        		        	movimientoActual.setFechaCreacion(LocalDate.now());
         		        	if (col == 6) {
         		            	for (DatePicker combo:listaPickerInicio) {
         		            		if(node.getId() == combo.getId()) {
         		            			LocalDate inicio = combo.getValue();
-        		            			System.out.println(inicio);
+        		            			movimientoActual.setFechaInicio(combo.getValue());
+        		            			//System.out.println(inicio);
         		            		}
         		            	}    		            	
         		            }
@@ -346,7 +354,8 @@ public class LlamamientosCreateController {
         		            	for (DatePicker combo:listaPickerFin) {
         		            		if(node.getId() == combo.getId()) {
         		            			LocalDate fin = combo.getValue();
-        		            			System.out.println(fin);
+        		            			movimientoActual.setFechaFin(combo.getValue());
+        		            			//System.out.println(fin);
         		            		}
         		            	}    		            	
         		            }
@@ -354,7 +363,8 @@ public class LlamamientosCreateController {
         		            	for (TextField combo:listaComboBajas) {
         		            		if(node.getId() == combo.getId()) {
         		            			String baja = combo.getText();
-        		            			System.out.println(baja);
+        		            			movimientoActual.setImporteBaja(Integer.parseInt(baja));
+        		            			//System.out.println(baja);
         		            		}
         		            	}    		            	
         		            }
