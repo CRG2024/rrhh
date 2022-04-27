@@ -255,7 +255,7 @@ public class LlamamientosCreateController {
     
     @SuppressWarnings("unchecked")
 	@FXML
-    private void hacerLlamamientos(ActionEvent event) throws SQLException {
+    private void hacerLlamamientos(ActionEvent event) throws SQLException, DocumentException, IOException {
     	//EXISTE UNA FILA 0 DEMÁS
     	movimientos.clear();
         if (isInputValid()) {
@@ -361,6 +361,7 @@ public class LlamamientosCreateController {
         		}
         	}
         }
+        createPdf();
     }
     
     
@@ -776,35 +777,13 @@ public class LlamamientosCreateController {
         	creadorPdf.crearAnexoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
 			creadorPdf.crearLlamamientoRealizadoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
 			creadorPdf.crearConsentimientoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio());
-			bbdd.insertarMovimiento(mov);
+			//TODO 
+			//bbdd.insertarMovimiento(mov);
         }
-        crearExcels();
+        creadorPdf.crearExcels(movimientos);
         
         
     }
 
-	private void crearExcels() throws IOException, SQLException {
-		// TODO Auto-generated method stub
-		PdfCreator creadorPdf = new PdfCreator();
-		
-		for (Movimiento mov: movimientos) {
-			TipoMovimiento tipo = bbdd.obtenerTipoMovimiento(mov.getIdTipoMovimiento());
-			System.out.println(tipo.getNombre());
-		}
-		if (!creadorPdf.checkExcelExists("src/LlamamientosDoc/ALTAS.xls")) {
-        	creadorPdf.crearExcelNuevasAltas();	
-        }
-        	
-        if (!creadorPdf.checkExcelExists("src/LlamamientosDoc/LLAMAMIENTOS.xls")) {
-        	creadorPdf.crearExcelLlamamientos();	
-        }
-        
-        if (!creadorPdf.checkExcelExists("src/LlamamientosDoc/BAJAS.xls")) {
-        	creadorPdf.crearExcelBajas();	
-        }
-        
-        if (!creadorPdf.checkExcelExists("src/LlamamientosDoc/MODIFICACIONES.xls")) {
-        	creadorPdf.crearExcelModiificaciones();	
-        }
-	}
+	
 }

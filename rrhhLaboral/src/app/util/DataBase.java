@@ -268,24 +268,60 @@ public class DataBase {
 		}
 	}
 	
-	
-	public ObservableList<Categoria> obtenerDatosCategorias() throws SQLException {
-		ObservableList<Categoria> datosCategorias = FXCollections.observableArrayList();
-		 String query = "SELECT * FROM categoriasprofesionales";
-	     java.sql.Statement st = connection.createStatement();
-	     ResultSet rs = st.executeQuery(query);
-
+	public Centro obtenerCentro(int idCentro) throws SQLException{
+		
+		java.sql.Statement st = connection.createStatement();
+		 String sql = String.format("SELECT * FROM centros WHERE idcentro='%s'",idCentro);
+	     ResultSet rs = st.executeQuery(sql);
+	     
+	     Centro centro = new Centro();
 	     while (rs.next())
 	      {
-	    	Categoria categoria = new Categoria();
-	    	categoria.setIdCategoria(rs.getInt("idcategoria"));
-	    	categoria.setNombre(rs.getString("nombre"));
-	    	categoria.setDescripcion(rs.getString("descripcion"));
-
-	    	datosCategorias.add(categoria);
+	    	 centro.setIdCentro(rs.getInt("idcentro"));
+	    	 centro.setNombre(rs.getString("nombre"));
+	    	 centro.setDireccion(rs.getString("direccion"));
+	    	 centro.setCiudad(rs.getString("ciudad"));
+	    	 centro.setCp(rs.getInt("cp"));
 	      }
+		return centro;
+		
+	}
+
+
+	public ObservableList<Categoria> obtenerDatosCategorias() throws SQLException {
+		ObservableList<Categoria> datosCategorias = FXCollections.observableArrayList();
+		String query = "SELECT * FROM categoriasprofesionales";
+		java.sql.Statement st = connection.createStatement();
+		ResultSet rs = st.executeQuery(query);
+
+		while (rs.next())
+		{
+			Categoria categoria = new Categoria();
+			categoria.setIdCategoria(rs.getInt("idcategoria"));
+			categoria.setNombre(rs.getString("nombre"));
+			categoria.setDescripcion(rs.getString("descripcion"));
+
+			datosCategorias.add(categoria);
+		}
 
 		return datosCategorias;
+	}
+	
+	public Categoria obtenerCategoria(int idCategoria) throws SQLException{
+		
+		java.sql.Statement st = connection.createStatement();
+		String sql = String.format("SELECT * FROM categoriasprofesionales WHERE idcategoria='%s'",idCategoria);
+		ResultSet rs = st.executeQuery(sql);
+
+		Categoria categoria = new Categoria();
+		while (rs.next())
+		{
+			categoria.setIdCategoria(rs.getInt("idcategoria"));
+			categoria.setNombre(rs.getString("nombre"));
+			categoria.setDescripcion(rs.getString("descripcion"));
+		}
+		return categoria;
+		
 	}
 
 	public void eliminarCategoria(int idCategoria) throws SQLException {
@@ -348,6 +384,23 @@ public class DataBase {
 	      }
 		return datosContratos;
 	}
+	
+	public TipoContrato obtenerTipoContrato(int idTipoContrato) throws SQLException{
+		
+		java.sql.Statement st = connection.createStatement();
+		String sql = String.format("SELECT * FROM tipocontratos WHERE idtipocontrato='%s'",idTipoContrato);
+		ResultSet rs = st.executeQuery(sql);
+
+		TipoContrato contrato = new TipoContrato();
+		while (rs.next())
+		{
+			contrato.setIdTipoContrato(rs.getInt("idtipocontrato"));
+	    	contrato.setNombre(rs.getString("nombre"));
+	    	contrato.setCodContrato(rs.getString("codcontrato"));
+		}
+		return contrato;
+		
+	}
 
 	public void actualizarContrato(TipoContrato contrato, int idTipoContrato) {
 		// TODO Auto-generated method stub
@@ -409,6 +462,25 @@ public class DataBase {
 	      }
 		return datosHorarios;
 	}
+	
+	public Horario obtenerHorario(int idHorario) throws SQLException{
+		
+		java.sql.Statement st = connection.createStatement();
+		String sql = String.format("SELECT * FROM horarios WHERE idhorario='%s'",idHorario);
+		ResultSet rs = st.executeQuery(sql);
+
+		Horario horario = new Horario();
+		while (rs.next())
+		{
+			horario.setIdHorario(rs.getInt("idhorario"));
+			horario.setNombre(rs.getString("nombre"));
+			horario.setHorario(rs.getString("horario"));
+			horario.setHoras(rs.getString("horassemana"));
+		}
+		return horario;
+		
+	}
+
 
 	public void eliminarHorario(int idHorario) throws SQLException {
 		// TODO Auto-generated method stub
@@ -563,7 +635,7 @@ public class DataBase {
 		
 	}
 	
-	public ObservableList<Movimiento> obtenerMovimientos() throws SQLException{
+	public ObservableList<Movimiento> obtenerDatosMovimientos() throws SQLException{
 		ObservableList<Movimiento> datosMovimientos = FXCollections.observableArrayList();
 		String query = "SELECT * FROM movimientos";
 		java.sql.Statement st = connection.createStatement();

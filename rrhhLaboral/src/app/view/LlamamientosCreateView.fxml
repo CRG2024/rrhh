@@ -67,11 +67,6 @@
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#createPdf" prefHeight="46.0" prefWidth="133.0" text="PDF">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Button>
          </children>
       </HBox>
       <GridPane layoutX="8.0" prefHeight="78.0" prefWidth="1660.0">
