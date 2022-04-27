@@ -1,12 +1,9 @@
 package app.view;
 
 
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,37 +13,19 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JComboBox;
-
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
-
-import com.itextpdf.text.Anchor;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-
 import app.Main;
 import app.model.Categoria;
 import app.model.Centro;
@@ -278,65 +257,67 @@ public class LlamamientosCreateController {
 	@FXML
     private void hacerLlamamientos(ActionEvent event) throws SQLException {
     	//EXISTE UNA FILA 0 DEMÁS
+    	movimientos.clear();
         if (isInputValid()) {
         	int rows = gridId.getRowCount();
         	int cols = gridId.getColumnCount();
         	for (int row = 1; row < rows; row ++) {
+        		Movimiento movimientoActual = new Movimiento(
+	        			0, 
+	        			new Trabajador(), 
+	        			new Centro(), 
+	        			new Horario(), 
+	        			LocalDate.now(),
+	        			LocalDate.now(),
+	        			0,
+	        			new Categoria(),
+	        			new TipoContrato(),
+	        			new TipoMovimiento());
+	        	movimientoActual.setIdMovimiento(row);
         		for (int col = 0; col < cols; col ++) {
-        			Movimiento movimientoActual = new Movimiento();
+        			
         			for (Node node : gridId.getChildren()) {
         		        if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col){
+
         		        	if (col == 0) {
         		            	for (ComboBox<TipoMovimiento> combo:listaComboTipoMovimiento) {
         		            		if(node.getId() == combo.getId()) {
-        		            			TipoMovimiento mov = combo.getValue();
         		            			movimientoActual.setIdTipoMovimiento(combo.getValue().getIdTipoMovimiento());
-        		            			//System.out.println(mov.getNombre());
         		            		}
         		            	}    		            	
         		            }
         		        	if (col == 1) {
         		            	for (ComboBox<Trabajador> combo:listaComboTrabajadores) {
         		            		if(node.getId() == combo.getId()) {
-        		            			Trabajador trab = combo.getValue();
         		            			movimientoActual.setDni(combo.getValue().getDni());
-        		            			//System.out.println(trab.getNombre());
         		            		}
         		            	}    		            	
         		            }
         		        	if (col == 2) {
         		            	for (ComboBox<Centro> combo:listaComboCentros) {
         		            		if(node.getId() == combo.getId()) {
-        		            			Centro centro = combo.getValue();
         		            			movimientoActual.setIdCentro(combo.getValue().getIdCentro());
-        		            			//System.out.println(centro.getNombre());
         		            		}
         		            	}    		            	
         		            }
         		        	if (col == 3) {
         		            	for (ComboBox<Categoria> combo:listaComboCategorias) {
         		            		if(node.getId() == combo.getId()) {
-        		            			Categoria categ = combo.getValue();
         		            			movimientoActual.setIdCategoria(combo.getValue().getIdCategoria());
-        		            			//System.out.println(categ.getNombre());
         		            		}
         		            	}    		            	
         		            }
         		        	if (col == 4) {
         		            	for (ComboBox<TipoContrato> combo:listaComboContratos) {
         		            		if(node.getId() == combo.getId()) {
-        		            			TipoContrato tc = combo.getValue();
         		            			movimientoActual.setIdTipoContrato(combo.getValue().getIdTipoContrato());
-        		            			//System.out.println(tc.getNombre());
         		            		}
         		            	}    		            	
         		            }
         		        	if (col == 5) {
         		            	for (ComboBox<Horario> combo:listaComboHorarios) {
         		            		if(node.getId() == combo.getId()) {
-        		            			Horario horario = combo.getValue();
         		            			movimientoActual.setIdHorario(combo.getValue().getIdHorario());
-        		            			//System.out.println(horario.getNombre());
         		            		}
         		            	}    		            	
         		            }
@@ -344,18 +325,14 @@ public class LlamamientosCreateController {
         		        	if (col == 6) {
         		            	for (DatePicker combo:listaPickerInicio) {
         		            		if(node.getId() == combo.getId()) {
-        		            			LocalDate inicio = combo.getValue();
         		            			movimientoActual.setFechaInicio(combo.getValue());
-        		            			//System.out.println(inicio);
         		            		}
         		            	}    		            	
         		            }
         		        	if (col == 7) {
         		            	for (DatePicker combo:listaPickerFin) {
         		            		if(node.getId() == combo.getId()) {
-        		            			LocalDate fin = combo.getValue();
         		            			movimientoActual.setFechaFin(combo.getValue());
-        		            			//System.out.println(fin);
         		            		}
         		            	}    		            	
         		            }
@@ -363,15 +340,25 @@ public class LlamamientosCreateController {
         		            	for (TextField combo:listaComboBajas) {
         		            		if(node.getId() == combo.getId()) {
         		            			String baja = combo.getText();
-        		            			movimientoActual.setImporteBaja(Integer.parseInt(baja));
-        		            			//System.out.println(baja);
+        		            			Integer importe;
+        		            			if (baja =="") {
+        		            				importe = 0;
+        		            			}else {
+        		            				importe = Integer.parseInt(baja);
+        		            			}
+        		            			movimientoActual.setImporteBaja(importe);
         		            		}
         		            	}    		            	
         		            }
+        		        	
         		        }
         			}
+        			
         		}
-        		System.out.println("-----------");
+        		
+        		if(!movimientos.contains(movimientoActual)) {
+        			movimientos.add(movimientoActual);
+        		}
         	}
         }
     }
@@ -781,62 +768,43 @@ public class LlamamientosCreateController {
     }
     
     @FXML
-    private void createPdf() throws DocumentException, IOException {
+    private void createPdf() throws DocumentException, IOException, SQLException {
     	
         PdfCreator creadorPdf = new PdfCreator();
         
-        //Obtener datos de cada llamamiento y crear pdf
-        
-        //EXISTE UNA FILA 0 DEMÁS
-        
-        ObservableList<Trabajador> trabajadoresMovs = FXCollections.observableArrayList();
-        ObservableList<LocalDate> inicioMovs = FXCollections.observableArrayList();
-        ObservableList<LocalDate> finMovs = FXCollections.observableArrayList();
-        
-        if (isInputValid()) {
-        	int rows = gridId.getRowCount();
-        	int cols = gridId.getColumnCount();
-        	for (int row = 1; row < rows; row ++) {
-        		for (int col = 0; col < cols; col ++) {
-        			for (Node node : gridId.getChildren()) {
-        		        if(GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == col){
-        		        	
-        		        	if (col == 1) {
-        		            	for (ComboBox<Trabajador> combo:listaComboTrabajadores) {
-        		            		if(node.getId() == combo.getId()) {
-        		            			Trabajador trab = combo.getValue();
-        		            			trabajadoresMovs.add(trab);
-        		            		}
-        		            	}    		            	
-        		            }
-        		        	
-        		        	if (col == 6) {
-        		            	for (DatePicker combo:listaPickerInicio) {
-        		            		if(node.getId() == combo.getId()) {
-        		            			LocalDate inicio = combo.getValue();
-        		            			inicioMovs.add(inicio);
-        		            		}
-        		            	}    		            	
-        		            }
-        		        	if (col == 7) {
-        		            	for (DatePicker combo:listaPickerFin) {
-        		            		if(node.getId() == combo.getId()) {
-        		            			LocalDate fin = combo.getValue();
-        		            			finMovs.add(fin);
-        		            		}
-        		            	}    		            	
-        		            }
-        		        }
-        		        
-        			}
-        		}
-        	}
+        for (Movimiento mov: movimientos) {
+        	creadorPdf.crearAnexoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
+			creadorPdf.crearLlamamientoRealizadoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
+			creadorPdf.crearConsentimientoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio());
+			bbdd.insertarMovimiento(mov);
         }
-        for (int i = 0; i < trabajadoresMovs.size(); i++) {
-			creadorPdf.crearAnexoTrabajador(trabajadoresMovs.get(i), inicioMovs.get(i), finMovs.get(i));
-			creadorPdf.crearLlamamientoRealizadoTrabajador(trabajadoresMovs.get(i), inicioMovs.get(i), finMovs.get(i));
-			creadorPdf.crearConsentimientoTrabajador(trabajadoresMovs.get(i), inicioMovs.get(i));
-			creadorPdf.crearExcelNuevasAltas();
-		}
+        crearExcels();
+        
+        
     }
+
+	private void crearExcels() throws IOException, SQLException {
+		// TODO Auto-generated method stub
+		PdfCreator creadorPdf = new PdfCreator();
+		
+		for (Movimiento mov: movimientos) {
+			TipoMovimiento tipo = bbdd.obtenerTipoMovimiento(mov.getIdTipoMovimiento());
+			System.out.println(tipo.getNombre());
+		}
+		if (!creadorPdf.checkExcelExists("src/LlamamientosDoc/ALTAS.xls")) {
+        	creadorPdf.crearExcelNuevasAltas();	
+        }
+        	
+        if (!creadorPdf.checkExcelExists("src/LlamamientosDoc/LLAMAMIENTOS.xls")) {
+        	creadorPdf.crearExcelLlamamientos();	
+        }
+        
+        if (!creadorPdf.checkExcelExists("src/LlamamientosDoc/BAJAS.xls")) {
+        	creadorPdf.crearExcelBajas();	
+        }
+        
+        if (!creadorPdf.checkExcelExists("src/LlamamientosDoc/MODIFICACIONES.xls")) {
+        	creadorPdf.crearExcelModiificaciones();	
+        }
+	}
 }

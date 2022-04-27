@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import app.model.Categoria;
 import app.model.Centro;
 import app.model.Horario;
+import app.model.Movimiento;
 import app.model.TipoContrato;
 import app.model.TipoMovimiento;
 import app.model.Trabajador;
@@ -76,6 +77,44 @@ public class DataBase {
 	    	datosTrabajadores.add(worker);
 	      }
 		return datosTrabajadores;
+	}
+
+	public Trabajador obtenerTrabajador(String dni) throws SQLException{
+		
+		java.sql.Statement st = connection.createStatement();
+		String sql = String.format("SELECT * FROM datosempleados WHERE dni='%s'",dni);
+	    ResultSet rs = st.executeQuery(sql);
+	     
+	    Trabajador worker = new Trabajador();
+	    while (rs.next())
+	    {
+	    	worker.setDni(rs.getString("dni"));
+	    	worker.setNombre(rs.getString("nombre"));
+	    	worker.setApellido1(rs.getString("apellido1"));
+	    	worker.setApellido2(rs.getString("apellido2"));
+	    	if (rs.getDate("fechaNacimiento") == null){
+	    		worker.setFechaNacimiento(null);
+	    	}else{
+	    		worker.setFechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate());
+	    	}
+
+	    	worker.setNacionalidad(rs.getString("nacionalidad"));
+	    	worker.setDomicilio(rs.getString("domicilio"));
+	    	worker.setCiudad(rs.getString("ciudad"));
+	    	worker.setPoblacion(rs.getString("poblacion"));
+	    	worker.setCp(rs.getInt("cp"));
+	    	worker.setnss(rs.getString("nss"));
+	    	worker.setEmail(rs.getString("email"));
+	    	worker.setTelefono1(rs.getString("telefono1"));
+	    	worker.setTelefono2(rs.getString("telefono2"));
+	    	worker.setCuenta(rs.getString("cuenta"));
+	    	worker.setCarnet(rs.getString("carnet"));
+	    	worker.setVehiculo(rs.getString("vehiculo"));
+	    	worker.setPermisoTrabajo(rs.getString("permisoTrabajo"));
+	    	worker.setDiscapacidades(rs.getString("discapacidades"));
+	    }
+		return worker;
+		
 	}
 
 	public void insertarTrabajador(Trabajador trabajador) {
@@ -399,7 +438,6 @@ public class DataBase {
 
 	public void insertarHorario(Horario horario) {
 		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
 				try {
 					final PreparedStatement pstmt = connection.prepareStatement(
 									"INSERT INTO horarios (nombre, horario, horassemana) "
@@ -437,7 +475,24 @@ public class DataBase {
 		String sql = String.format("DELETE FROM tipomovimientos WHERE idtipomovimiento='%s'",idTipoMovimiento);
 		st.execute(sql);
 	}
-
+	
+	
+	public TipoMovimiento obtenerTipoMovimiento(int idTipoMovimiento) throws SQLException{
+		
+		java.sql.Statement st = connection.createStatement();
+		 String sql = String.format("SELECT * FROM tipomovimientos WHERE idtipomovimiento='%s'",idTipoMovimiento);
+	     ResultSet rs = st.executeQuery(sql);
+	     
+	     TipoMovimiento movimiento = new TipoMovimiento();
+	     while (rs.next())
+	      {
+	    	 
+	    	 movimiento.setIdTipoMovimiento(rs.getInt("idtipomovimiento"));
+	    	 movimiento.setNombre(rs.getString("nombre"));
+	      }
+		return movimiento;
+		
+	}
 	public void actualizarTipoMovimiento(TipoMovimiento tipoMovimiento, int idTipoMovimiento) {
 		try {
 		final PreparedStatement pstmt = connection.prepareStatement(
@@ -467,21 +522,128 @@ public class DataBase {
 		}
 		
 	}
-	
-//	public TipoMovimiento obtenerIdTipoMovimiento( TipoMovimiento tipoMovimiento) throws SQLException {
-//		String query = "SELECT * FROM tipomovimientos WHERE nombre='"+tipoMovimiento+"'";
-//	    java.sql.Statement st = connection.createStatement();
-//	    ResultSet rs = st.executeQuery(query);
-//	    
-//	    TipoMovimiento movimiento = new TipoMovimiento();
-//	    while (rs.next())
-//	    {
-//	    	movimiento.setIdTipoMovimiento(rs.getInt("idtipomovimiento"));
-//	    	movimiento.setNombre(rs.getString("nombre"));
-//	    }
-//		return movimiento;
-//		
-//	}
 
+	public void insertarMovimiento(Movimiento movimiento) {
+
+
+		try {
+			final PreparedStatement pstmt = connection.prepareStatement(
+					"INSERT INTO movimientos (dni, idcentro, idhorario, fechacreacion, fechainicio, "
+					+ "fechafin, importebaja, idcategoria, idcontrato, idtipomovimiento) "
+							+ "VALUES (?,?,?,?,?,?,?,?,?,?)");
+				pstmt.setString(1, movimiento.getDni());
+				pstmt.setLong(2, movimiento.getIdCentro());
+				pstmt.setLong(3, movimiento.getIdHorario());
+				pstmt.setDate(4, Date.valueOf(LocalDate.now()));
+				
+			
+				if(movimiento.getFechaInicio()==null){
+					pstmt.setDate(5, Date.valueOf(LocalDate.of(1900, 1, 1)));
+				}else{
+					pstmt.setDate(5, Date.valueOf(movimiento.getFechaInicio()));
+				}
+				
+				if(movimiento.getFechaFin()==null){
+					pstmt.setDate(6, Date.valueOf(LocalDate.of(1900, 1, 1)));
+				}else{
+					pstmt.setDate(6, Date.valueOf(movimiento.getFechaFin()));
+				}
+				
+				pstmt.setLong(7, movimiento.getImporteBaja());
+				pstmt.setLong(8, movimiento.getIdCategoria());
+				pstmt.setLong(9, movimiento.getIdTipoContrato());
+				pstmt.setLong(10, movimiento.getIdTipoMovimiento());		
+				pstmt.executeQuery();
+
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public ObservableList<Movimiento> obtenerMovimientos() throws SQLException{
+		ObservableList<Movimiento> datosMovimientos = FXCollections.observableArrayList();
+		String query = "SELECT * FROM movimientos";
+		java.sql.Statement st = connection.createStatement();
+		ResultSet rs = st.executeQuery(query);
+
+		while (rs.next())
+		{
+			Movimiento movimiento = new Movimiento();
+			movimiento.setIdMovimiento(rs.getInt("idmov"));
+			movimiento.setDni(rs.getString("dni"));
+			movimiento.setIdCentro(rs.getInt("idcentro"));
+			movimiento.setIdHorario(rs.getInt("idhorario"));
+			
+			if (rs.getDate("fechacreacion") == null){
+				movimiento.setFechaCreacion(null);
+			}else{
+				movimiento.setFechaCreacion(rs.getDate("fechacreacion").toLocalDate());
+			}
+			
+			if (rs.getDate("fechainicio") == null){
+				movimiento.setFechaInicio(null);
+			}else{
+				movimiento.setFechaInicio(rs.getDate("fechainicio").toLocalDate());
+			}
+			
+			if (rs.getDate("fechafin") == null){
+				movimiento.setFechaFin(null);
+			}else{
+				movimiento.setFechaFin(rs.getDate("fechafin").toLocalDate());
+			}
+			
+			movimiento.setImporteBaja(rs.getInt("importebaja"));
+			movimiento.setIdCategoria(rs.getInt("idcategoria"));
+			movimiento.setIdTipoContrato(rs.getInt("idcontrato"));
+			movimiento.setIdTipoMovimiento(rs.getInt("idtipomovimiento"));
+			datosMovimientos.add(movimiento);
+		}
+		return datosMovimientos;
+	}
+	
+	public void actualizaMovimiento(Movimiento movimiento, int idmovimiento) {
+		// TODO Auto-generated method stub
+				try {
+					final PreparedStatement pstmt = connection.prepareStatement(
+									"UPDATE movimientos SET dni=?, "
+									+ "idcentro=?, idhorario=?, fechacreacion=?,"
+									+ "fechainicio=?, fechafin=?, importebaja=?,"
+									+ "idcategoria=?, idcontrato=?, idtipomovimiento"
+									+ " WHERE idmov=?");
+					
+					pstmt.setString(1, movimiento.getDni());
+					pstmt.setLong(2, movimiento.getIdCentro());
+					pstmt.setLong(3, movimiento.getIdHorario());
+					pstmt.setDate(4, Date.valueOf(LocalDate.now()));
+					
+				
+					if(movimiento.getFechaInicio()==null){
+						pstmt.setDate(5, Date.valueOf(LocalDate.of(1900, 1, 1)));
+					}else{
+						pstmt.setDate(5, Date.valueOf(movimiento.getFechaInicio()));
+					}
+					
+					if(movimiento.getFechaFin()==null){
+						pstmt.setDate(6, Date.valueOf(LocalDate.of(1900, 1, 1)));
+					}else{
+						pstmt.setDate(6, Date.valueOf(movimiento.getFechaFin()));
+					}
+					
+					pstmt.setLong(7, movimiento.getImporteBaja());
+					pstmt.setLong(8, movimiento.getIdCategoria());
+					pstmt.setLong(9, movimiento.getIdTipoContrato());
+					pstmt.setLong(10, movimiento.getIdTipoMovimiento());		
+					pstmt.setLong(11, idmovimiento);
+					pstmt.executeQuery();
+					
+				} catch (SQLException e) {
+							// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+	}
 
 }

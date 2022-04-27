@@ -24,5 +24,18 @@
 	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/swingx-all-1.6.4.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/itextpdf-5.0.6.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/poi-1.8.0-dev-20020919.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/avalon-framework-4.1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/geronimo-stax-api_1.0_spec-1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/logkit-1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/poi-3.6.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/poi-ooxml-3.6.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/poi-ooxml-schemas-3.6.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/servlet-api-2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/xml-apis-1.0.b2.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/xmlbeans-2.3.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

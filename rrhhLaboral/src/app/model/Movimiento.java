@@ -6,10 +6,11 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class Movimiento {
-
+	
 	private IntegerProperty   idMovimiento;
 	private StringProperty  dni;
 	private IntegerProperty   idCentro;
@@ -24,18 +25,26 @@ public class Movimiento {
 
 
 	public Movimiento() {
-		this(null, null,null, null,null, null, null,null, null,null);
+		this(null, null, null, null, null, null, null, null, null, null);
 	}
 
 
-	public Movimiento(Integer idMovimiiento, Trabajador trabajador, TipoMovimiento tipoMovimiento,
-			LocalDate fechaCreacion, LocalDate fechaInicio, LocalDate fechaFin, Categoria categoria, TipoContrato tipoContrato,
-			Horario horario, Integer importeBaja) {
-		this.idMovimiento = new SimpleIntegerProperty(idMovimiiento);
-		this.fechaCreacion= new SimpleObjectProperty<LocalDate>(fechaCreacion);
+	public Movimiento(Integer idMovimiiento, Trabajador trabajador, Centro centro, Horario horario,
+			LocalDate fechaInicio, LocalDate fechaFin, Integer importeBaja, 
+			Categoria categoria, TipoContrato tipoContrato, TipoMovimiento tipoMovimiento
+			) {
+		this.idMovimiento = new SimpleIntegerProperty(0);
+		this.dni = new SimpleStringProperty(trabajador.getDni());
+		this.idCentro = new SimpleIntegerProperty(centro.getIdCentro());
+		this.idHorario = new SimpleIntegerProperty(horario.getIdHorario());
+		this.fechaCreacion= new SimpleObjectProperty<LocalDate>(LocalDate.now());
 		this.fechaInicio= new SimpleObjectProperty<LocalDate>(fechaInicio);
 		this.fechaFin= new SimpleObjectProperty<LocalDate>(fechaFin);
-		this.importeBaja= new SimpleIntegerProperty(0);
+		this.importeBaja= new SimpleIntegerProperty(importeBaja);
+		
+		this.idCategoria = new SimpleIntegerProperty(categoria.getIdCategoria());
+		this.idTipoContrato = new SimpleIntegerProperty(tipoContrato.getIdTipoContrato());
+		this.idTipoMovimiento= new SimpleIntegerProperty(tipoMovimiento.getIdTipoMovimiento());
 	}
 
 	public int getIdMovimiento() {
