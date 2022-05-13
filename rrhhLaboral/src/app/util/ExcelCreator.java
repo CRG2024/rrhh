@@ -450,7 +450,7 @@ public class ExcelCreator {
             
             vacacionesLista.add("DISFRUTADAS");
             
-            observacionesLista.add("DISFRUTADAS");
+            observacionesLista.add("");
             
 		}
 
@@ -504,15 +504,12 @@ public class ExcelCreator {
 		ObservableList<Movimiento> movimientosLlamamientos = FXCollections.observableArrayList();
 		
 		for(Movimiento mov:movimientos) {
-			System.out.println("llega");
 			TipoMovimiento actualTipo = bbdd.obtenerTipoMovimiento(mov.getIdTipoMovimiento());
-			System.out.println(actualTipo.getNombre());
 			if(actualTipo.getNombre().equals("Alta Nueva")) {
-				System.out.println("entra");
 				movimientosAltas.add(mov);
 			}
 			
-			if(actualTipo.getNombre()=="Baja Fin de Actividad"||actualTipo.getNombre()=="Baja Voluntaria" 
+			if(actualTipo.getNombre().equals("Baja Fin de Actividad")||actualTipo.getNombre().equals("Baja Voluntaria") 
 					|| actualTipo.getNombre().equals("Despido Procedente") || actualTipo.getNombre().equals("Despido Improcedente")
 					|| actualTipo.getNombre().equals("Periodo No Superado")) {
 				movimientosBajas.add(mov);
