@@ -37,5 +37,10 @@
 	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/stax-api-1.0.1.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/xml-apis-1.0.b2.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/XSSF/xmlbeans-2.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/lib"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/jar_files/poi-5.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/jar_files/poi-excelant-5.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/jar_files/poi-ooxml-5.2.2.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/LibreriasJava/jar_files/poi-ooxml-lite-5.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

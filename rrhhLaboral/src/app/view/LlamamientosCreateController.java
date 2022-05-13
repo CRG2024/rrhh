@@ -35,6 +35,7 @@ import app.model.TipoContrato;
 import app.model.TipoMovimiento;
 import app.model.Trabajador;
 import app.util.DataBase;
+import app.util.ExcelCreator;
 import app.util.PdfCreator;
 
 public class LlamamientosCreateController {
@@ -772,6 +773,7 @@ public class LlamamientosCreateController {
     private void createPdf() throws DocumentException, IOException, SQLException {
     	
         PdfCreator creadorPdf = new PdfCreator();
+        ExcelCreator creadorExcel = new ExcelCreator();
         
         for (Movimiento mov: movimientos) {
         	creadorPdf.crearAnexoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
@@ -780,7 +782,7 @@ public class LlamamientosCreateController {
 			//TODO 
 			//bbdd.insertarMovimiento(mov);
         }
-        creadorPdf.crearExcels(movimientos);
+        creadorExcel.crearExcels(movimientos);
         
         
     }
