@@ -779,8 +779,7 @@ public class LlamamientosCreateController {
         	creadorPdf.crearAnexoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
 			creadorPdf.crearLlamamientoRealizadoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
 			creadorPdf.crearConsentimientoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio());
-			//TODO 
-			//bbdd.insertarMovimiento(mov);
+			bbdd.insertarMovimiento(mov);
         }
         creadorExcel.crearExcels(movimientos);
         
