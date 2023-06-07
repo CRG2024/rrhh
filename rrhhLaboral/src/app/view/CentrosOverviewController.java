@@ -113,8 +113,8 @@ public class CentrosOverviewController {
     private void buttonEliminarCentro() throws SQLException {
     	Centro selectedCentro = centrosTable.getSelectionModel().getSelectedItem();
     	Alert alert = new Alert(AlertType.CONFIRMATION);
-    	alert.setTitle("Confirmación");
-    	alert.setContentText("Está acción eliminará de la Base de datos el centro "+ selectedCentro.getNombre()+""+". ¿Está seguro?");
+    	alert.setTitle("Confirmaciï¿½n");
+    	alert.setContentText("Estï¿½ acciï¿½n eliminarï¿½ de la Base de datos el centro "+ selectedCentro.getNombre()+""+". ï¿½Estï¿½ seguro?");
 
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK){
@@ -137,7 +137,7 @@ public class CentrosOverviewController {
 
 
     @FXML
-    private void buttonAñadirCentro() throws SQLException {
+    private void buttonAÃ±adirCentro() throws SQLException {
         Centro tempCentro = new Centro();
         showNewDialog(tempCentro);
         initialize();

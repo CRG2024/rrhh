@@ -1,7 +1,10 @@
 package app.model;
 
+import java.awt.*;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
+import app.util.DataBase;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -11,44 +14,48 @@ import javafx.beans.property.StringProperty;
 
 public class Movimiento {
 	
-	private IntegerProperty   idMovimiento;
+	private IntegerProperty idMovimiento;
 	private StringProperty  dni;
-	private IntegerProperty   idCentro;
-	private IntegerProperty   idHorario;
+	private StringProperty  nombreTrabajador;
+	private StringProperty   nombreCentro;
+	private StringProperty   nombreHorario;
+	private StringProperty   nombreCategoria;
+	private StringProperty   nombreTipoContrato;
+	private StringProperty   nombreTipoMovimiento;
 	private ObjectProperty<LocalDate> fechaCreacion;
 	private ObjectProperty<LocalDate> fechaInicio;
 	private ObjectProperty<LocalDate> fechaFin;
 	private IntegerProperty   importeBaja;
-	private IntegerProperty   idCategoria;
-	private IntegerProperty   idTipoContrato;
-	private IntegerProperty   idTipoMovimiento;
 
 
+
+	//TODO cambiar trabajador por dni
 	public Movimiento() {
 		this(null, null, null, null, null, null, null, null, null, null);
 	}
 
 
-	public Movimiento(Integer idMovimiiento, Trabajador trabajador, Centro centro, Horario horario,
+	public Movimiento(Integer idMovimiento, Trabajador trabajador, Centro centro, Horario horario,
 			LocalDate fechaInicio, LocalDate fechaFin, Integer importeBaja, 
 			Categoria categoria, TipoContrato tipoContrato, TipoMovimiento tipoMovimiento
 			) {
 		this.idMovimiento = new SimpleIntegerProperty(0);
 		this.dni = new SimpleStringProperty(trabajador.getDni());
-		this.idCentro = new SimpleIntegerProperty(centro.getIdCentro());
-		this.idHorario = new SimpleIntegerProperty(horario.getIdHorario());
+		this.nombreTrabajador = new SimpleStringProperty(trabajador.getNombreCompleto());
+		this.nombreCentro = new SimpleStringProperty(centro.getNombre());
+		this.nombreHorario = new SimpleStringProperty(horario.getNombre());
 		this.fechaCreacion= new SimpleObjectProperty<LocalDate>(LocalDate.now());
 		this.fechaInicio= new SimpleObjectProperty<LocalDate>(fechaInicio);
 		this.fechaFin= new SimpleObjectProperty<LocalDate>(fechaFin);
 		this.importeBaja= new SimpleIntegerProperty(importeBaja);
 		
-		this.idCategoria = new SimpleIntegerProperty(categoria.getIdCategoria());
-		this.idTipoContrato = new SimpleIntegerProperty(tipoContrato.getIdTipoContrato());
-		this.idTipoMovimiento= new SimpleIntegerProperty(tipoMovimiento.getIdTipoMovimiento());
+		this.nombreCategoria = new SimpleStringProperty(categoria.getNombre());
+		this.nombreTipoContrato = new SimpleStringProperty(tipoContrato.getNombre());
+		this.nombreTipoMovimiento= new SimpleStringProperty(tipoMovimiento.getNombre());
 	}
 
 	public int getIdMovimiento() {
-		return idTipoMovimiento.get();
+		return idMovimiento.get();
 	}
 	public void setIdMovimiento(int idMovimiento) {
 		this.idMovimiento.set(idMovimiento);
@@ -56,7 +63,7 @@ public class Movimiento {
 	public IntegerProperty idMovimientoProperty(){
 		return idMovimiento;
 	}
-	
+
 	public String getDni() {
 		return dni.get();
 	}
@@ -66,25 +73,33 @@ public class Movimiento {
 	public StringProperty dniProperty(){
 		return dni;
 	}
-	
-	public int getIdCentro() {
-		return idCentro.get();
+
+	public String getNombreTrabajador() {
+		return nombreTrabajador.get();
 	}
-	public void setIdCentro(int idCentro) {
-		this.idCentro.set(idCentro);;
+	public void setNombreTrabajador(String nombreTrabajador) {
+		this.nombreTrabajador.set(nombreTrabajador);
 	}
-	public IntegerProperty idCentroProperty(){
-		return idCentro;
+	public StringProperty nombreTrabajadorProperty(){
+		return nombreTrabajador;
 	}
-	
-	public int getIdHorario() {
-		return idHorario.get();
+
+	public String getNombreCentro() {
+		return nombreCentro.get();
 	}
-	public void setIdHorario(int idHorario) {
-		this.idHorario.set(idHorario);
+	public void setNombreCentro(String nombreCentro) {this.nombreCentro.set(nombreCentro); }
+	public StringProperty nombreCentroProperty(){
+		return nombreCentro;
 	}
-	public IntegerProperty idHorarioProperty(){
-		return idHorario;
+
+	public String getNombreHorario() {
+		return nombreHorario.get();
+	}
+	public void setNombreHorario(String nombreHorario) {
+		this.nombreHorario.set(nombreHorario);
+	}
+	public StringProperty nombreHorarioProperty(){
+		return nombreHorario;
 	}
 	
 	public LocalDate getFechaCreacion() {
@@ -127,33 +142,33 @@ public class Movimiento {
 		return importeBaja;
 	}
 	
-	public int getIdCategoria() {
-		return idCategoria.get();
+	public String getNombreCategoria() {
+		return nombreCategoria.get();
 	}
-	public void setIdCategoria(int idCategoria) {
-		this.idCategoria.set(idCategoria);
+	public void setNombreCategoria(String nombreCategoria) {
+		this.nombreCategoria.set(nombreCategoria);
 	}
-	public IntegerProperty idCategoriaProperty(){
-		return idCategoria;
-	}
-	
-	public int getIdTipoContrato() {
-		return idTipoContrato.get();
-	}
-	public void setIdTipoContrato(int idTipoContrato) {
-		this.idTipoContrato.set(idTipoContrato);
-	}
-	public IntegerProperty idTipoContratoProperty(){
-		return idTipoContrato;
+	public StringProperty nombreCategoriaProperty(){
+		return nombreCategoria;
 	}
 	
-	public int getIdTipoMovimiento() {
-		return idTipoMovimiento.get();
+	public String getNombreTipoContrato() {
+		return nombreTipoContrato.get();
 	}
-	public void setIdTipoMovimiento(int idTipoMovimiento) {
-		this.idTipoMovimiento.set(idTipoMovimiento);
+	public void setNombreTipoContrato(String nombreTipoContrato) {
+		this.nombreTipoContrato.set(nombreTipoContrato);
 	}
-	public IntegerProperty idTipoMovimientoProperty(){
-		return idTipoMovimiento;
+	public StringProperty nombreTipoContratoProperty(){
+		return nombreTipoContrato;
 	}
+	
+	public String getNombreTipoMovimiento() {
+		return nombreTipoMovimiento.get();
+	}
+	public void setNombreTipoMovimiento(String nombreTipoMovimiento) {this.nombreTipoMovimiento.set(nombreTipoMovimiento);
+	}
+	public StringProperty nombreTipoMovimientoProperty(){
+		return nombreTipoMovimiento;
+	}
+
 }

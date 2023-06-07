@@ -1,13 +1,9 @@
 package app.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
 import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
-import org.apache.poi.ss.usermodel.VerticalAlignment;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -32,10 +28,21 @@ public class ExcelCreator {
     
 	public ExcelCreator() {
 		bbdd = new DataBase();
+        crearCarpeta();
 	}
-	
-	
-	
+
+
+    public void crearCarpeta(){
+        File directorio = new File("src/LlamamientosDoc/");
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                System.out.println("Directorio creado");
+            } else {
+                System.out.println("Error al crear directorio");
+            }
+        }
+    }
+
 	public void crearExcelNuevasAltas() throws IOException {
         XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet spreadsheet = workbook.createSheet("Altas");
@@ -44,7 +51,7 @@ public class ExcelCreator {
         fileOut.close();
 	}
 	
-	private void añadirAltas(ObservableList<Movimiento> movimientosAltas)throws IOException, SQLException {
+	private void aÃ±adirAltas(ObservableList<Movimiento> movimientosAltas)throws IOException, SQLException {
 		
 		FileInputStream fsIP = new FileInputStream(new File("src/LlamamientosDoc/ALTAS.xlsx"));
         XSSFWorkbook workbook = new XSSFWorkbook(fsIP);
@@ -58,7 +65,7 @@ public class ExcelCreator {
         ObservableList<String> dniLista = FXCollections.observableArrayList();
         dniLista.add("Dni");
         ObservableList<String> nssLista = FXCollections.observableArrayList();
-        nssLista.add("NºSS");
+        nssLista.add("Nï¿½SS");
         ObservableList<String> fechaNacimientoLista = FXCollections.observableArrayList();
         fechaNacimientoLista.add("Fecha Nacimiento");
         ObservableList<String> domicilioLista = FXCollections.observableArrayList();
@@ -81,11 +88,14 @@ public class ExcelCreator {
         
         
         for (int i = 0; i < movimientosAltas.size() ; i++) {
-        	tipoMovmientosLista.add(bbdd.obtenerTipoMovimiento(movimientosAltas.get(i).getIdTipoMovimiento()).getNombre());
-        	
+
+            Movimiento movActual = movimientosAltas.get(i);
+
+            tipoMovmientosLista.add(movActual.getNombreTipoMovimiento());
+
             Trabajador trabaj= bbdd.obtenerTrabajador(movimientosAltas.get(i).getDni());
-            nombresLista.add(trabaj.getApellido1()+" " + trabaj.getApellido2()+", "+ trabaj.getNombre());
-            
+            nombresLista.add( movActual.getNombreTrabajador());
+
             dniLista.add(trabaj.getDni());
             
             nssLista.add(trabaj.getnss());
@@ -98,15 +108,15 @@ public class ExcelCreator {
             
             nacionalidadLista.add(trabaj.getNacionalidad());
             
-            fechaInicioLista.add(movimientosAltas.get(i).getFechaInicio().toString());
+            fechaInicioLista.add(movActual.getFechaInicio().toString());
             
-            fechaFinLista.add(movimientosAltas.get(i).getFechaFin().toString());
+            fechaFinLista.add(movActual.getFechaFin().toString());
             
-            centrosLista.add(bbdd.obtenerCentro(movimientosAltas.get(i).getIdCentro()).getNombre());
+            centrosLista.add(movActual.getNombreCentro());
             
-            categoriasLista.add(bbdd.obtenerCategoria(movimientosAltas.get(i).getIdCategoria()).getNombre());
+            categoriasLista.add(movActual.getNombreCategoria());
             
-            horariosLista.add(bbdd.obtenerHorario(movimientosAltas.get(i).getIdHorario()).getHorario());
+            horariosLista.add(bbdd.obtenerHorarioPorNombre(movActual.getNombreHorario()).getHorario());
             
 		}
 
@@ -172,7 +182,7 @@ public class ExcelCreator {
 	        my_style.setWrapText(true);
 	        if(i==0) {
 	        	XSSFFont my_font= workbook.createFont();
-		        my_font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);
+		        my_font.setBold(true);
 		        my_style.setFont(my_font);
 	        }
 	        my_style.setAlignment(HorizontalAlignment.CENTER);
@@ -183,6 +193,15 @@ public class ExcelCreator {
 	
 	
 	public void crearExcelLlamamientos() throws IOException {
+
+        File directorio = new File("/src/LlamamientosDoc");
+        if (!directorio.exists()) {
+            if (directorio.mkdirs()) {
+                System.out.println("Directorio creado");
+            } else {
+                System.out.println("Error al crear directorio");
+            }
+        }
 		XSSFWorkbook workbook = new XSSFWorkbook();
         XSSFSheet spreadsheet = workbook.createSheet("Llamamientos");     
         FileOutputStream fileOut = new FileOutputStream("src/LlamamientosDoc/LLAMAMIENTOS.xlsx");
@@ -191,7 +210,7 @@ public class ExcelCreator {
 		
 	}
 	
-	private void añadirLlamamientos(ObservableList<Movimiento> movimientosLlamamientos)throws IOException, SQLException {
+	private void aÃ±adirLlamamientos(ObservableList<Movimiento> movimientosLlamamientos)throws IOException, SQLException {
 		
 		FileInputStream fsIP = new FileInputStream(new File("src/LlamamientosDoc/LLAMAMIENTOS.xlsx"));
         XSSFWorkbook workbook = new XSSFWorkbook(fsIP);
@@ -218,9 +237,11 @@ public class ExcelCreator {
         
         
         for (int i = 0; i < movimientosLlamamientos.size() ; i++) {
-        	tipoMovmientosLista.add(bbdd.obtenerTipoMovimiento(movimientosLlamamientos.get(i).getIdTipoMovimiento()).getNombre());
+
+            Movimiento movActual = movimientosLlamamientos.get(i);
+        	tipoMovmientosLista.add(movActual.getNombreTipoMovimiento());
         	
-            Trabajador trabaj= bbdd.obtenerTrabajador(movimientosLlamamientos.get(i).getDni());
+            Trabajador trabaj= bbdd.obtenerTrabajador(movActual.getDni());
             nombresLista.add(trabaj.getApellido1()+" " + trabaj.getApellido2()+", "+ trabaj.getNombre());
             
             dniLista.add(trabaj.getDni());
@@ -229,11 +250,11 @@ public class ExcelCreator {
             
             fechaFinLista.add(movimientosLlamamientos.get(i).getFechaFin().toString());
             
-            centrosLista.add(bbdd.obtenerCentro(movimientosLlamamientos.get(i).getIdCentro()).getNombre());
+            centrosLista.add(movActual.getNombreCentro());
             
-            categoriasLista.add(bbdd.obtenerCategoria(movimientosLlamamientos.get(i).getIdCategoria()).getNombre());
+            categoriasLista.add(movActual.getNombreCategoria());
             
-            horariosLista.add(bbdd.obtenerHorario(movimientosLlamamientos.get(i).getIdHorario()).getHorario());
+            horariosLista.add(bbdd.obtenerHorarioPorNombre(movActual.getNombreHorario()).getHorario());
             
 		}
 
@@ -281,7 +302,7 @@ public class ExcelCreator {
 		
 	}
 	
-	private void añadirModificaciones(ObservableList<Movimiento> movimientosModificaciones)throws IOException, SQLException {
+	private void aÃ±adirModificaciones(ObservableList<Movimiento> movimientosModificaciones)throws IOException, SQLException {
 		
 		FileInputStream fsIP = new FileInputStream(new File("src/LlamamientosDoc/MODIFICACIONES.xlsx"));
         XSSFWorkbook workbook = new XSSFWorkbook(fsIP);
@@ -310,24 +331,25 @@ public class ExcelCreator {
         
         
         for (int i = 0; i < movimientosModificaciones.size() ; i++) {
-        	tipoMovmientosLista.add(bbdd.obtenerTipoMovimiento(movimientosModificaciones.get(i).getIdTipoMovimiento()).getNombre());
+            Movimiento movActual = movimientosModificaciones.get(i);
+        	tipoMovmientosLista.add(movActual.getNombreTipoMovimiento());
         	
-            Trabajador trabaj= bbdd.obtenerTrabajador(movimientosModificaciones.get(i).getDni());
+            Trabajador trabaj= bbdd.obtenerTrabajador(movActual.getDni());
             nombresLista.add(trabaj.getApellido1()+" " + trabaj.getApellido2()+", "+ trabaj.getNombre());
             
             dniLista.add(trabaj.getDni());
             
-            fechaInicioLista.add(movimientosModificaciones.get(i).getFechaInicio().toString());
+            fechaInicioLista.add(movActual.getFechaInicio().toString());
             
-            fechaFinLista.add(movimientosModificaciones.get(i).getFechaFin().toString());
+            fechaFinLista.add(movActual.getFechaFin().toString());
             
-            centrosLista.add(bbdd.obtenerCentro(movimientosModificaciones.get(i).getIdCentro()).getNombre());
+            centrosLista.add(movActual.getNombreCentro());
             
-            categoriasLista.add(bbdd.obtenerCategoria(movimientosModificaciones.get(i).getIdCategoria()).getNombre());
+            categoriasLista.add(movActual.getNombreCategoria());
             
-            tipoContratoLista.add(bbdd.obtenerCategoria(movimientosModificaciones.get(i).getIdTipoContrato()).getNombre());
+            tipoContratoLista.add(movActual.getNombreTipoContrato());
             
-            horariosLista.add(bbdd.obtenerHorario(movimientosModificaciones.get(i).getIdHorario()).getHorario());
+            horariosLista.add(bbdd.obtenerHorarioPorNombre(movActual.getNombreHorario()).getHorario());
             
 		}
 
@@ -378,7 +400,7 @@ public class ExcelCreator {
 		
 	}
 	
-	private void añadirBajas(ObservableList<Movimiento> movimientosBajas)throws IOException, SQLException {
+	private void aÃ±adirBajas(ObservableList<Movimiento> movimientosBajas)throws IOException, SQLException {
 		
 		FileInputStream fsIP = new FileInputStream(new File("src/LlamamientosDoc/BAJAS.xlsx"));
         XSSFWorkbook workbook = new XSSFWorkbook(fsIP);
@@ -403,21 +425,22 @@ public class ExcelCreator {
         
         
         for (int i = 0; i < movimientosBajas.size() ; i++) {
-        	tipoMovmientosLista.add(bbdd.obtenerTipoMovimiento(movimientosBajas.get(i).getIdTipoMovimiento()).getNombre());
+            Movimiento movActual = movimientosBajas.get(i);
+        	tipoMovmientosLista.add(movActual.getNombreTipoMovimiento());
         	
-            Trabajador trabaj= bbdd.obtenerTrabajador(movimientosBajas.get(i).getDni());
+            Trabajador trabaj= bbdd.obtenerTrabajador(movActual.getDni());
             nombresLista.add(trabaj.getApellido1()+" " + trabaj.getApellido2()+", "+ trabaj.getNombre());
             
             dniLista.add(trabaj.getDni());
             
-            fechaFinLista.add(movimientosBajas.get(i).getFechaFin().toString());
+            fechaFinLista.add(movActual.getFechaFin().toString());
             
-            importeLista.add(Integer.toString(movimientosBajas.get(i).getImporteBaja()));
+            importeLista.add(Integer.toString(movActual.getImporteBaja()));
             
 		}
         
         for (int i = 0; i < movimientosBajas.size() ; i++) {
-            
+            //TODO
             vacacionesLista.add("DISFRUTADAS");
             
             observacionesLista.add("");
@@ -472,25 +495,34 @@ public class ExcelCreator {
 		ObservableList<Movimiento> movimientosBajas = FXCollections.observableArrayList();
 		ObservableList<Movimiento> movimientosModificaciones = FXCollections.observableArrayList();
 		ObservableList<Movimiento> movimientosLlamamientos = FXCollections.observableArrayList();
-		
+
+        //TODO
+        crearExcelBajas();
+        crearExcelLlamamientos();
+        crearExcelModiificaciones();
+        crearExcelNuevasAltas();
+
 		for(Movimiento mov:movimientos) {
-			TipoMovimiento actualTipo = bbdd.obtenerTipoMovimiento(mov.getIdTipoMovimiento());
-			if(actualTipo.getNombre().equals("Alta Nueva")) {
+			TipoMovimiento actualTipo = bbdd.obtenerTipoMovimientoPorNombre(mov.getNombreTipoMovimiento());
+			if(actualTipo.getNombre().equals(("Alta Nueva").toUpperCase())) {
 				movimientosAltas.add(mov);
 			}
 			
-			if(actualTipo.getNombre().equals("Baja Fin de Actividad")||actualTipo.getNombre().equals("Baja Voluntaria") 
-					|| actualTipo.getNombre().equals("Despido Procedente") || actualTipo.getNombre().equals("Despido Improcedente")
-					|| actualTipo.getNombre().equals("Periodo No Superado")) {
+			if(actualTipo.getNombre().equals(("Baja Fin de Actividad").toUpperCase())
+                    ||actualTipo.getNombre().equals(("Baja Voluntaria").toUpperCase())
+					|| actualTipo.getNombre().equals(("Despido Procedente").toUpperCase())
+                    || actualTipo.getNombre().equals(("Despido Improcedente").toUpperCase())
+					|| actualTipo.getNombre().equals(("Periodo No Superado").toUpperCase())) {
 				movimientosBajas.add(mov);
 			}
 			
-			if(actualTipo.getNombre().equals("Llamamiento")) {
+			if(actualTipo.getNombre().equals(("Llamamiento").toUpperCase())) {
 				movimientosLlamamientos.add(mov);
 			}
 			
-			if(actualTipo.getNombre().equals("Cambio Categoría") || actualTipo.getNombre().equals("Cambio Tipo Contrato") 
-					|| actualTipo.getNombre().equals("Modificacion")) {
+			if(actualTipo.getNombre().equals(("Cambio CategorÃ­a").toUpperCase())
+                    || actualTipo.getNombre().equals(("Cambio Tipo Contrato").toUpperCase())
+					|| actualTipo.getNombre().equals(("Modificacion").toUpperCase())) {
 				movimientosModificaciones.add(mov);
 			}
 		}
@@ -500,28 +532,28 @@ public class ExcelCreator {
 			if (!checkExcelExists("src/LlamamientosDoc/ALTAS.xlsx")) {
 	        	crearExcelNuevasAltas();	
 	        }
-			añadirAltas(movimientosAltas);			
+			aÃ±adirAltas(movimientosAltas);
 		}
-		
+
 		if(movimientosLlamamientos.size()!=0) {
 			if (!checkExcelExists("src/LlamamientosDoc/LLAMAMIENTOS.xlsx")) {
 				crearExcelLlamamientos();	
 	        }
-			añadirLlamamientos(movimientosLlamamientos);		
+			aÃ±adirLlamamientos(movimientosLlamamientos);
 		}
 		
 		if(movimientosBajas.size()!=0) {
 			if (!checkExcelExists("src/LlamamientosDoc/BAJAS.xlsx")) {
 				crearExcelBajas();	
 	        }
-			añadirBajas(movimientosBajas);
+			aÃ±adirBajas(movimientosBajas);
 		}
 		
 		if(movimientosModificaciones.size()!=0) {
 			if (!checkExcelExists("src/LlamamientosDoc/MODIFICACIONES.xlsx")) {
 				crearExcelModiificaciones();	
 	        }
-			añadirModificaciones(movimientosModificaciones);
+			aÃ±adirModificaciones(movimientosModificaciones);
 
 		}
 		

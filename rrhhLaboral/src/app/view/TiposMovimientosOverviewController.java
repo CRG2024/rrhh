@@ -103,8 +103,8 @@ public class TiposMovimientosOverviewController {
     private void buttonEliminarTipoMovimiento() throws SQLException {
     	TipoMovimiento selectedMovimiento = movimientosTable.getSelectionModel().getSelectedItem();
     	Alert alert = new Alert(AlertType.CONFIRMATION);
-    	alert.setTitle("Confirmación");
-    	alert.setContentText("Está acción eliminará de la Base de datos el tipo de movimiento "+ selectedMovimiento.getNombre()+""+". ¿Está seguro?");
+    	alert.setTitle("Confirmaciï¿½n");
+    	alert.setContentText("Estï¿½ acciï¿½n eliminarï¿½ de la Base de datos el tipo de movimiento "+ selectedMovimiento.getNombre()+""+". ï¿½Estï¿½ seguro?");
 
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK){
@@ -127,7 +127,7 @@ public class TiposMovimientosOverviewController {
 
 
     @FXML
-    private void buttonAñadirTipoMovimiento() throws SQLException {
+    private void buttonAÃ±adirTipoMovimiento() throws SQLException {
         TipoMovimiento tempMovimiento = new TipoMovimiento();
         showNewDialog(tempMovimiento);
         initialize();

@@ -108,8 +108,8 @@ public class CategoriasOverviewController {
     private void buttonEliminarCategoria() throws SQLException {
     	Categoria selectedCategoria = categoriasTable.getSelectionModel().getSelectedItem();
     	Alert alert = new Alert(AlertType.CONFIRMATION);
-    	alert.setTitle("Confirmación");
-    	alert.setContentText("Está acción eliminará de la Base de datos la categoria "+ selectedCategoria.getNombre()+""+". ¿Está seguro?");
+    	alert.setTitle("Confirmaciï¿½n");
+    	alert.setContentText("Estï¿½ acciï¿½n eliminarï¿½ de la Base de datos la categoria "+ selectedCategoria.getNombre()+""+". ï¿½Estï¿½ seguro?");
 
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK){
@@ -132,7 +132,7 @@ public class CategoriasOverviewController {
 
 
     @FXML
-    private void buttonAñadirCategoria() throws SQLException {
+    private void buttonAÃ±adirCategoria() throws SQLException {
         Categoria tempCategoria = new Categoria();
         showNewDialog(tempCategoria);
         initialize();

@@ -87,7 +87,9 @@ public class LlamamientosCreateController {
     }
 
     public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
+
+		this.dialogStage = dialogStage;
+		this.dialogStage.setMaximized(true);
     }
     
     private void crearListas() throws SQLException {
@@ -127,7 +129,7 @@ public class LlamamientosCreateController {
 		});
     	tipoMovimientoCombo.setId(Integer.toString(gridId.getRowCount()) + "movimientoTipoCombo");
     	listaComboTipoMovimiento.add(tipoMovimientoCombo);
-    	
+
     	ComboBox<Trabajador> trabajadoresCombo = new ComboBox<Trabajador>();
     	trabajadoresCombo.getItems().addAll(trabajadores);
     	trabajadoresCombo.setConverter(new StringConverter<Trabajador>() {
@@ -142,12 +144,7 @@ public class LlamamientosCreateController {
 				if (arg0 == null) {
 					return "";
 				}else {
-					String nombreCompleto = arg0.getApellido1();
-					if (arg0.getApellido2()!=null) {
-						nombreCompleto = nombreCompleto + " " + arg0.getApellido2();
-					}
-					nombreCompleto = nombreCompleto +", " + arg0.getNombre();
-					return nombreCompleto;
+					return arg0.getDniNombreCompleto();
 				}
 			}
 		});
@@ -170,7 +167,7 @@ public class LlamamientosCreateController {
 		});
     	centrosCombo.setId(Integer.toString(gridId.getRowCount()) + "centrosCombo");
     	listaComboCentros.add(centrosCombo);
-    	
+
     	ComboBox<Categoria> categoriasCombo = new ComboBox<Categoria>();
     	categoriasCombo.getItems().addAll(categorias);
     	categoriasCombo.setConverter(new StringConverter<Categoria>() {
@@ -257,7 +254,7 @@ public class LlamamientosCreateController {
     @SuppressWarnings("unchecked")
 	@FXML
     private void hacerLlamamientos(ActionEvent event) throws SQLException, DocumentException, IOException {
-    	//EXISTE UNA FILA 0 DEMÁS
+    	//EXISTE UNA FILA 0 DEMï¿½S
     	movimientos.clear();
         if (isInputValid()) {
         	int rows = gridId.getRowCount();
@@ -283,7 +280,7 @@ public class LlamamientosCreateController {
         		        	if (col == 0) {
         		            	for (ComboBox<TipoMovimiento> combo:listaComboTipoMovimiento) {
         		            		if(node.getId() == combo.getId()) {
-        		            			movimientoActual.setIdTipoMovimiento(combo.getValue().getIdTipoMovimiento());
+        		            			movimientoActual.setNombreTipoMovimiento(combo.getValue().getNombre());
         		            		}
         		            	}    		            	
         		            }
@@ -291,34 +288,36 @@ public class LlamamientosCreateController {
         		            	for (ComboBox<Trabajador> combo:listaComboTrabajadores) {
         		            		if(node.getId() == combo.getId()) {
         		            			movimientoActual.setDni(combo.getValue().getDni());
+										movimientoActual.setNombreTrabajador(combo.getValue().getNombreCompleto());
+
         		            		}
         		            	}    		            	
         		            }
         		        	if (col == 2) {
         		            	for (ComboBox<Centro> combo:listaComboCentros) {
         		            		if(node.getId() == combo.getId()) {
-        		            			movimientoActual.setIdCentro(combo.getValue().getIdCentro());
+        		            			movimientoActual.setNombreCentro(combo.getValue().getNombre());
         		            		}
         		            	}    		            	
         		            }
         		        	if (col == 3) {
         		            	for (ComboBox<Categoria> combo:listaComboCategorias) {
         		            		if(node.getId() == combo.getId()) {
-        		            			movimientoActual.setIdCategoria(combo.getValue().getIdCategoria());
+        		            			movimientoActual.setNombreCategoria(combo.getValue().getNombre());
         		            		}
         		            	}    		            	
         		            }
         		        	if (col == 4) {
         		            	for (ComboBox<TipoContrato> combo:listaComboContratos) {
         		            		if(node.getId() == combo.getId()) {
-        		            			movimientoActual.setIdTipoContrato(combo.getValue().getIdTipoContrato());
+        		            			movimientoActual.setNombreTipoContrato(combo.getValue().getNombre());
         		            		}
         		            	}    		            	
         		            }
         		        	if (col == 5) {
         		            	for (ComboBox<Horario> combo:listaComboHorarios) {
         		            		if(node.getId() == combo.getId()) {
-        		            			movimientoActual.setIdHorario(combo.getValue().getIdHorario());
+        		            			movimientoActual.setNombreHorario(combo.getValue().getNombre());
         		            		}
         		            	}    		            	
         		            }
@@ -342,7 +341,7 @@ public class LlamamientosCreateController {
         		            		if(node.getId() == combo.getId()) {
         		            			String baja = combo.getText();
         		            			Integer importe;
-        		            			if (baja =="") {
+        		            			if (baja.isEmpty()) {
         		            				importe = 0;
         		            			}else {
         		            				importe = Integer.parseInt(baja);
@@ -368,7 +367,7 @@ public class LlamamientosCreateController {
     
     @FXML
     private void eliminarFilas(ActionEvent event) throws SQLException {
-    	//EXISTE UNA FILA 0 DEMÁS
+    	//EXISTE UNA FILA 0 DEMï¿½S
         if (isInputValid()) {
         	
         	List<Integer> borrar = new ArrayList<Integer>();
@@ -688,7 +687,7 @@ public class LlamamientosCreateController {
     		            			trabajadores = bbdd.obtenerDatosTrabajadores();
     		            			combo.setItems(trabajadores);
     		            			for(Trabajador trabs: trabajadores) {
-    		            				if (trabs.getDni().equals(trabaj.getDni())) {
+    		            				if (trabs.getDniNombreCompleto().equals(trabaj.getDniNombreCompleto())) {
     		            					combo.setValue(trabs);
     		            				}
     		            			}

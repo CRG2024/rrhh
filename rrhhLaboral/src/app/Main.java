@@ -49,7 +49,7 @@ public class Main extends Application {
     }
 
     /**
-     * Añadimos al root el fxml que vamos a usar (En este caso la pantalla principal Menu)
+     * Aï¿½adimos al root el fxml que vamos a usar (En este caso la pantalla principal Menu)
      */
     public void showMainView() {
         try {

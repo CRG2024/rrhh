@@ -34,12 +34,6 @@ public class Trabajador {
 		this(null,null, null,null);
 	}
 
-	/**
-	 * Constructor with some initial data.
-	 *
-	 * @param firstName
-	 * @param lastName
-	 */
 	public Trabajador(String dni, String nombre, String apellido1, String apellido2) {
 		this.dni = new SimpleStringProperty(dni);
 		this.nombre = new SimpleStringProperty(nombre);
@@ -255,4 +249,24 @@ public class Trabajador {
 		return discapacidades;
 	}
 
+	public String getNombreCompleto(){
+		String apellidos ="";
+		if(getApellido2() == null){
+			apellidos = getApellido1() + ", ";
+		}else{
+			apellidos = getApellido1() + " " + getApellido2()+", ";
+		}
+
+		return apellidos + getNombre();
+	}
+
+	public String getDniNombreCompleto(){
+		String apellidos ="";
+		if(getApellido2() == null){
+			apellidos = getApellido1() + ", ";
+		}else{
+			apellidos = getApellido1()  + " " + getApellido2() +", ";
+		}
+		return getDni()+"-"+apellidos + getNombre();
+	}
 }

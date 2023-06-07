@@ -179,9 +179,9 @@ public class WorkersOverviewController {
     private void buttonEliminarTrabajador() throws SQLException {
     	Trabajador selectedPerson = trabajadorTable.getSelectionModel().getSelectedItem();
     	Alert alert = new Alert(AlertType.CONFIRMATION);
-    	alert.setTitle("Confirmación");
-    	alert.setContentText("Está acción eliminará de la Base de datos el trabajador "+ selectedPerson.getNombre()+""
-    			+ " "+selectedPerson.getApellido1()+" "+selectedPerson.getApellido2()+" con dni "+ selectedPerson.getDni()+". ¿Está seguro?");
+    	alert.setTitle("Confirmaciï¿½n");
+    	alert.setContentText("Estï¿½ acciï¿½n eliminarï¿½ de la Base de datos el trabajador "+ selectedPerson.getNombre()+""
+    			+ " "+selectedPerson.getApellido1()+" "+selectedPerson.getApellido2()+" con dni "+ selectedPerson.getDni()+". ï¿½Estï¿½ seguro?");
 
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK){
@@ -208,7 +208,7 @@ public class WorkersOverviewController {
      * @throws SQLException
      */
     @FXML
-    private void buttonAñadirTrabajador() throws SQLException {
+    private void buttonAÃ±adirTrabajador() throws SQLException {
         Trabajador tempPerson = new Trabajador();
         showNewDialog(tempPerson);
         initialize();

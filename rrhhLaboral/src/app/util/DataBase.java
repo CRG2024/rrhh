@@ -41,6 +41,7 @@ public class DataBase {
 		}
 	}
 
+	//METODOS PARA TABLA TRABAJADORES
 	public ObservableList<Trabajador> obtenerDatosTrabajadores() throws SQLException{
 		ObservableList<Trabajador> datosTrabajadores = FXCollections.observableArrayList();
 		 String query = "SELECT * FROM datosempleados";
@@ -202,6 +203,7 @@ public class DataBase {
 
 	}
 
+	//METODOS PARA TABLA CENTROS
 	public ObservableList<Centro> obtenerDatosCentros() throws SQLException {
 
 		ObservableList<Centro> datosCentros = FXCollections.observableArrayList();
@@ -287,7 +289,26 @@ public class DataBase {
 		
 	}
 
+	public Centro obtenerCentroPorNombre(String nombreCentro) throws SQLException{
 
+		java.sql.Statement st = connection.createStatement();
+		String sql = String.format("SELECT * FROM centros WHERE nombre='%s'",nombreCentro);
+		ResultSet rs = st.executeQuery(sql);
+
+		Centro centro = new Centro();
+		while (rs.next())
+		{
+			centro.setIdCentro(rs.getInt("idcentro"));
+			centro.setNombre(rs.getString("nombre"));
+			centro.setDireccion(rs.getString("direccion"));
+			centro.setCiudad(rs.getString("ciudad"));
+			centro.setCp(rs.getInt("cp"));
+		}
+		return centro;
+
+	}
+
+	//METODOS PARA TABLA CATEGORIAS
 	public ObservableList<Categoria> obtenerDatosCategorias() throws SQLException {
 		ObservableList<Categoria> datosCategorias = FXCollections.observableArrayList();
 		String query = "SELECT * FROM categoriasprofesionales";
@@ -323,6 +344,24 @@ public class DataBase {
 		return categoria;
 		
 	}
+
+	public Categoria obtenerCategoriaPorNombre(String nombreCategoria) throws SQLException{
+
+		java.sql.Statement st = connection.createStatement();
+		String sql = String.format("SELECT * FROM categoriasprofesionales WHERE nombre='%s'",nombreCategoria);
+		ResultSet rs = st.executeQuery(sql);
+
+		Categoria categoria = new Categoria();
+		while (rs.next())
+		{
+			categoria.setIdCategoria(rs.getInt("idcategoria"));
+			categoria.setNombre(rs.getString("nombre"));
+			categoria.setDescripcion(rs.getString("descripcion"));
+		}
+		return categoria;
+
+	}
+
 
 	public void eliminarCategoria(int idCategoria) throws SQLException {
 		// // TODO Auto-generated method stub
@@ -366,7 +405,7 @@ public class DataBase {
 			e.printStackTrace();
 		}
 	}
-
+	//METODOS PARA TABLA CONTRATOS
 	public ObservableList<TipoContrato> obtenerDatosContratos() throws SQLException {
 		ObservableList<TipoContrato> datosContratos = FXCollections.observableArrayList();
 		 String query = "SELECT * FROM tipocontratos";
@@ -400,6 +439,23 @@ public class DataBase {
 		}
 		return contrato;
 		
+	}
+
+	public TipoContrato obtenerTipoContratoPorNombre(String nombreTipoContrato) throws SQLException{
+
+		java.sql.Statement st = connection.createStatement();
+		String sql = String.format("SELECT * FROM tipocontratos WHERE nombre='%s'",nombreTipoContrato);
+		ResultSet rs = st.executeQuery(sql);
+
+		TipoContrato contrato = new TipoContrato();
+		while (rs.next())
+		{
+			contrato.setIdTipoContrato(rs.getInt("idtipocontrato"));
+			contrato.setNombre(rs.getString("nombre"));
+			contrato.setCodContrato(rs.getString("codcontrato"));
+		}
+		return contrato;
+
 	}
 
 	public void actualizarContrato(TipoContrato contrato, int idTipoContrato) {
@@ -444,6 +500,7 @@ public class DataBase {
 		st.execute(sql);
 	}
 
+	//METODOS PARA TABLA HORARIOS
 	public ObservableList<Horario> obtenerDatosHorarios() throws SQLException {
 		ObservableList<Horario> datosHorarios = FXCollections.observableArrayList();
 		 String query = "SELECT * FROM horarios";
@@ -479,6 +536,24 @@ public class DataBase {
 		}
 		return horario;
 		
+	}
+
+	public Horario obtenerHorarioPorNombre(String nombreHorario) throws SQLException{
+
+		java.sql.Statement st = connection.createStatement();
+		String sql = String.format("SELECT * FROM horarios WHERE nombre='%s'",nombreHorario);
+		ResultSet rs = st.executeQuery(sql);
+
+		Horario horario = new Horario();
+		while (rs.next())
+		{
+			horario.setIdHorario(rs.getInt("idhorario"));
+			horario.setNombre(rs.getString("nombre"));
+			horario.setHorario(rs.getString("horario"));
+			horario.setHoras(rs.getString("horassemana"));
+		}
+		return horario;
+
 	}
 
 
@@ -523,7 +598,7 @@ public class DataBase {
 					e.printStackTrace();
 				}
 	}
-
+	//METODOS PARA TABLA TIPO MOVIMIENTOS
 	public ObservableList<TipoMovimiento> obtenerDatosTipoMovimientos() throws SQLException {
 		ObservableList<TipoMovimiento> datosMovimientos = FXCollections.observableArrayList();
 		 String query = "SELECT * FROM tipomovimientos";
@@ -565,6 +640,23 @@ public class DataBase {
 		return movimiento;
 		
 	}
+
+	public TipoMovimiento obtenerTipoMovimientoPorNombre(String nombreTipoMovimiento) throws SQLException{
+
+		java.sql.Statement st = connection.createStatement();
+		String sql = String.format("SELECT * FROM tipomovimientos WHERE nombre='%s'",nombreTipoMovimiento);
+		ResultSet rs = st.executeQuery(sql);
+
+		TipoMovimiento movimiento = new TipoMovimiento();
+		while (rs.next())
+		{
+
+			movimiento.setIdTipoMovimiento(rs.getInt("idtipomovimiento"));
+			movimiento.setNombre(rs.getString("nombre"));
+		}
+		return movimiento;
+
+	}
 	public void actualizarTipoMovimiento(TipoMovimiento tipoMovimiento, int idTipoMovimiento) {
 		try {
 		final PreparedStatement pstmt = connection.prepareStatement(
@@ -597,44 +689,46 @@ public class DataBase {
 
 	public void insertarMovimiento(Movimiento movimiento) {
 
-
 		try {
 			final PreparedStatement pstmt = connection.prepareStatement(
-					"INSERT INTO movimientos (dni, idcentro, idhorario, fechacreacion, fechainicio, "
-					+ "fechafin, importebaja, idcategoria, idcontrato, idtipomovimiento) "
-							+ "VALUES (?,?,?,?,?,?,?,?,?,?)");
-				pstmt.setString(1, movimiento.getDni());
-				pstmt.setLong(2, movimiento.getIdCentro());
-				pstmt.setLong(3, movimiento.getIdHorario());
-				pstmt.setDate(4, Date.valueOf(LocalDate.now()));
+					"INSERT INTO movimientos (nombreTipoMovimiento, dni, nombreTrabajador, nombreCentro, " +
+							"nombreCategoria, nombreTipoContrato, nombreHorario, fechacreacion, fechainicio, " +
+							"fechafin, importebaja) "
+							+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+				pstmt.setString(1, movimiento.getNombreTipoMovimiento());
+				pstmt.setString(2, movimiento.getDni());
+				pstmt.setString(3, movimiento.getNombreTrabajador());
+				pstmt.setString(4, movimiento.getNombreCentro());
+				pstmt.setString(5, movimiento.getNombreCategoria());
+				pstmt.setString(6, movimiento.getNombreTipoContrato());
+				pstmt.setString(7, movimiento.getNombreHorario());
+				pstmt.setDate(8, Date.valueOf(LocalDate.now()));
 				
 			
 				if(movimiento.getFechaInicio()==null){
-					pstmt.setDate(5, Date.valueOf(LocalDate.of(1900, 1, 1)));
+					pstmt.setDate(9, Date.valueOf(LocalDate.of(1900, 1, 1)));
 				}else{
-					pstmt.setDate(5, Date.valueOf(movimiento.getFechaInicio()));
+					pstmt.setDate(9, Date.valueOf(movimiento.getFechaInicio()));
 				}
 				
 				if(movimiento.getFechaFin()==null){
-					pstmt.setDate(6, Date.valueOf(LocalDate.of(1900, 1, 1)));
+					pstmt.setDate(10, Date.valueOf(LocalDate.of(1900, 1, 1)));
 				}else{
-					pstmt.setDate(6, Date.valueOf(movimiento.getFechaFin()));
+					pstmt.setDate(10, Date.valueOf(movimiento.getFechaFin()));
 				}
 				
-				pstmt.setLong(7, movimiento.getImporteBaja());
-				pstmt.setLong(8, movimiento.getIdCategoria());
-				pstmt.setLong(9, movimiento.getIdTipoContrato());
-				pstmt.setLong(10, movimiento.getIdTipoMovimiento());		
+				pstmt.setLong(11, movimiento.getImporteBaja());
+				System.out.println(pstmt);
 				pstmt.executeQuery();
 
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
-	
+
+	//METODOS PARA TABLA MOVIMIENTOS
 	public ObservableList<Movimiento> obtenerDatosMovimientos() throws SQLException{
 		ObservableList<Movimiento> datosMovimientos = FXCollections.observableArrayList();
 		String query = "SELECT * FROM movimientos";
@@ -643,72 +737,102 @@ public class DataBase {
 
 		while (rs.next())
 		{
-			Movimiento movimiento = new Movimiento();
-			movimiento.setIdMovimiento(rs.getInt("idmov"));
-			movimiento.setDni(rs.getString("dni"));
-			movimiento.setIdCentro(rs.getInt("idcentro"));
-			movimiento.setIdHorario(rs.getInt("idhorario"));
-			
+
+			Integer idmov = rs.getInt("idmov");
+			Trabajador trabajador = obtenerTrabajador(rs.getString("dni"));
+			Centro centro = obtenerCentroPorNombre(rs.getString("nombreCentro"));
+			Horario horario = obtenerHorarioPorNombre(rs.getString("nombreHorario"));
+
+			//TODO
+			LocalDate fechaCreacion;
 			if (rs.getDate("fechacreacion") == null){
-				movimiento.setFechaCreacion(null);
+				fechaCreacion = null;
 			}else{
-				movimiento.setFechaCreacion(rs.getDate("fechacreacion").toLocalDate());
+				fechaCreacion = rs.getDate("fechacreacion").toLocalDate();
 			}
-			
+
+			LocalDate fechaInicio;
 			if (rs.getDate("fechainicio") == null){
-				movimiento.setFechaInicio(null);
+				fechaInicio = null;
 			}else{
-				movimiento.setFechaInicio(rs.getDate("fechainicio").toLocalDate());
+				fechaInicio = rs.getDate("fechainicio").toLocalDate();
 			}
-			
+
+			LocalDate fechaFin;
 			if (rs.getDate("fechafin") == null){
-				movimiento.setFechaFin(null);
+				fechaFin = null;
 			}else{
-				movimiento.setFechaFin(rs.getDate("fechafin").toLocalDate());
+				fechaFin = rs.getDate("fechafin").toLocalDate();
 			}
-			
-			movimiento.setImporteBaja(rs.getInt("importebaja"));
-			movimiento.setIdCategoria(rs.getInt("idcategoria"));
-			movimiento.setIdTipoContrato(rs.getInt("idcontrato"));
-			movimiento.setIdTipoMovimiento(rs.getInt("idtipomovimiento"));
+
+			Integer importebaja = rs.getInt("importebaja");
+			Categoria categoria = obtenerCategoriaPorNombre(rs.getString("nombreCategoria"));
+			TipoContrato tipoContrato = obtenerTipoContratoPorNombre(rs.getString("nombreTipoContrato"));
+			TipoMovimiento tipoMovimiento = obtenerTipoMovimientoPorNombre(rs.getString("nombreTipoMovimiento"));
+
+			Movimiento movimiento = new Movimiento(
+					idmov,
+					trabajador,
+					centro,
+					horario,
+					fechaInicio,
+					fechaFin,
+					importebaja,
+					categoria,
+					tipoContrato,
+					tipoMovimiento
+			);
+
+			movimiento.setIdMovimiento(idmov);
+			movimiento.setFechaCreacion(fechaCreacion);
 			datosMovimientos.add(movimiento);
 		}
+
 		return datosMovimientos;
 	}
-	
+
 	public void actualizaMovimiento(Movimiento movimiento, int idmovimiento) {
 		// TODO Auto-generated method stub
 				try {
 					final PreparedStatement pstmt = connection.prepareStatement(
-									"UPDATE movimientos SET dni=?, "
-									+ "idcentro=?, idhorario=?, fechacreacion=?,"
-									+ "fechainicio=?, fechafin=?, importebaja=?,"
-									+ "idcategoria=?, idcontrato=?, idtipomovimiento"
+									"UPDATE movimientos SET nombreTipoMovimiento=?, "
+									+ "dni=?, nombreTrabajador=?, nombreCentro=?,"
+									+ "nombreCategoria=?, nombreTipoContrato=?, nombreHorario=?,"
+									+ "fechacreacion=?, fechainicio=?, fechafin=?, importebaja=?"
 									+ " WHERE idmov=?");
-					
-					pstmt.setString(1, movimiento.getDni());
-					pstmt.setLong(2, movimiento.getIdCentro());
-					pstmt.setLong(3, movimiento.getIdHorario());
-					pstmt.setDate(4, Date.valueOf(LocalDate.now()));
+					/*
+
+					"INSERT INTO movimientos (nombreTipoMovimiento, dni, nombreTrabajador, nombreCentro, " +
+							"nombreCategoria, , nombreTipoContrato, nombreHorario, fechacreacion, fechainicio, " +
+							"fechafin, importebaja) "
+							+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+					 */
+					pstmt.setString(1, movimiento.getNombreTipoMovimiento());
+					pstmt.setString(2, movimiento.getDni());
+					pstmt.setString(3, movimiento.getNombreTrabajador());
+					pstmt.setString(4, movimiento.getNombreCentro());
+					pstmt.setString(5, movimiento.getNombreCategoria());
+					pstmt.setString(6, movimiento.getNombreTipoContrato());
+					pstmt.setString(7, movimiento.getNombreHorario());
+
+
+					pstmt.setDate(8, Date.valueOf(LocalDate.now()));
 					
 				
 					if(movimiento.getFechaInicio()==null){
-						pstmt.setDate(5, Date.valueOf(LocalDate.of(1900, 1, 1)));
+						pstmt.setDate(9, Date.valueOf(LocalDate.of(1900, 1, 1)));
 					}else{
-						pstmt.setDate(5, Date.valueOf(movimiento.getFechaInicio()));
+						pstmt.setDate(9, Date.valueOf(movimiento.getFechaInicio()));
 					}
 					
 					if(movimiento.getFechaFin()==null){
-						pstmt.setDate(6, Date.valueOf(LocalDate.of(1900, 1, 1)));
+						pstmt.setDate(10, Date.valueOf(LocalDate.of(1900, 1, 1)));
 					}else{
-						pstmt.setDate(6, Date.valueOf(movimiento.getFechaFin()));
+						pstmt.setDate(10, Date.valueOf(movimiento.getFechaFin()));
 					}
 					
-					pstmt.setLong(7, movimiento.getImporteBaja());
-					pstmt.setLong(8, movimiento.getIdCategoria());
-					pstmt.setLong(9, movimiento.getIdTipoContrato());
-					pstmt.setLong(10, movimiento.getIdTipoMovimiento());		
-					pstmt.setLong(11, idmovimiento);
+					pstmt.setLong(11, movimiento.getImporteBaja());
+					pstmt.setLong(12, idmovimiento);
 					pstmt.executeQuery();
 					
 				} catch (SQLException e) {
@@ -718,4 +842,11 @@ public class DataBase {
 
 	}
 
+	public void cerrarConexion() throws Throwable
+	{
+		try { connection.close(); }
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

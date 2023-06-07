@@ -110,8 +110,8 @@ public class HorariosOverviewController {
     private void buttonEliminarHorario() throws SQLException {
     	Horario selectedHorario = horariosTable.getSelectionModel().getSelectedItem();
     	Alert alert = new Alert(AlertType.CONFIRMATION);
-    	alert.setTitle("Confirmación");
-    	alert.setContentText("Está acción eliminará de la Base de datos el tipo de horario "+ selectedHorario.getNombre()+""+". ¿Está seguro?");
+    	alert.setTitle("Confirmaciï¿½n");
+    	alert.setContentText("Estï¿½ acciï¿½n eliminarï¿½ de la Base de datos el tipo de horario "+ selectedHorario.getNombre()+""+". ï¿½Estï¿½ seguro?");
 
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK){
@@ -134,7 +134,7 @@ public class HorariosOverviewController {
 
 
     @FXML
-    private void buttonAñadirHorario() throws SQLException {
+    private void buttonAÃ±adirHorario() throws SQLException {
         Horario tempHorario = new Horario();
         showNewDialog(tempHorario);
         initialize();

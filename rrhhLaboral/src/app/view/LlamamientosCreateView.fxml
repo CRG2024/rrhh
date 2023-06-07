@@ -10,9 +10,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="846.0" prefWidth="1670.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.LlamamientosCreateController">
+<AnchorPane prefHeight="704.0" prefWidth="1608.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.LlamamientosCreateController">
    <children>
-      <HBox layoutY="791.0" prefHeight="55.0" prefWidth="511.0">
+      <HBox layoutY="658.0" prefHeight="46.0" prefWidth="511.0">
          <children>
             <Button mnemonicParsing="false" onAction="#showNewTipoMovimiento" prefHeight="46.0" prefWidth="100.0" text="+Mov">
                <font>
@@ -46,9 +46,9 @@
             </Button>
          </children>
       </HBox>
-      <HBox layoutX="482.0" layoutY="640.0" prefHeight="46.0" prefWidth="876.0" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="20.0">
+      <HBox layoutX="482.0" layoutY="656.0" prefHeight="46.0" prefWidth="793.0" AnchorPane.rightAnchor="51.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#addRowGridPane" prefHeight="46.0" prefWidth="296.0" text="Crear Llamamiento">
+            <Button mnemonicParsing="false" onAction="#addRowGridPane" prefHeight="46.0" prefWidth="263.0" text="Crear Llamamiento">
                <font>
                   <Font size="19.0" />
                </font></Button>
@@ -90,16 +90,16 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TRABAJADOR" textAlignment="CENTER" wrappingWidth="164.13671875" GridPane.columnIndex="1" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CENTRO" textAlignment="CENTER" wrappingWidth="165.13671875" GridPane.columnIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CATEGORIA" textAlignment="CENTER" wrappingWidth="168.13671875" GridPane.columnIndex="3" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TIPO CONTRATO" textAlignment="CENTER" wrappingWidth="164.13671875" GridPane.columnIndex="4" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="HORARIO" textAlignment="CENTER" wrappingWidth="168.13671875" GridPane.columnIndex="5" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA INICIO" textAlignment="CENTER" wrappingWidth="167.13671875" GridPane.columnIndex="6" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="FECHA FIN" textAlignment="CENTER" wrappingWidth="168.13671875" GridPane.columnIndex="7" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IMPORTE BAJA" textAlignment="CENTER" wrappingWidth="164.13671875" GridPane.columnIndex="8" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TIPO CONTRATO" textAlignment="CENTER" wrappingWidth="164.13671875" GridPane.columnIndex="4" />
          </children>
       </GridPane>
-      <ScrollPane layoutY="63.0" prefHeight="725.0" prefWidth="1660.0">
+      <ScrollPane layoutY="63.0" prefHeight="595.0" prefWidth="1618.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="783.0" prefWidth="1656.0">
+          <AnchorPane>
                <children>
                   <GridPane fx:id="gridId" prefHeight="68.0" prefWidth="1660.0">
                     <columnConstraints>
@@ -118,7 +118,8 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                   </GridPane>
-               </children></AnchorPane>
+               </children>
+            </AnchorPane>
         </content>
       </ScrollPane>
    </children>

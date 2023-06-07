@@ -108,8 +108,8 @@ public class ContratosOverviewController {
     private void buttonEliminarContrato() throws SQLException {
     	TipoContrato selectedContrato = contratosTable.getSelectionModel().getSelectedItem();
     	Alert alert = new Alert(AlertType.CONFIRMATION);
-    	alert.setTitle("Confirmación");
-    	alert.setContentText("Está acción eliminará de la Base de datos el tipo de contrato "+ selectedContrato.getNombre()+""+". ¿Está seguro?");
+    	alert.setTitle("Confirmaciï¿½n");
+    	alert.setContentText("Estï¿½ acciï¿½n eliminarï¿½ de la Base de datos el tipo de contrato "+ selectedContrato.getNombre()+""+". ï¿½Estï¿½ seguro?");
 
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK){
@@ -132,7 +132,7 @@ public class ContratosOverviewController {
 
 
     @FXML
-    private void buttonAñadirContrato() throws SQLException {
+    private void buttonAÃ±adirContrato() throws SQLException {
         TipoContrato tempContrato = new TipoContrato();
         showNewDialog(tempContrato);
         initialize();
