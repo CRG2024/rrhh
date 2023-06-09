@@ -50,7 +50,7 @@ public class PdfCreator {
             }
         }
     }
-	public void crearAnexoTrabajador(Trabajador trabajador, LocalDate inicio, LocalDate fin) throws DocumentException {
+	public String crearAnexoTrabajador(Trabajador trabajador, LocalDate inicio, LocalDate fin) throws DocumentException {
 		
         try {
     	Document documento = new Document();
@@ -240,14 +240,16 @@ public class PdfCreator {
         documento.add(table);
         
         documento.close();
+            return nombreArchivo;
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+        return null;
 	}
 	
-	public void crearConsentimientoTrabajador(Trabajador trabajador, LocalDate inicio) throws DocumentException {
+	public String crearConsentimientoTrabajador(Trabajador trabajador, LocalDate inicio) throws DocumentException {
 		
         try {
     	Document documento = new Document();
@@ -336,14 +338,16 @@ public class PdfCreator {
   
         
         documento.close();
+        return nombreArchivo;
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+        return null;
 	}
 
-	public void crearLlamamientoRealizadoTrabajador(Trabajador trabajador, LocalDate inicio, LocalDate fin) throws DocumentException {
+	public String crearLlamamientoRealizadoTrabajador(Trabajador trabajador, LocalDate inicio, LocalDate fin) throws DocumentException {
 	
 													try {
 		Document documento = new Document();
@@ -529,11 +533,13 @@ public class PdfCreator {
 	    documento.add(table);
 	    
 	    documento.close();
+        return nombreArchivo;
 	    } catch (FileNotFoundException ex) {
 	        System.out.println(ex.getMessage());
 	    } catch (IOException ex) {
 	        System.out.println(ex.getMessage());
-	    }														
+	    }
+        return null;
 	}	
 	
 }

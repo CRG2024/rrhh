@@ -1,6 +1,8 @@
 package app.view;
 
 
+import app.util.*;
+import com.itextpdf.text.Document;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +21,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -34,9 +37,8 @@ import app.model.Movimiento;
 import app.model.TipoContrato;
 import app.model.TipoMovimiento;
 import app.model.Trabajador;
-import app.util.DataBase;
-import app.util.ExcelCreator;
-import app.util.PdfCreator;
+
+import javax.mail.MessagingException;
 
 public class LlamamientosCreateController {
 
@@ -253,7 +255,7 @@ public class LlamamientosCreateController {
     
     @SuppressWarnings("unchecked")
 	@FXML
-    private void hacerLlamamientos(ActionEvent event) throws SQLException, DocumentException, IOException {
+    private void hacerLlamamientos(ActionEvent event) throws SQLException, DocumentException, IOException, MessagingException, InterruptedException {
     	//EXISTE UNA FILA 0 DEM�S
     	movimientos.clear();
         if (isInputValid()) {
@@ -769,20 +771,33 @@ public class LlamamientosCreateController {
     }
     
     @FXML
-    private void createPdf() throws DocumentException, IOException, SQLException {
+    private void createPdf() throws DocumentException, IOException, SQLException, MessagingException, InterruptedException {
     	
         PdfCreator creadorPdf = new PdfCreator();
         ExcelCreator creadorExcel = new ExcelCreator();
-        
+		EmailSender email= new EmailSender();
+
         for (Movimiento mov: movimientos) {
-        	creadorPdf.crearAnexoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
-			creadorPdf.crearLlamamientoRealizadoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
-			creadorPdf.crearConsentimientoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio());
+        	String anexo = creadorPdf.crearAnexoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
+			String llamamiento = creadorPdf.crearLlamamientoRealizadoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
+			String consentimiento = creadorPdf.crearConsentimientoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio());
+
+
+			List<String> documentos = new ArrayList<>();
+			documentos.add(anexo);
+			documentos.add(llamamiento);
+			documentos.add(consentimiento);
 			bbdd.insertarMovimiento(mov);
+
+
+			//TODO MANDAR EMAIL AL TRABAJADOR CON LA DOCUMENTACION
+			String correoTrabajador = bbdd.obtenerTrabajador(mov.getDni()).getEmail();
+			correoTrabajador = "romerogallen@gmail.com";
+
+			email.mandarCorreoVariosArchivos(documentos, correoTrabajador);
         }
         creadorExcel.crearExcels(movimientos);
-        
-        
+
     }
 
 	

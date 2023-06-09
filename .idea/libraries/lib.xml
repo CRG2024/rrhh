@@ -52,6 +52,8 @@
       <root url="jar://$USER_HOME$/Downloads/librerias/commons-io-2.12.0.jar!/" />
       <root url="jar://$USER_HOME$/Downloads/librerias/apache-commons.jar/apache-commons.jar!/" />
       <root url="jar://$USER_HOME$/Downloads/librerias/poi-ooxml-5.2.3.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/librerias/javax.mail.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/librerias/javax.activation-1.2.0.jar/javax.activation-1.2.0.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/Downloads/librerias/poi-bin-5.2.3-20220909/poi-javadoc-5.2.3.jar!/" />
