@@ -207,18 +207,19 @@ public class WorkersOverviewController {
     public void filtrarResultados(KeyEvent event){
 
     	String filtro = busquedaField.getText().toLowerCase();
-
     	if (filtro.isEmpty()){
     		trabajadorTable.setItems(datosTrabajadores);
     	}else{
-
     		filtroTrabajadores.clear();
+            String[] palabrasfiltro = filtro.split(" ");
         	for (Trabajador trabajador : datosTrabajadores) {
-        		if(trabajador.getNombre().toLowerCase().contains(filtro)||
-        				trabajador.getApellido1().toLowerCase().contains(filtro)||
-                        trabajador.getDni().toLowerCase().contains(filtro)){
-        			filtroTrabajadores.add(trabajador);
-        		}
+                for(String palabra: palabrasfiltro){
+                    if(trabajador.getNombre().toLowerCase().contains(palabra)||
+                            trabajador.getApellido1().toLowerCase().contains(palabra)||
+                            trabajador.getDni().toLowerCase().contains(palabra)){
+                        filtroTrabajadores.add(trabajador);
+                    }
+                }
     		}
 
         	trabajadorTable.setItems(filtroTrabajadores);
