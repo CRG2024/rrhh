@@ -48,7 +48,7 @@
             <Font size="19.0" />
          </font>
       </Button>
-      <Button fx:id="añadirTrabajadorButton1" layoutX="637.0" layoutY="748.0" mnemonicParsing="false" onAction="#buttonAñadirTrabajador" prefHeight="43.0" prefWidth="281.0" text="Nuevo Empleado">
+      <Button fx:id="añadirTrabajadorButton1" layoutX="637.0" layoutY="748.0" mnemonicParsing="false" onAction="#buttonAddTrabajador" prefHeight="43.0" prefWidth="281.0" text="Nuevo Empleado">
          <font>
             <Font size="19.0" />
          </font>

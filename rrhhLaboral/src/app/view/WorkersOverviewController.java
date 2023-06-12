@@ -132,7 +132,7 @@ public class WorkersOverviewController {
     }
 
     @FXML
-    private void buttonAñadirTrabajador() throws SQLException {
+    private void buttonAddTrabajador() throws SQLException {
         Trabajador tempPerson = new Trabajador();
         showNewDialog(tempPerson);
         initialize();
