@@ -23,9 +23,6 @@ public class WorkersEditController {
 	@FXML
 	private TextField apellido2Field;
 	@FXML
-	private TextField fechaNacimientoField;
-
-	@FXML
 	private DatePicker fechaNacimientoDatePicker;
 	@FXML
 	private TextField nacionalidadField;
@@ -48,21 +45,11 @@ public class WorkersEditController {
 	@FXML
 	private TextField cuentaField;
 	@FXML
-	private TextField carnetField;
-	@FXML
 	private CheckBox carnetCheckbox;
-
-	@FXML
-	private TextField vehiculoField;
 	@FXML
 	private CheckBox vehiculoCheckbox;
 	@FXML
-	private TextField permisoTrabajoField;
-	@FXML
 	private CheckBox permisoTrabajoCheckbox;
-
-	@FXML
-	private TextField discapacidadesField;
 	@FXML
 	private CheckBox discapacidadesCheckbox;
 

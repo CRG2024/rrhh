@@ -3,8 +3,6 @@ package app.view;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 
@@ -23,7 +21,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
@@ -61,7 +58,6 @@ public class WorkersOverviewController {
     public WorkersOverviewController() {
     }
 
-
     @FXML
     private void initialize() throws SQLException {
     	dniColumn.setCellValueFactory(cellData -> cellData.getValue().dniProperty());
@@ -80,7 +76,6 @@ public class WorkersOverviewController {
 					showPersonEditDialog(selectedPerson);
 					initialize();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
             }
@@ -95,7 +90,6 @@ public class WorkersOverviewController {
 						showPersonEditDialog(selectedPerson);
 						initialize();
 					} catch (SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
                 }
@@ -137,11 +131,6 @@ public class WorkersOverviewController {
 
     }
 
-    /**
-     * Called when the user clicks the new button. Opens a dialog to edit
-     * details for a new person.
-     * @throws SQLException
-     */
     @FXML
     private void buttonAñadirTrabajador() throws SQLException {
         Trabajador tempPerson = new Trabajador();
@@ -226,7 +215,8 @@ public class WorkersOverviewController {
     		filtroTrabajadores.clear();
         	for (Trabajador trabajador : datosTrabajadores) {
         		if(trabajador.getNombre().toLowerCase().contains(filtro)||
-        				trabajador.getApellido1().toLowerCase().contains(filtro)){
+        				trabajador.getApellido1().toLowerCase().contains(filtro)||
+                        trabajador.getDni().toLowerCase().contains(filtro)){
         			filtroTrabajadores.add(trabajador);
         		}
     		}
