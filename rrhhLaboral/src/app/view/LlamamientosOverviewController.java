@@ -36,14 +36,6 @@ import app.util.DataBase;
 
 public class LlamamientosOverviewController {
 
-    int from = 0;
-    int to = 0;
-
-    int totalPaginas = 0;
-    int itemPorPagina = 15;
-    @FXML
-    private Pagination paginacion;
-
 	@FXML
     private TableView<Movimiento> movimientosTable;
 
@@ -144,12 +136,6 @@ public class LlamamientosOverviewController {
     	datosMovimientos = bbdd.obtenerDatosMovimientos();
     	movimientosTable.setItems(datosMovimientos);
 
-        //TODO ESTO LO DEJO POR SI HACE FALTA PAGINACION
-        /*totalPaginas = (datosMovimientos.size()/itemPorPagina) + 1;
-        paginacion.setPageCount(totalPaginas);
-        paginacion.setPageFactory(this::crearPagina);*/
-
-
         movimientosTable.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
             	Movimiento selectedMovement = movimientosTable.getSelectionModel().getSelectedItem();
@@ -180,19 +166,6 @@ public class LlamamientosOverviewController {
         });
 
     }
-    //TODO ESTO LO DEJO POR SI HACE FALTA PAGINACION
-    /*private Node crearPagina (int paginaIndice) {
-        from = paginaIndice*itemPorPagina;
-        to = from + itemPorPagina + 1;
-        if((totalPaginas -1)  == paginaIndice){
-            to = datosMovimientos.size();
-        }
-
-
-        List<Movimiento> datosMovimientosPagina = datosMovimientos.subList(from,to);
-        movimientosTable.setItems(FXCollections.observableArrayList(datosMovimientosPagina));
-        return movimientosTable;
-    }*/
 
 
     private void showMovementEditDialog(Movimiento selectedMovement) {

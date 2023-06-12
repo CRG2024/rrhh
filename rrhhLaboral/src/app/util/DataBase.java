@@ -718,7 +718,6 @@ public class DataBase {
 				}
 				
 				pstmt.setLong(11, movimiento.getImporteBaja());
-				System.out.println(pstmt);
 				pstmt.executeQuery();
 
 

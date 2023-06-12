@@ -482,8 +482,7 @@ public class ExcelCreator {
 	
 	public boolean checkExcelExists(String path) {
 		File f = new File(path);
-		if(f.exists()) { 
-		    System.out.println("YA EXISTE " + path);// do something
+		if(f.exists()) {
 		    return true;
 		}
 		return false;

@@ -47,36 +47,6 @@ public class WorkersOverviewController {
     private TableColumn<Trabajador, String> apellido1Column;
     @FXML
     private TableColumn<Trabajador, String> apellido2Column;
-    @FXML
-    private TableColumn<Trabajador, LocalDate> fechaNacimientoColumn;
-	@FXML
-    private TableColumn<Trabajador, String> nacionalidadColumn;
-    @FXML
-    private TableColumn<Trabajador, String> domicilioColumn;
-    @FXML
-    private TableColumn<Trabajador, String> ciudadColumn;
-    @FXML
-    private TableColumn<Trabajador, String> poblacionColumn;
-	@FXML
-    private TableColumn<Trabajador, Number> cpColumn;
-    @FXML
-    private TableColumn<Trabajador, String> nssColumn;
-    @FXML
-    private TableColumn<Trabajador, String> emailColumn;
-    @FXML
-    private TableColumn<Trabajador, String> telefono1Column;
-	@FXML
-    private TableColumn<Trabajador, String> telefono2Column;
-    @FXML
-    private TableColumn<Trabajador, String> cuentaColumn;
-    @FXML
-    private TableColumn<Trabajador, String> carnetColumn;
-    @FXML
-    private TableColumn<Trabajador, String> vehiculoColumn;
-	@FXML
-    private TableColumn<Trabajador, String> permisoTrabajoColumn;
-    @FXML
-    private TableColumn<Trabajador, String> discapacidadesColumn;
 
     @FXML
     private javafx.scene.control.TextField busquedaField;
@@ -98,42 +68,6 @@ public class WorkersOverviewController {
     	nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
     	apellido1Column.setCellValueFactory(cellData -> cellData.getValue().apellido1Property());
     	apellido2Column.setCellValueFactory(cellData -> cellData.getValue().apellido2Property());
-    	fechaNacimientoColumn.setCellValueFactory(cellData -> cellData.getValue().fechaNacimientoProperty());
-    	
-    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-    	 
-    	fechaNacimientoColumn.setCellFactory(column -> {
-            return new TableCell<Trabajador, LocalDate>() {
-                @Override
-                protected void updateItem(LocalDate item, boolean empty) {
-                    super.updateItem(item, empty);
-
-                    if (item == null || empty) {
-                        setText(null);
-                    } else {
-                        setText(formatter.format(item));
-
-                    }
-                }
-            };
-        });
-        
-        
-    	nacionalidadColumn.setCellValueFactory(cellData -> cellData.getValue().nacionalidadProperty());
-    	domicilioColumn.setCellValueFactory(cellData -> cellData.getValue().domicilioProperty());
-    	ciudadColumn.setCellValueFactory(cellData -> cellData.getValue().ciudadProperty());
-    	poblacionColumn.setCellValueFactory(cellData -> cellData.getValue().poblacionProperty());
-    	cpColumn.setCellValueFactory(cellData -> cellData.getValue().cpProperty());
-    	nssColumn.setCellValueFactory(cellData -> cellData.getValue().nssProperty());
-    	emailColumn.setCellValueFactory(cellData -> cellData.getValue().emailProperty());
-    	telefono1Column.setCellValueFactory(cellData -> cellData.getValue().telefono1Property());
-    	telefono2Column.setCellValueFactory(cellData -> cellData.getValue().telefono2Property());
-    	cuentaColumn.setCellValueFactory(cellData -> cellData.getValue().cuentaProperty());
-    	carnetColumn.setCellValueFactory(cellData -> cellData.getValue().carnetProperty());
-    	vehiculoColumn.setCellValueFactory(cellData -> cellData.getValue().vehiculoProperty());
-    	permisoTrabajoColumn.setCellValueFactory(cellData -> cellData.getValue().permisoTrabajoProperty());
-    	discapacidadesColumn.setCellValueFactory(cellData -> cellData.getValue().discapacidadesProperty());
-
 
     	bbdd = new DataBase();
         datosTrabajadores = bbdd.obtenerDatosTrabajadores();
@@ -179,9 +113,10 @@ public class WorkersOverviewController {
     private void buttonEliminarTrabajador() throws SQLException {
     	Trabajador selectedPerson = trabajadorTable.getSelectionModel().getSelectedItem();
     	Alert alert = new Alert(AlertType.CONFIRMATION);
-    	alert.setTitle("Confirmaci�n");
-    	alert.setContentText("Est� acci�n eliminar� de la Base de datos el trabajador "+ selectedPerson.getNombre()+""
-    			+ " "+selectedPerson.getApellido1()+" "+selectedPerson.getApellido2()+" con dni "+ selectedPerson.getDni()+". �Est� seguro?");
+    	alert.setTitle("¡ALERTA - ACCIÓN IRREVERSIBLE!");
+    	alert.setContentText("Esta acción eliminará de la Base de datos el trabajador "+ selectedPerson.getNombre()+""
+    			+ " "+selectedPerson.getApellido1()+" "+selectedPerson.getApellido2()+" con dni "+
+                selectedPerson.getDni()+". ¿Está seguro?");
 
     	Optional<ButtonType> result = alert.showAndWait();
     	if (result.get() == ButtonType.OK){
