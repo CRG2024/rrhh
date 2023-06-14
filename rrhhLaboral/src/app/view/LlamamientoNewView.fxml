@@ -92,7 +92,7 @@
       </GridPane>
       <HBox layoutX="323.0" layoutY="643.0" AnchorPane.bottomAnchor="14.600000000000023" AnchorPane.rightAnchor="14.200000000000045">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleOk" prefHeight="42.0" prefWidth="74.0" text="Editar">
+            <Button mnemonicParsing="false" onAction="#handleOk" prefHeight="42.0" prefWidth="74.0" text="Crear">
                <font>
                   <Font size="19.0" />
                </font></Button>

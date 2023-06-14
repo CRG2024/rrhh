@@ -800,5 +800,33 @@ public class LlamamientosCreateController {
 
     }
 
+	@FXML
+	public boolean showCrearMovimiento() throws SQLException {
+		try {
+
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/LlamamientoEditView.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+			Trabajador trabajador = new Trabajador();
+
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Edit Movement");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			LlamamientosEditController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+
+			dialogStage.showAndWait();
+			actualizarListasSelect();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+
+	}
 	
 }

@@ -848,4 +848,7 @@ public class DataBase {
 			e.printStackTrace();
 		}
 	}
+
+    public void actualizarMovimiento(Movimiento movimiento, int idMovimiento) {
+    }
 }

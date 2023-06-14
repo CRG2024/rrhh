@@ -1,5 +1,7 @@
 package app.util;
 
+import java.util.stream.Stream;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -8,8 +10,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Window;
-
-import java.util.stream.Stream;
 
 /**
  *
@@ -39,11 +39,15 @@ public class ComboBoxAutoComplete<T> {
 
     public void handleOnKeyPressed(KeyEvent e) {
         ObservableList<T> filteredList = FXCollections.observableArrayList();
+
+
+        //TODO CAMBIAR ESTO PARA QUE PUEDA PONER TODO EL TEXTO QUE QUIERA Y NO SOLO LETRAS
         KeyCode code = e.getCode();
 
-        if (code.isLetterKey()) {
+        filter += e.getText();
+        /*if (code.isLetterKey()) {
             filter += e.getText();
-        }
+        }*/
         if (code == KeyCode.BACK_SPACE && filter.length() > 0) {
             filter = filter.substring(0, filter.length() - 1);
             cmb.getItems().setAll(originalItems);

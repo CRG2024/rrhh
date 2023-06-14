@@ -46,7 +46,7 @@
             </Button>
          </children>
       </HBox>
-      <HBox layoutX="482.0" layoutY="656.0" prefHeight="46.0" prefWidth="793.0" AnchorPane.rightAnchor="51.0">
+      <HBox layoutX="482.0" layoutY="656.0" prefHeight="46.0" prefWidth="890.0" AnchorPane.rightAnchor="51.0">
          <children>
             <Button mnemonicParsing="false" onAction="#addRowGridPane" prefHeight="46.0" prefWidth="263.0" text="Crear Llamamiento">
                <font>
@@ -63,6 +63,11 @@
                </font>
             </Button>
             <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="46.0" prefWidth="133.0" text="Menu">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#showCrearMovimiento" prefHeight="46.0" prefWidth="105.0" text="Nuevo">
                <font>
                   <Font size="19.0" />
                </font>
