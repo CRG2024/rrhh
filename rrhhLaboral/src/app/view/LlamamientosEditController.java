@@ -60,18 +60,14 @@ public class LlamamientosEditController {
     @FXML
     private void initialize() throws SQLException {
         bbdd = new DataBase();
+        nombreField.setEditable(false);
+        nombreField.setFocusTraversable(false);
+        nombreField.setDisable(true);
         actualizarListasSelect();
     }
 
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
-    }
-
-
-    public void setMovimiento(Movimiento movimiento, DataBase bbdd) throws SQLException {
-    	this.bbdd = bbdd;
-        this.movimiento = movimiento;
-
     }
 
     public boolean isOkClicked() {
@@ -86,11 +82,8 @@ public class LlamamientosEditController {
     private void handleOk() throws SQLException {
         if (isInputValid()) {
 
-        	/*movimiento.setDni("");
-        	movimiento.setNombreTipoMovimiento(tipoMovimientoField.getText());*/
             crearMovimiento();
             okClicked = true;
-            //bbdd.actualizarMovimiento(movimiento, movimiento.getIdMovimiento());
             dialogStage.close();
         }
     }
@@ -351,6 +344,13 @@ public class LlamamientosEditController {
 
     public boolean crearMovimiento() throws SQLException {
         //Crear movimiento
+        int importeBaja = 0;
+
+        if(importeBajaField.getText().isEmpty()){
+            importeBaja = 0;
+        }else{
+            importeBaja = Integer.parseInt(importeBajaField.getText());
+        }
         Movimiento mov = new Movimiento(
                 0,
                 bbdd.obtenerTrabajador(dniSelect.getValue().toString()),
@@ -358,7 +358,7 @@ public class LlamamientosEditController {
                 bbdd.obtenerHorarioPorNombre(horarioSelect.getValue().toString()),
                 fechaInicioDatePicker.getValue(),
                 fechaFinDatePicker.getValue(),
-                Integer.parseInt(importeBajaField.getText()),
+                importeBaja,
                 bbdd.obtenerCategoriaPorNombre(categoriaSelect.getValue().toString()),
                 bbdd.obtenerTipoContratoPorNombre(tipoContratoSelect.getValue().toString()),
                 bbdd.obtenerTipoMovimientoPorNombre(tipoMovimientoSelect.getValue().toString())
@@ -375,5 +375,27 @@ public class LlamamientosEditController {
 
     public ObservableList<Movimiento> getListaMovimientos() {
         return this.movimientos;
+    }
+
+    @FXML
+    public void actualizarNombre() throws SQLException {
+        Trabajador trabajador = bbdd.obtenerTrabajador(dniSelect.getValue().toString());
+        nombreField.setText(trabajador.getNombreCompleto());
+    }
+
+    public void setMovimiento(Movimiento movimiento, DataBase bbdd) {
+        this.bbdd = bbdd;
+        this.movimiento = movimiento;
+        tipoMovimientoSelect.setValue(movimiento.getNombreTipoMovimiento());
+        dniSelect.setValue(movimiento.getDni());
+        nombreField.setText(movimiento.getNombreTrabajador());
+        centroSelect.setValue(movimiento.getNombreCentro());
+        categoriaSelect.setValue(movimiento.getNombreCategoria());
+        tipoContratoSelect.setValue(movimiento.getNombreTipoContrato());
+        horarioSelect.setValue(movimiento.getNombreHorario());
+        fechaInicioDatePicker.setValue(movimiento.getFechaInicio());
+        fechaFinDatePicker.setValue(movimiento.getFechaFin());
+        importeBajaField.setText(Integer.toString(movimiento.getImporteBaja()));
+
     }
 }

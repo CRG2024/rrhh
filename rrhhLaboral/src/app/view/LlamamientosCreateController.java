@@ -119,7 +119,7 @@ public class LlamamientosCreateController {
 			if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
 				Movimiento selectedMovimiento = movimientoTableView.getSelectionModel().getSelectedItem();
 				try {
-					//showEditarMovimiento(selectedMovimiento);
+					showEditMovimiento(selectedMovimiento);
 					initialize();
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -133,7 +133,7 @@ public class LlamamientosCreateController {
 				if (ke.getCode().equals(KeyCode.ENTER)) {
 					Movimiento selectedMovimiento = movimientoTableView.getSelectionModel().getSelectedItem();
 					try {
-						//showEditarMovimiento(selectedMovimiento);
+						showEditMovimiento(selectedMovimiento);
 						initialize();
 					} catch (SQLException e) {
 						e.printStackTrace();
@@ -237,6 +237,7 @@ public class LlamamientosCreateController {
 	}
 	@FXML
 	private void buttonEliminarMovimiento() throws SQLException {
+		//TODO HACER SELECCION MULTIPLE
 		Movimiento selectedMovimiento = movimientoTableView.getSelectionModel().getSelectedItem();
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("¡ALERTA - ACCIÓN IRREVERSIBLE!");
@@ -250,5 +251,37 @@ public class LlamamientosCreateController {
 			movimientoTableView.getItems().removeAll(movimientoTableView.getItems());
 			initialize();
 		}
+	}
+
+	@FXML
+	public boolean showEditMovimiento(Movimiento movimiento) throws SQLException {
+		try {
+
+			// Load the fxml file and create a new stage for the popup dialog.
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(Main.class.getResource("view/LlamamientoEditView.fxml"));
+			AnchorPane page = (AnchorPane) loader.load();
+
+			// Create the dialog Stage.
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Editar Movimiento");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+
+			// Set the person into the controller.
+			LlamamientosEditController controller = loader.getController();
+			controller.setDialogStage(dialogStage);
+			controller.setMovimiento(movimiento, bbdd);
+
+			// Show the dialog and wait until the user closes it
+			dialogStage.showAndWait();
+
+			return controller.isOkClicked();
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 }

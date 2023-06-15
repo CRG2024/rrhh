@@ -73,16 +73,16 @@
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <TextField fx:id="nombreField" promptText="primer apellido" text="Nombre" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="nombreField" promptText="Nombre asociado al dni" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font size="16.0" />
                </font></TextField>
             <DatePicker fx:id="fechaInicioDatePicker" prefHeight="35.0" prefWidth="414.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="importeBajaField" promptText="codigo postal" text="cp" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <TextField fx:id="importeBajaField" promptText="0" GridPane.columnIndex="1" GridPane.rowIndex="9">
                <font>
                   <Font size="16.0" />
                </font></TextField>
-            <ComboBox fx:id="dniSelect" prefHeight="26.0" prefWidth="408.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="dniSelect" onAction="#actualizarNombre" prefHeight="26.0" prefWidth="408.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ComboBox fx:id="tipoMovimientoSelect" prefHeight="26.0" prefWidth="408.0" GridPane.columnIndex="1" />
             <ComboBox fx:id="centroSelect" prefHeight="26.0" prefWidth="408.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <DatePicker fx:id="fechaFinDatePicker" prefHeight="35.0" prefWidth="414.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
