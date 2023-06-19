@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
@@ -28,20 +29,24 @@ public class LlamamientosEditController {
 	private ComboBox dniSelect;
     @FXML
     private TextField nombreField;
+
+    @FXML
+    private TextArea horarioField;
     @FXML
     private ComboBox centroSelect;
     @FXML
     private ComboBox categoriaSelect;
     @FXML
     private ComboBox tipoContratoSelect;
-    @FXML
-    private ComboBox horarioSelect;
+
     @FXML
     private DatePicker fechaInicioDatePicker;
     @FXML
     private DatePicker fechaFinDatePicker;
     @FXML
     private TextField importeBajaField;
+
+    private String nombreHorario;
 
     private Stage dialogStage;
     private Movimiento movimiento;
@@ -55,7 +60,7 @@ public class LlamamientosEditController {
     private ObservableList<String> nombresCategoria = FXCollections.observableArrayList();
     private ObservableList<String> nombresTipoContrato = FXCollections.observableArrayList();
     private ObservableList<String> nombresHorarios = FXCollections.observableArrayList();
-    private ObservableList<Movimiento> movimientos = FXCollections.observableArrayList();;
+    private ObservableList<Movimiento> movimientos = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() throws SQLException {
@@ -63,6 +68,10 @@ public class LlamamientosEditController {
         nombreField.setEditable(false);
         nombreField.setFocusTraversable(false);
         nombreField.setDisable(true);
+
+        horarioField.setEditable(false);
+        horarioField.setFocusTraversable(false);
+        horarioField.setDisable(true);
         actualizarListasSelect();
     }
 
@@ -154,13 +163,13 @@ public class LlamamientosEditController {
         new ComboBoxAutoComplete<String>(tipoContratoSelect);
 
         //HORARIOS
-        ObservableList<Horario> horarios = FXCollections.observableArrayList();
+        /*ObservableList<Horario> horarios = FXCollections.observableArrayList();
         horarios = bbdd.obtenerDatosHorarios();
         for(Horario horario: horarios){
             nombresHorarios.add(horario.getNombre());
         }
         horarioSelect.setItems(nombresHorarios);
-        new ComboBoxAutoComplete<String>(horarioSelect);
+        new ComboBoxAutoComplete<String>(horarioSelect);*/
     }
 
     @FXML
@@ -355,7 +364,7 @@ public class LlamamientosEditController {
                 0,
                 bbdd.obtenerTrabajador(dniSelect.getValue().toString()),
                 bbdd.obtenerCentroPorNombre(centroSelect.getValue().toString()),
-                bbdd.obtenerHorarioPorNombre(horarioSelect.getValue().toString()),
+                bbdd.obtenerHorarioPorNombre(horarioField.getText()),
                 fechaInicioDatePicker.getValue(),
                 fechaFinDatePicker.getValue(),
                 importeBaja,
@@ -392,10 +401,46 @@ public class LlamamientosEditController {
         centroSelect.setValue(movimiento.getNombreCentro());
         categoriaSelect.setValue(movimiento.getNombreCategoria());
         tipoContratoSelect.setValue(movimiento.getNombreTipoContrato());
-        horarioSelect.setValue(movimiento.getNombreHorario());
+        horarioField.setText(movimiento.getNombreHorario());
         fechaInicioDatePicker.setValue(movimiento.getFechaInicio());
         fechaFinDatePicker.setValue(movimiento.getFechaFin());
         importeBajaField.setText(Integer.toString(movimiento.getImporteBaja()));
+
+    }
+
+    @FXML
+    public boolean showSelectHorario(){
+        try {
+
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/HorariosSelectView.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+            Horario horario = new Horario();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Seleccionar Horario");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            HorariosSelectController controller = loader.getController();
+            controller.setHorario(horario,bbdd);
+
+            controller.setDialogStage(dialogStage);
+
+            dialogStage.showAndWait();
+            horario = controller.getHorario();
+            System.out.println(horario.getNombre());
+            horarioField.setText(horario.getNombre());
+
+
+            return controller.isOkClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }

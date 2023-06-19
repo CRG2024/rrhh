@@ -1,6 +1,8 @@
 package app.view;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -101,7 +103,7 @@ public class HorariosEditController {
     private boolean okClicked = false;
     private DataBase bbdd;
     private ArrayList<String> horas = new ArrayList<>();
-
+	private ObservableList<String> nombresHorarios = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {

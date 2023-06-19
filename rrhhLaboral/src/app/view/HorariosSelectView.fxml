@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.HorariosSelectController">
+   <children>
+      <GridPane layoutX="153.0" layoutY="2.0" prefHeight="628.0" prefWidth="780.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="2.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.0" minWidth="10.0" prefWidth="369.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="1.0" prefWidth="411.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="411.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="411.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="600.0" minWidth="10.0" prefWidth="411.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="92.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label fx:id="idHorarioLabel" text="Id Horario">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <Label fx:id="nombreLabel" text="Nombre" GridPane.rowIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <TextField fx:id="idHorarioField" prefWidth="480.0" promptText="id horario" text="id horario" GridPane.columnIndex="1">
+               <font>
+                  <Font size="16.0" />
+               </font></TextField>
+            <Label fx:id="lunesLabel" text="Lunes" GridPane.rowIndex="2">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="martesLabel" text="Martes" GridPane.rowIndex="3">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="miercolesLabel" text="Miercoles" GridPane.rowIndex="4">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="juevesLabel" text="Jueves" GridPane.rowIndex="5">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="viernesLabel" text="Viernes" GridPane.rowIndex="6">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="sabadoLabel" text="Sabado" GridPane.rowIndex="7">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="domingoLabel" text="Domingo" GridPane.rowIndex="8">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="horasLabel" text="Horas Semanales" GridPane.columnIndex="3">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="visperasLabel" text="Visperas" GridPane.rowIndex="9">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="festivosLabel" text="Festivos" GridPane.rowIndex="10">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="horasField" promptText="horas" text="horas" GridPane.columnIndex="4">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+            <ComboBox fx:id="horarioSelect" onAction="#actualizarDatos" prefHeight="26.0" prefWidth="267.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="lunesInicioTurno1Id" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="lunesFinTurno1Id" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="lunesInicioTurno2Id" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <TextField fx:id="lunesFinTurno2Id" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <TextField fx:id="martesInicioTurno1Id" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="martesFinTurno1Id" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <TextField fx:id="martesInicioTurno2Id" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <TextField fx:id="martesFinTurno2Id" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <TextField fx:id="miercolesInicioTurno1Id" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="miercolesFinTurno1Id" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <TextField fx:id="miercolesInicioTurno2Id" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <TextField fx:id="miercolesFinTurno2Id" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <TextField fx:id="juevesInicioTurno1Id" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="juevesFinTurno1Id" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <TextField fx:id="juevesInicioTurno2Id" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <TextField fx:id="juevesFinTurno2Id" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+            <TextField fx:id="viernesInicioTurno1Id" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="viernesFinTurno1Id" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <TextField fx:id="viernesInicioTurno2Id" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+            <TextField fx:id="viernesFinTurno2Id" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+            <TextField fx:id="sabadoInicioTurno1Id" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField fx:id="sabadoFinTurno1Id" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <TextField fx:id="sabadoInicioTurno2Id" GridPane.columnIndex="3" GridPane.rowIndex="7" />
+            <TextField fx:id="sabadoFinTurno2Id" GridPane.columnIndex="4" GridPane.rowIndex="7" />
+            <TextField fx:id="domingoInicioTurno1Id" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="domingoFinTurno1Id" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <TextField fx:id="domingoInicioTurno2Id" GridPane.columnIndex="3" GridPane.rowIndex="8" />
+            <TextField fx:id="domingoFinTurno2Id" GridPane.columnIndex="4" GridPane.rowIndex="8" />
+            <TextField fx:id="visperasInicioTurno1Id" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextField fx:id="visperasFinTurno1Id" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+            <TextField fx:id="visperasInicioTurno2Id" GridPane.columnIndex="3" GridPane.rowIndex="9" />
+            <TextField fx:id="visperasFinTurno2Id" GridPane.columnIndex="4" GridPane.rowIndex="9" />
+            <TextField fx:id="festivosInicioTurno1Id" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <TextField fx:id="festivosFinTurno1Id" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+            <TextField fx:id="festivosInicioTurno2Id" GridPane.columnIndex="3" GridPane.rowIndex="10" />
+            <TextField fx:id="festivosFinTurno2Id" GridPane.columnIndex="4" GridPane.rowIndex="10" />
+         </children>
+      </GridPane>
+      <HBox layoutX="482.0" layoutY="640.0" prefHeight="44.0" prefWidth="239.0" AnchorPane.bottomAnchor="19.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleOk" prefHeight="42.0" prefWidth="119.0" text="Seleccionar">
+               <font>
+                  <Font size="19.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="42.0" prefWidth="119.0" text="Cancelar...">
+               <font>
+                  <Font size="19.0" />
+               </font></Button>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

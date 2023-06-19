@@ -7,26 +7,17 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.LlamamientosOverviewController">
+<AnchorPane prefHeight="702.0" prefWidth="841.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.LlamamientosOverviewController">
    <children>
-      <Button layoutX="1276.0" layoutY="748.0" mnemonicParsing="false" onAction="#buttonVolver" prefHeight="43.0" prefWidth="204.0" text="Menu">
-         <font>
-            <Font size="19.0" />
-         </font></Button>
-    <AnchorPane>
+    <AnchorPane prefHeight="694.0" prefWidth="927.0">
          <children>
-            <TableView fx:id="movimientosTable" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1480.0" AnchorPane.bottomAnchor="-693.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-750.0" AnchorPane.topAnchor="1.0">
+            <TableView fx:id="movimientosTable" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="694.0" prefWidth="927.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
               <columns>
-                  <TableColumn fx:id="tipoMovimientoColumn" prefWidth="75.0" text="T.Mov" />
-                  <TableColumn fx:id="dniColumn" prefWidth="93.99996948242188" text="Dni" />
+                  <TableColumn fx:id="tipoMovimientoColumn" prefWidth="75.0" text="Movimiento" />
                 <TableColumn fx:id="trabajadorColumn" prefWidth="126.0" text="Trabajador" />
                 <TableColumn fx:id="centroColumn" prefWidth="93.99996948242188" text="Centro" />
-                <TableColumn fx:id="categoriaColumn" prefWidth="58.0" text="Categoria" />
-                  <TableColumn fx:id="tipoContratoColumn" prefWidth="75.0" text="T.Contrato" />
-                  <TableColumn fx:id="horarioColumn" prefWidth="75.0" text="Horario" />
-                  <TableColumn fx:id="fechaInicioColumn" prefWidth="75.0" text="F.Inicio" />
-                  <TableColumn fx:id="fechaFinColumn" prefWidth="75.0" text="F.Fin" />
-                  <TableColumn fx:id="importeBajaColumn" prefWidth="75.0" text="Importe Baja" />
+                  <TableColumn fx:id="fechaInicioColumn" prefWidth="75.0" text="Inicio" />
+                  <TableColumn fx:id="fechaFinColumn" prefWidth="75.0" text="Fin" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -34,22 +25,22 @@
             </TableView>
          </children>
       </AnchorPane>
-      <Button fx:id="eliminarMovimientoButton" layoutX="881.0" layoutY="748.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="281.0" text="Eliminar Movimiento">
+      <Button fx:id="eliminarMovimientoButton" layoutX="411.0" layoutY="692.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="187.0" text="Eliminar">
          <font>
             <Font size="19.0" />
          </font>
       </Button>
-      <Button fx:id="editarMovimientoButton" layoutX="600.0" layoutY="748.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="281.0" text="Editar Movimiento">
-         <font>
-            <Font size="19.0" />
-         </font>
-      </Button>
-      <TextField fx:id="busquedaField" layoutX="-2.0" layoutY="748.0" onKeyReleased="#filtrarResultados" prefHeight="43.0" prefWidth="520.0" promptText="Buscar..">
+      <TextField fx:id="busquedaField" layoutY="692.0" onKeyReleased="#filtrarResultados" prefHeight="43.0" prefWidth="410.0" promptText="Buscar..">
          <font>
             <Font size="19.0" />
          </font>
       </TextField>
-      <Button fx:id="pdfButton" layoutX="1162.0" layoutY="748.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="116.0" text="PDFs">
+      <Button fx:id="pdfButton" layoutX="599.0" layoutY="692.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="212.0" text="Crear Documentacion">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <Button layoutX="811.0" layoutY="692.0" mnemonicParsing="false" onAction="#buttonVolver" prefHeight="43.0" prefWidth="116.0" text="Menu">
          <font>
             <Font size="19.0" />
          </font>

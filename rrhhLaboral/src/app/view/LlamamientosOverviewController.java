@@ -81,22 +81,14 @@ public class LlamamientosOverviewController {
     private void initialize() throws SQLException {
 
         tipoMovimientoColumn.setCellValueFactory(cellData -> cellData.getValue().nombreTipoMovimientoProperty());
-
-        dniColumn.setCellValueFactory(cellData -> cellData.getValue().dniProperty());
-
         trabajadorColumn.setCellValueFactory(cellData -> cellData.getValue().nombreTrabajadorProperty());
         centroColumn.setCellValueFactory(cellData -> cellData.getValue().nombreCentroProperty());
 
-        categoriaColumn.setCellValueFactory(cellData -> cellData.getValue().nombreCategoriaProperty());
-
-        tipoContratoColumn.setCellValueFactory(cellData -> cellData.getValue().nombreTipoContratoProperty());
-
-        horarioColumn.setCellValueFactory(cellData -> cellData.getValue().nombreHorarioProperty());
         fechaInicioColumn.setCellValueFactory(cellData -> cellData.getValue().fechaInicioProperty());
 
-    	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    	fechaInicioColumn.setCellFactory(column -> {
+        fechaInicioColumn.setCellFactory(column -> {
             return new TableCell<Movimiento, LocalDate>() {
                 @Override
                 protected void updateItem(LocalDate item, boolean empty) {
@@ -113,7 +105,7 @@ public class LlamamientosOverviewController {
         });
 
         fechaFinColumn.setCellValueFactory(cellData -> cellData.getValue().fechaFinProperty());
-    	fechaFinColumn.setCellFactory(column -> {
+        fechaFinColumn.setCellFactory(column -> {
             return new TableCell<Movimiento, LocalDate>() {
                 @Override
                 protected void updateItem(LocalDate item, boolean empty) {
@@ -129,38 +121,33 @@ public class LlamamientosOverviewController {
             };
         });
 
-    	importeBajaColumn.setCellValueFactory(cellData -> cellData.getValue().importeBajaProperty());
-
-
-    	bbdd = new DataBase();
-    	datosMovimientos = bbdd.obtenerDatosMovimientos();
-    	movimientosTable.setItems(datosMovimientos);
+        bbdd = new DataBase();
+        datosMovimientos = bbdd.obtenerDatosMovimientos();
+        movimientosTable.setItems(datosMovimientos);
 
         movimientosTable.setOnMouseClicked((MouseEvent event) -> {
             if (event.getButton().equals(MouseButton.PRIMARY) && event.getClickCount() == 2){
-            	Movimiento selectedMovement = movimientosTable.getSelectionModel().getSelectedItem();
-            	try {
-					showMovementEditDialog(selectedMovement);
-					initialize();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+                Movimiento selectedMovimiento = movimientosTable.getSelectionModel().getSelectedItem();
+                try {
+                    showEditMovimiento(selectedMovimiento);
+                    initialize();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
-    	movimientosTable.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        movimientosTable.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
-                	Movimiento selectedMovement = movimientosTable.getSelectionModel().getSelectedItem();
-                	try {
-                		showMovementEditDialog(selectedMovement);
-						initialize();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+                    Movimiento selectedMovimiento = movimientosTable.getSelectionModel().getSelectedItem();
+                    try {
+                        showEditMovimiento(selectedMovimiento);
+                        initialize();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -186,40 +173,26 @@ public class LlamamientosOverviewController {
 
     }
 
-    /**
-     * Called when the user clicks the new button. Opens a dialog to edit
-     * details for a new person.
-     * @throws SQLException
-     */
     @FXML
-    private void buttonAñadirTrabajador() throws SQLException {
-        Trabajador tempPerson = new Trabajador();
-        showNewDialog(tempPerson);
-        initialize();
-
-    }
-
-
-
-    public boolean showPersonEditDialog(Trabajador trabajador) throws SQLException {
+    public boolean showEditMovimiento(Movimiento movimiento) throws SQLException {
         try {
 
             // Load the fxml file and create a new stage for the popup dialog.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/WorkerEditView.fxml"));
+            loader.setLocation(Main.class.getResource("view/LlamamientoEditView.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             // Create the dialog Stage.
             Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Person");
+            dialogStage.setTitle("Editar Movimiento");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             Scene scene = new Scene(page);
             dialogStage.setScene(scene);
 
             // Set the person into the controller.
-            WorkersEditController controller = loader.getController();
+            LlamamientosEditController controller = loader.getController();
             controller.setDialogStage(dialogStage);
-            controller.setPerson(trabajador, bbdd);
+            controller.setMovimiento(movimiento, bbdd);
 
             // Show the dialog and wait until the user closes it
             dialogStage.showAndWait();
@@ -232,36 +205,6 @@ public class LlamamientosOverviewController {
 
     }
 
-    public boolean showNewDialog(Trabajador trabajador) throws SQLException {
-        try {
-
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/WorkerCreateView.fxml"));
-            AnchorPane page = (AnchorPane) loader.load();
-
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Person");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
-            Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
-
-            // Set the person into the controller.
-            WorkersEditController controller = loader.getController();
-            controller.setDialogStage(dialogStage);
-            controller.setPerson(trabajador, bbdd);
-
-            // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
-
-            return controller.isOkClicked();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-    }
 
     @FXML
     public void filtrarResultados(KeyEvent event) throws Throwable {

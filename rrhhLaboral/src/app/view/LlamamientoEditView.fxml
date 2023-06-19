@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -27,7 +28,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="104.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="6.0" prefHeight="6.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -61,15 +63,15 @@
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label fx:id="fechaInicioLabel" text="Fecha Inicio" GridPane.rowIndex="7">
+            <Label fx:id="fechaInicioLabel" text="Fecha Inicio" GridPane.rowIndex="8">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label fx:id="fechaFinLabel" text="Fecha Fin" GridPane.rowIndex="8">
+            <Label fx:id="fechaFinLabel" text="Fecha Fin" GridPane.rowIndex="9">
                <font>
                   <Font size="16.0" />
                </font></Label>
-            <Label fx:id="importeBajaLabel" text="Importe Baja" GridPane.rowIndex="9">
+            <Label fx:id="importeBajaLabel" text="Importe Baja" GridPane.rowIndex="10">
                <font>
                   <Font size="16.0" />
                </font></Label>
@@ -77,29 +79,30 @@
                <font>
                   <Font size="16.0" />
                </font></TextField>
-            <DatePicker fx:id="fechaInicioDatePicker" prefHeight="35.0" prefWidth="414.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="importeBajaField" promptText="0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <DatePicker fx:id="fechaInicioDatePicker" prefHeight="35.0" prefWidth="414.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField fx:id="importeBajaField" promptText="0" GridPane.columnIndex="1" GridPane.rowIndex="10">
                <font>
                   <Font size="16.0" />
                </font></TextField>
             <ComboBox fx:id="dniSelect" onAction="#actualizarNombre" prefHeight="26.0" prefWidth="408.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <ComboBox fx:id="tipoMovimientoSelect" prefHeight="26.0" prefWidth="408.0" GridPane.columnIndex="1" />
             <ComboBox fx:id="centroSelect" prefHeight="26.0" prefWidth="408.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <DatePicker fx:id="fechaFinDatePicker" prefHeight="35.0" prefWidth="414.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <DatePicker fx:id="fechaFinDatePicker" prefHeight="35.0" prefWidth="414.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
             <ComboBox fx:id="categoriaSelect" prefHeight="26.0" prefWidth="408.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <ComboBox fx:id="tipoContratoSelect" prefHeight="26.0" prefWidth="408.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ComboBox fx:id="horarioSelect" prefHeight="26.0" prefWidth="408.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Button fx:id="botonAddTipoMovimiento" mnemonicParsing="false" onAction="#showNewTipoMovimiento" text="+" GridPane.columnIndex="2" />
             <Button fx:id="botonAddTrabajdor" mnemonicParsing="false" onAction="#showNewTrabajador" text="+" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Button fx:id="botonAddCentro" mnemonicParsing="false" onAction="#showNewCentro" text="+" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Button fx:id="botonAddCategoria" mnemonicParsing="false" onAction="#showNewCategoria" text="+" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Button fx:id="botonAddTipoContrato" mnemonicParsing="false" onAction="#showNewContrato" text="+" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Button fx:id="botonAddHorario" mnemonicParsing="false" onAction="#showNewHorario" text="+" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <Button fx:id="botonAddHorario" mnemonicParsing="false" onAction="#showNewHorario" text="+" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <TextArea fx:id="horarioField" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <Button mnemonicParsing="false" onAction="#showSelectHorario" prefHeight="25.0" prefWidth="240.0" text="Seleccionar Horario" GridPane.columnIndex="1" GridPane.rowIndex="7" />
          </children>
       </GridPane>
-      <HBox layoutX="323.0" layoutY="643.0" prefHeight="42.0" prefWidth="242.0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="30.0">
+      <HBox layoutX="277.0" layoutY="651.0" prefHeight="42.0" prefWidth="242.0" AnchorPane.bottomAnchor="7.0" AnchorPane.rightAnchor="27.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleOk" prefHeight="42.0" prefWidth="125.0" text="Crear">
+            <Button mnemonicParsing="false" onAction="#handleOk" prefHeight="42.0" prefWidth="125.0" text="Editar">
                <font>
                   <Font size="19.0" />
                </font></Button>
