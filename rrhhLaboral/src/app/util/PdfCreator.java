@@ -9,17 +9,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Rectangle;
+import app.model.Movimiento;
+import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import app.model.Trabajador;
+import javafx.collections.ObservableList;
 
 public class PdfCreator {
 
@@ -540,6 +535,398 @@ public class PdfCreator {
 	        System.out.println(ex.getMessage());
 	    }
         return null;
-	}	
-	
+	}
+
+    public void crearPdfDatosTrabajador(Trabajador selectedTrabajador) {
+        try {
+            Document documento = new Document();
+            documento.setMargins(50f, 50f, 20f, 30f);
+
+            FileOutputStream ficheroPdf = null;
+            String ruta ="src/LlamamientosDoc/";
+
+            DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+            String textInicio = LocalDate.now().format(formatters);
+
+            String nombreArchivo = textInicio+" DATOS "+ selectedTrabajador.getApellido1()+" "+selectedTrabajador.getApellido2(
+            )+" "+selectedTrabajador.getNombre()+".pdf";
+            if(ruta.equals("")){
+                ficheroPdf = new FileOutputStream(nombreArchivo);
+            }else{
+                ficheroPdf = new FileOutputStream(ruta + "/"+nombreArchivo);
+            }
+
+            com.itextpdf.text.pdf.PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20.0F);
+            documento.open();
+
+            Paragraph footer = new Paragraph();
+            footer.add(new Phrase(selectedTrabajador.getNombreCompleto().toUpperCase(Locale.ROOT),
+                    boldunderlineFontLargos));
+            footer.setAlignment(Element.ALIGN_CENTER);
+            footer.setSpacingAfter(20f);
+            documento.add(footer);
+
+
+            footer = new Paragraph();
+            footer.add(new Phrase("VILLA SOFIA S.L.", boldFontLargos));
+            footer.setAlignment(Element.ALIGN_CENTER);
+            documento.add(footer);
+
+            footer = new Paragraph();
+            footer.add(new Phrase("C/ LA CORTE Nº 27 (12560 - BENICASSIM)", boldFontLargos));
+            footer.setAlignment(Element.ALIGN_CENTER);
+            documento.add(footer);
+
+            footer = new Paragraph();
+            footer.add(new Phrase("CIF: B12981643", boldFontLargos));
+            footer.setAlignment(Element.ALIGN_CENTER);
+            documento.add(footer);
+
+            footer = new Paragraph();
+            footer.add(new Phrase("C.C.C. 12/111465062", boldFontLargos));
+            footer.setAlignment(Element.ALIGN_CENTER);
+            footer.setSpacingAfter(20f);
+            documento.add(footer);
+
+            PdfPTable table = new PdfPTable(3);
+
+            PdfPCell celda = new PdfPCell();
+            celda.addElement(new Phrase("Nombre", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            PdfPCell celda2 = new PdfPCell();
+            celda2.addElement(new Phrase(selectedTrabajador.getNombreCompleto(), timesFont));
+            celda2.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda2.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda2);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase("Dni", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(selectedTrabajador.getDni(), timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase("Número Seguridad Social", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(selectedTrabajador.getnss(), timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase("Domicilio", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(selectedTrabajador.getDomicilio(), timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase("Ciudad", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(selectedTrabajador.getCiudad(), timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase("Población", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(selectedTrabajador.getPoblacion(), timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase("Código Postal", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(Integer.toString(selectedTrabajador.getCp()), timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase("Teléfono 1", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(selectedTrabajador.getTelefono1(), timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase("Teléfono 2", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(selectedTrabajador.getTelefono2(), timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase("Email", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(selectedTrabajador.getEmail(), timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase("Cuenta Bancaria", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(selectedTrabajador.getCuenta(), timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase("Carnet de conducir", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            String carnet = "";
+            if(selectedTrabajador.getCarnet() == "0"){
+                carnet = "No";
+            }else{
+                carnet = "Si";
+            }
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(carnet, timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase("Vehículo Propio", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            String vehiculo = "";
+            if(selectedTrabajador.getCarnet() == "0"){
+                vehiculo = "No";
+            }else{
+                vehiculo = "Si";
+            }
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(vehiculo, timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase("Permiso de Trabajo", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            String permiso = "";
+            if(selectedTrabajador.getCarnet() == "0"){
+                permiso = "No";
+            }else{
+                permiso = "Si";
+            }
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(permiso, timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            celda.setBackgroundColor(BaseColor.LIGHT_GRAY);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase("Discapacidades", timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(""));
+            celda.setHorizontalAlignment(Element.ALIGN_LEFT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+
+            String discapacidad = "";
+            if(selectedTrabajador.getCarnet() == "0"){
+                discapacidad = "No";
+            }else{
+                discapacidad = "Si";
+            }
+
+            celda = new PdfPCell();
+            celda.addElement(new Phrase(discapacidad, timesFont));
+            celda.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            celda.setBorder(Rectangle.NO_BORDER);
+            table.addCell(celda);
+            table.getDefaultCell().setBorder(0);
+            table.setWidthPercentage(100);
+
+            documento.add(table);
+
+            documento.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        } catch (BadElementException e) {
+            throw new RuntimeException(e);
+        } catch (DocumentException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void crearPdfMovimientosTrabajador(ObservableList<Movimiento> movimientos) {
+    }
+
+    public void crearPdfsDatosMovimientosTrabajador(Trabajador selectedTrabajador, ObservableList<Movimiento> movimientos) {
+    }
 }

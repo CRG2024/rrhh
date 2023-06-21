@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -66,21 +67,24 @@
                   <TextField fx:id="estadoField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                   <TextField fx:id="vacacionesField" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <TextField fx:id="adelantosField" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SELECCIONE LOS DATOS PARA CREAR LA DOCUMENTACIÓN" textAlignment="CENTER" wrappingWidth="321.7609558105469" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="System Italic" size="15.0" />
+                     </font>
+                  </Text>
                </children>
             </GridPane>
-            <DatePicker fx:id="inicioDatepicker" layoutY="620.0" prefHeight="35.0" prefWidth="227.0" />
-            <DatePicker fx:id="finDatepicker" layoutX="227.0" layoutY="620.0" prefHeight="35.0" prefWidth="227.0" />
-            <Text layoutX="466.0" layoutY="633.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECCIONE LOS DATOS PARA CREAR LA DOCUMENTACIÓN" textAlignment="CENTER" wrappingWidth="391.3609619140625">
-               <font>
-                  <Font name="System Italic" size="15.0" />
-               </font>
-            </Text>
+            <DatePicker fx:id="inicioDatepicker" layoutY="620.0" prefHeight="35.0" prefWidth="150.0" />
+            <DatePicker fx:id="finDatepicker" layoutX="151.0" layoutY="620.0" prefHeight="35.0" prefWidth="150.0" />
+            <ComboBox fx:id="centroSelect" layoutX="302.0" layoutY="619.0" prefHeight="35.0" prefWidth="185.0" />
+            <ComboBox fx:id="categoriaSelect" layoutX="488.0" layoutY="619.0" prefHeight="35.0" prefWidth="185.0" />
+            <RadioButton fx:id="radioButtonTodos" layoutX="733.0" layoutY="624.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Todos los Trabajadores" />
          </children>
       </AnchorPane>
       <HBox layoutX="482.0" layoutY="656.0" prefHeight="46.0" prefWidth="898.0" AnchorPane.rightAnchor="0.0">
          <children>
             <ComboBox fx:id="nombreSelect" onAction="#actualizarTrabajador" prefHeight="46.0" prefWidth="515.0" />
-            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="171.0" text="Datos">
+            <Button mnemonicParsing="false" onAction="#crearDocumentacionDatos" prefHeight="46.0" prefWidth="171.0" text="Datos">
                <font>
                   <Font size="19.0" />
                </font>

@@ -55,6 +55,13 @@ public class InformesTrabajadorController {
 	private ComboBox nombreSelect;
 
 	@FXML
+	private ComboBox centroSelect;
+	@FXML
+	private ComboBox categoriaSelect;
+
+	@FXML
+	private RadioButton radioButtonTodos;
+	@FXML
 	private TextField nombreField;
 	@FXML
 	private TextField apellidosField;
@@ -91,10 +98,16 @@ public class InformesTrabajadorController {
 	private ObservableList<Movimiento> movimientos = FXCollections.observableArrayList();
 	private ObservableList<Trabajador> trabajadores = FXCollections.observableArrayList();
 
+	private PdfCreator pdfCreator;
+
+	private Trabajador selectedTrabajador;
+
 
     @FXML
     private void initialize() throws SQLException {
 		bbdd = new DataBase();
+		pdfCreator = new PdfCreator();
+
 
 		nombreField.setEditable(false);
 		nombreField.setFocusTraversable(false);
@@ -157,7 +170,7 @@ public class InformesTrabajadorController {
 		SingleSelectionModel selectionModel = nombreSelect.getSelectionModel();
 		int index = selectionModel.getSelectedIndex();
 		if (index > -1){
-			Trabajador selectedTrabajador = trabajadores.get(index);
+			selectedTrabajador = trabajadores.get(index);
 			nombreField.setText(selectedTrabajador.getNombre());
 			apellidosField.setText(selectedTrabajador.getApellidos());
 			dniField.setText(selectedTrabajador.getDni());
@@ -219,6 +232,21 @@ public class InformesTrabajadorController {
 		bbdd = new DataBase();
 		movimientos = bbdd.obtenerMovimientoTrabajadorFecha(dni,inicioDatepicker.getValue(),finDatepicker.getValue());
 		movimientoTableView.setItems(movimientos);
+	}
+
+	@FXML
+	private void crearDocumentacionDatos(ActionEvent event) throws IOException {
+		pdfCreator.crearPdfDatosTrabajador(selectedTrabajador);
+	}
+
+	@FXML
+	private void crearDocumentacionMovimientos(ActionEvent event) throws IOException {
+		pdfCreator.crearPdfMovimientosTrabajador(movimientos);
+	}
+
+	@FXML
+	private void crearDocumentacionTodo(ActionEvent event) throws IOException {
+		pdfCreator.crearPdfsDatosMovimientosTrabajador(selectedTrabajador,movimientos);
 	}
 
 	public void setDialogStage(Stage dialogStage) {
