@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="416.0" prefWidth="569.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.InformesMenuController">
+   <children>
+      <Button layoutX="21.0" layoutY="28.0" mnemonicParsing="false" onAction="#buttonInformeTrabajador" prefHeight="95.0" prefWidth="245.0" text="POR TRAB.">
+         <font>
+            <Font size="26.0" />
+         </font></Button>
+      <Button layoutX="302.0" layoutY="28.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="245.0" text="POR CENTRO">
+         <font>
+            <Font size="24.0" />
+         </font></Button>
+      <Button layoutX="21.0" layoutY="154.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="245.0" text="REGISTRO HORAS">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+      <Button layoutX="302.0" layoutY="154.0" mnemonicParsing="false" onAction="#buttonVolver" prefHeight="95.0" prefWidth="245.0" text="MENU">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

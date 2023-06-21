@@ -123,7 +123,7 @@ public class HorariosOverviewController {
 
     @FXML
     private void buttonVolver(ActionEvent event) throws IOException {
-    	Parent home_page_parent = FXMLLoader.load(getClass().getResource("MainView.fxml"));
+    	Parent home_page_parent = FXMLLoader.load(getClass().getResource("CreacionDatosView.fxml"));
         Scene home_page_scene = new Scene(home_page_parent);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide(); //optional

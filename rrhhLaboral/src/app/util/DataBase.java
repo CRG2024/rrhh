@@ -849,6 +849,95 @@ public class DataBase {
 		}
 	}
 
-    public void actualizarMovimiento(Movimiento movimiento, int idMovimiento) {
-    }
+	public ObservableList<Movimiento> obtenerMovimientoTrabajadorFecha
+			(String dni, LocalDate inicio, LocalDate fin) throws SQLException{
+
+		//TODO tener en cuenta el estado de las fechas
+		ObservableList<Movimiento> datosMovimientos = FXCollections.observableArrayList();
+		String query = formatoConsultaFechaDni(dni, inicio, fin);
+		java.sql.Statement st = connection.createStatement();
+		ResultSet rs = st.executeQuery(query);
+
+		while (rs.next())
+		{
+
+			Integer idmov = rs.getInt("idmov");
+			Trabajador trabajador = obtenerTrabajador(rs.getString("dni"));
+			Centro centro = obtenerCentroPorNombre(rs.getString("nombreCentro"));
+			Horario horario = obtenerHorarioPorNombre(rs.getString("nombreHorario"));
+
+			//TODO
+			LocalDate fechaCreacion;
+			if (rs.getDate("fechacreacion") == null){
+				fechaCreacion = null;
+			}else{
+				fechaCreacion = rs.getDate("fechacreacion").toLocalDate();
+			}
+
+			LocalDate fechaInicio;
+			if (rs.getDate("fechainicio") == null){
+				fechaInicio = null;
+			}else{
+				fechaInicio = rs.getDate("fechainicio").toLocalDate();
+			}
+
+			LocalDate fechaFin;
+			if (rs.getDate("fechafin") == null){
+				fechaFin = null;
+			}else{
+				fechaFin = rs.getDate("fechafin").toLocalDate();
+			}
+
+			Integer importebaja = rs.getInt("importebaja");
+			Categoria categoria = obtenerCategoriaPorNombre(rs.getString("nombreCategoria"));
+			TipoContrato tipoContrato = obtenerTipoContratoPorNombre(rs.getString("nombreTipoContrato"));
+			TipoMovimiento tipoMovimiento = obtenerTipoMovimientoPorNombre(rs.getString("nombreTipoMovimiento"));
+
+			Movimiento movimiento = new Movimiento(
+					idmov,
+					trabajador,
+					centro,
+					horario,
+					fechaInicio,
+					fechaFin,
+					importebaja,
+					categoria,
+					tipoContrato,
+					tipoMovimiento
+			);
+
+			movimiento.setIdMovimiento(idmov);
+			movimiento.setFechaCreacion(fechaCreacion);
+			datosMovimientos.add(movimiento);
+		}
+
+		return datosMovimientos;
+	}
+
+	private String formatoConsultaFechaDni(String dni, LocalDate inicio, LocalDate fin) {
+		String consulta = "";
+		if (inicio == null && fin == null){
+			consulta = String.format("SELECT * FROM movimientos WHERE dni='%s'",dni);
+		}else if (inicio != null && fin != null) {
+			consulta = String.format("SELECT * FROM movimientos WHERE dni='%s' " +
+					"AND fechainicio >= '%s' " +
+					"AND fechafin <= '%s'",
+					dni,
+					inicio,
+					fin);
+		}else if (inicio != null && fin == null) {
+			consulta = String.format("SELECT * FROM movimientos WHERE dni='%s' " +
+							"AND fechainicio >= '%s' ",
+					dni,
+					inicio);
+		}else if (inicio == null && fin != null) {
+			consulta = String.format("SELECT * FROM movimientos WHERE dni='%s' " +
+							"AND fechafin <= '%s'",
+					dni,
+					fin);
+		}
+
+		return consulta;
+	}
+
 }

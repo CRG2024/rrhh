@@ -162,14 +162,6 @@ public class LlamamientosEditController {
         tipoContratoSelect.setItems(nombresTipoContrato);
         new ComboBoxAutoComplete<String>(tipoContratoSelect);
 
-        //HORARIOS
-        /*ObservableList<Horario> horarios = FXCollections.observableArrayList();
-        horarios = bbdd.obtenerDatosHorarios();
-        for(Horario horario: horarios){
-            nombresHorarios.add(horario.getNombre());
-        }
-        horarioSelect.setItems(nombresHorarios);
-        new ComboBoxAutoComplete<String>(horarioSelect);*/
     }
 
     @FXML
