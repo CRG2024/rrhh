@@ -83,23 +83,28 @@
       </AnchorPane>
       <HBox layoutX="482.0" layoutY="656.0" prefHeight="46.0" prefWidth="898.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <ComboBox fx:id="nombreSelect" onAction="#actualizarTrabajador" prefHeight="46.0" prefWidth="515.0" />
-            <Button mnemonicParsing="false" onAction="#crearDocumentacionDatos" prefHeight="46.0" prefWidth="171.0" text="Datos">
+            <ComboBox fx:id="nombreSelect" prefHeight="46.0" prefWidth="362.0" />
+            <Button mnemonicParsing="false" onAction="#actualizarTrabajador" prefHeight="46.0" prefWidth="110.0" text="Filtrar">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="171.0" text="Movs.">
+            <Button mnemonicParsing="false" onAction="#crearDocumentacionDatos" prefHeight="46.0" prefWidth="106.0" text="Datos">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" prefHeight="46.0" prefWidth="171.0" text="Ambos">
+            <Button mnemonicParsing="false" onAction="#crearDocumentacionMovimientos" prefHeight="46.0" prefWidth="105.0" text="Movs.">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="46.0" prefWidth="171.0" text="Menu">
+            <Button mnemonicParsing="false" onAction="#crearDocumentacionDatosMovimientos" prefHeight="46.0" prefWidth="108.0" text="Ambos">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="46.0" prefWidth="105.0" text="Menu">
                <font>
                   <Font size="19.0" />
                </font>

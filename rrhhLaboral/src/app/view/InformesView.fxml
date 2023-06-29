@@ -10,11 +10,7 @@
          <font>
             <Font size="26.0" />
          </font></Button>
-      <Button layoutX="302.0" layoutY="28.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="245.0" text="POR CENTRO">
-         <font>
-            <Font size="24.0" />
-         </font></Button>
-      <Button layoutX="21.0" layoutY="154.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="245.0" text="REGISTRO HORAS">
+      <Button layoutX="302.0" layoutY="28.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="245.0" text="REGISTRO HORAS">
          <font>
             <Font size="26.0" />
          </font>

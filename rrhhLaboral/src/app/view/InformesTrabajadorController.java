@@ -2,6 +2,8 @@ package app.view;
 
 
 import app.Main;
+import app.model.Categoria;
+import app.model.Centro;
 import app.model.Movimiento;
 import app.model.Trabajador;
 import app.util.*;
@@ -89,6 +91,8 @@ public class InformesTrabajadorController {
 	private DatePicker finDatepicker;
 
 	private ObservableList<String> nombreTrabajadores = FXCollections.observableArrayList();
+	private ObservableList<String> nombreCentro = FXCollections.observableArrayList();
+	private ObservableList<String> nombreCategoria = FXCollections.observableArrayList();
 
 
     private Stage dialogStage;
@@ -97,6 +101,10 @@ public class InformesTrabajadorController {
     private DataBase bbdd;
 	private ObservableList<Movimiento> movimientos = FXCollections.observableArrayList();
 	private ObservableList<Trabajador> trabajadores = FXCollections.observableArrayList();
+
+	private ObservableList<Centro> centros = FXCollections.observableArrayList();
+
+	private ObservableList<Categoria> categorias = FXCollections.observableArrayList();
 
 	private PdfCreator pdfCreator;
 
@@ -162,6 +170,20 @@ public class InformesTrabajadorController {
 		}
 		nombreSelect.setItems(nombreTrabajadores);
 		new ComboBoxAutoComplete<String>(nombreSelect);
+
+		centros = bbdd.obtenerDatosCentros();
+		for(Centro centro: centros){
+			nombreCentro.add(centro.getNombre());
+		}
+		centroSelect.setItems(nombreCentro);
+		new ComboBoxAutoComplete<String>(centroSelect);
+
+		categorias = bbdd.obtenerDatosCategorias();
+		for(Categoria categoria: categorias){
+			nombreCategoria.add(categoria.getNombre());
+		}
+		categoriaSelect.setItems(nombreCategoria);
+		new ComboBoxAutoComplete<String>(categoriaSelect);
 	}
 
 
@@ -230,23 +252,102 @@ public class InformesTrabajadorController {
 		});
 
 		bbdd = new DataBase();
-		movimientos = bbdd.obtenerMovimientoTrabajadorFecha(dni,inicioDatepicker.getValue(),finDatepicker.getValue());
+		ObservableList<Movimiento> movimientosFechas = bbdd.obtenerMovimientoTrabajadorFecha(dni, inicioDatepicker.getValue(), finDatepicker.getValue());
+		movimientos = filtrarPorCentroYCategoria(movimientosFechas);
 		movimientoTableView.setItems(movimientos);
 	}
 
-	@FXML
-	private void crearDocumentacionDatos(ActionEvent event) throws IOException {
-		pdfCreator.crearPdfDatosTrabajador(selectedTrabajador);
+	private ObservableList<Movimiento> filtrarPorCentroYCategoria(ObservableList<Movimiento> movimientosFechas) {
+
+		SingleSelectionModel selectionModelCentro = centroSelect.getSelectionModel();
+		int indexCentro = selectionModelCentro.getSelectedIndex();
+		ObservableList<Movimiento> listaActMovs = FXCollections.observableArrayList();
+
+		if(indexCentro != -1){
+			Centro selectedCentro = centros.get(indexCentro);
+			for (Movimiento mov:movimientosFechas) {
+				if (mov.getNombreCentro().equals(selectedCentro.getNombre())){
+					listaActMovs.add(mov);
+				}
+			}
+
+			movimientosFechas.clear();
+			movimientosFechas.addAll(listaActMovs);
+			listaActMovs.clear();
+		}
+
+		SingleSelectionModel selectionModelCategoria = categoriaSelect.getSelectionModel();
+		int indexCategoria = selectionModelCategoria.getSelectedIndex();
+
+		if(indexCategoria != -1){
+			Categoria selectedCategoria = categorias.get(indexCategoria);
+			for (Movimiento mov:movimientosFechas) {
+				if (mov.getNombreCategoria().equals(selectedCategoria.getNombre())){
+					listaActMovs.add(mov);
+				}
+			}
+
+			movimientosFechas.clear();
+			movimientosFechas.addAll(listaActMovs);
+			listaActMovs.clear();
+		}
+
+		return movimientosFechas;
 	}
 
 	@FXML
-	private void crearDocumentacionMovimientos(ActionEvent event) throws IOException {
-		pdfCreator.crearPdfMovimientosTrabajador(movimientos);
+	private void crearDocumentacionDatos(ActionEvent event) throws IOException, SQLException {
+
+		if(radioButtonTodos.isSelected()){
+			for (Trabajador trab:trabajadores) {
+				pdfCreator.crearPdfDatosTrabajador(trab);
+			}
+		}else{
+			pdfCreator.crearPdfDatosTrabajador(selectedTrabajador);
+		}
 	}
 
 	@FXML
-	private void crearDocumentacionTodo(ActionEvent event) throws IOException {
-		pdfCreator.crearPdfsDatosMovimientosTrabajador(selectedTrabajador,movimientos);
+	private void crearDocumentacionMovimientos(ActionEvent event) throws IOException, SQLException {
+
+		if(radioButtonTodos.isSelected()){
+			for (Trabajador trab:trabajadores) {
+				ObservableList<Movimiento> movimientosTrab = bbdd.obtenerMovimientoTrabajadorFecha(
+						trab.getDni(),
+						inicioDatepicker.getValue(),
+						finDatepicker.getValue()
+				);
+				ObservableList<Movimiento> movimientosFiltrados = filtrarPorCentroYCategoria(movimientosTrab);
+				if(!movimientosFiltrados.isEmpty()){
+					pdfCreator.crearPdfMovimientos(movimientosFiltrados);
+				}
+			}
+
+		}else{
+			pdfCreator.crearPdfMovimientos(movimientos);
+		}
+
+	}
+
+	@FXML
+	private void crearDocumentacionDatosMovimientos(ActionEvent event) throws IOException, SQLException {
+		if(radioButtonTodos.isSelected()){
+			for (Trabajador trab:trabajadores) {
+				ObservableList<Movimiento> movimientosTrab = bbdd.obtenerMovimientoTrabajadorFecha(
+						trab.getDni(),
+						inicioDatepicker.getValue(),
+						finDatepicker.getValue()
+				);
+				pdfCreator.crearPdfDatosTrabajador(trab);
+				ObservableList<Movimiento> movimientosFiltrados = filtrarPorCentroYCategoria(movimientosTrab);
+				if(!movimientosFiltrados.isEmpty()){
+					pdfCreator.crearPdfMovimientos(movimientosFiltrados);
+				}
+			}
+		}else{
+			pdfCreator.crearPdfDatosTrabajador(selectedTrabajador);
+			pdfCreator.crearPdfMovimientos(movimientos);
+		}
 	}
 
 	public void setDialogStage(Stage dialogStage) {

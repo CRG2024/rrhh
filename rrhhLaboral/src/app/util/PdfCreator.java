@@ -4,16 +4,19 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
+import app.model.Horario;
 import app.model.Movimiento;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import app.model.Trabajador;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class PdfCreator {
@@ -52,14 +55,12 @@ public class PdfCreator {
     	documento.setMargins(50f, 50f, 20f, 30f);
     	
         FileOutputStream ficheroPdf = null;
-        //String ruta ="C:\\Usuarios\\romer\\Escritorio\\Llamamientos/";
         String ruta ="src/LlamamientosDoc/";
         
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-uuuu");
         String textInicio = inicio.format(formatters);
         
-        String nombreArchivo = textInicio+" ANEXO "+ trabajador.getApellido1()+" "+trabajador.getApellido2(
-        		)+" "+trabajador.getNombre()+".pdf";
+        String nombreArchivo = textInicio+" ANEXO "+ trabajador.getDniNombreCompleto()+".pdf";
         if(ruta.equals("")){
             ficheroPdf = new FileOutputStream(nombreArchivo);
         }else{
@@ -251,14 +252,12 @@ public class PdfCreator {
     	documento.setMargins(50f, 50f, 50f, 30f);
     	
         FileOutputStream ficheroPdf = null;
-        //String ruta ="C:\\Usuarios\\romer\\Escritorio\\Llamamientos/";
         String ruta ="src/LlamamientosDoc/";
         
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-uuuu");
         String textInicio = inicio.format(formatters);
         
-        String nombreArchivo = textInicio+" CONSENTIMIENTO ALTA SS "+ trabajador.getApellido1()+" "+trabajador.getApellido2(
-        		)+" "+trabajador.getNombre()+".pdf";
+        String nombreArchivo = textInicio+" CONSENTIMIENTO ALTA SS "+ trabajador.getDniNombreCompleto()+".pdf";
         if(ruta.equals("")){
             ficheroPdf = new FileOutputStream(nombreArchivo);
         }else{
@@ -349,17 +348,13 @@ public class PdfCreator {
 		documento.setMargins(50f, 50f, 50f, 30f);
 		
 	    FileOutputStream ficheroPdf = null;
-	    //String ruta ="C:\\Usuarios\\romer\\Escritorio\\Llamamientos/";
 	    String ruta ="src/LlamamientosDoc/";
-	    
-	//    BaseFont baseFont3 = BaseFont.createFont("Xenotron.ttf", BaseFont.HELVETICA, BaseFont.NOT_EMBEDDED);
-	//    Font font2 = new Font(baseFont3, 12);
+
 	    
 	    DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-uuuu");
 	    String textInicio = inicio.format(formatters);
 	    
-	    String nombreArchivo = textInicio+" LLAMAMIENTO FD "+ trabajador.getApellido1()+" "+trabajador.getApellido2(
-	    		)+" "+trabajador.getNombre()+".pdf";
+	    String nombreArchivo = textInicio+" LLAMAMIENTO FD "+ trabajador.getDniNombreCompleto()+".pdf";
 	    if(ruta.equals("")){
 	        ficheroPdf = new FileOutputStream(nombreArchivo);
 	    }else{
@@ -548,8 +543,7 @@ public class PdfCreator {
             DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-uuuu");
             String textInicio = LocalDate.now().format(formatters);
 
-            String nombreArchivo = textInicio+" DATOS "+ selectedTrabajador.getApellido1()+" "+selectedTrabajador.getApellido2(
-            )+" "+selectedTrabajador.getNombre()+".pdf";
+            String nombreArchivo = textInicio+" DATOS "+ selectedTrabajador.getDniNombreCompleto()+".pdf";
             if(ruta.equals("")){
                 ficheroPdf = new FileOutputStream(nombreArchivo);
             }else{
@@ -924,9 +918,125 @@ public class PdfCreator {
         }
     }
 
-    public void crearPdfMovimientosTrabajador(ObservableList<Movimiento> movimientos) {
+    public void crearPdfMovimientos(ObservableList<Movimiento> movimientos) throws SQLException {
+        String dni = movimientos.get(0).getDni();
+        Trabajador trabajador = bbdd.obtenerTrabajador(dni);
+        try {
+            Document documento = new Document();
+            documento.setMargins(10f, 10f, 20f, 30f);
+            documento.setPageSize(PageSize.A4.rotate());
+
+            FileOutputStream ficheroPdf = null;
+            String ruta ="src/LlamamientosDoc/";
+
+            DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-uuuu");
+            String textInicio = LocalDate.now().format(formatters);
+
+            String nombreArchivo = textInicio+" MOVIMIENTOS "+ trabajador.getDniNombreCompleto()+".pdf";
+            if(ruta.equals("")){
+                ficheroPdf = new FileOutputStream(nombreArchivo);
+            }else{
+                ficheroPdf = new FileOutputStream(ruta + "/"+nombreArchivo);
+            }
+
+            com.itextpdf.text.pdf.PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20.0F);
+            documento.open();
+
+            Paragraph footer = new Paragraph();
+            footer.add(new Phrase(trabajador.getDni().toUpperCase(Locale.ROOT) +
+                    " - " +
+                    trabajador.getNombreCompleto().toUpperCase(Locale.ROOT),
+                    boldunderlineFontLargos));
+            footer.setAlignment(Element.ALIGN_CENTER);
+            footer.setSpacingAfter(20f);
+            documento.add(footer);
+
+
+            footer = new Paragraph();
+            footer.add(new Phrase("VILLA SOFIA S.L.", boldFontLargos));
+            footer.setAlignment(Element.ALIGN_CENTER);
+            documento.add(footer);
+
+            footer = new Paragraph();
+            footer.add(new Phrase("C/ LA CORTE Nº 27 (12560 - BENICASSIM)", boldFontLargos));
+            footer.setAlignment(Element.ALIGN_CENTER);
+            documento.add(footer);
+
+            footer = new Paragraph();
+            footer.add(new Phrase("CIF: B12981643", boldFontLargos));
+            footer.setAlignment(Element.ALIGN_CENTER);
+            documento.add(footer);
+
+            footer = new Paragraph();
+            footer.add(new Phrase("C.C.C. 12/111465062", boldFontLargos));
+            footer.setAlignment(Element.ALIGN_CENTER);
+            footer.setSpacingAfter(20f);
+            documento.add(footer);
+
+            PdfPTable table = new PdfPTable(5);
+            for (Movimiento mov:movimientos) {
+                ObservableList<PdfPCell> celdasMovimiento = crearCeldasMovimientos(mov);
+                for (PdfPCell celda: celdasMovimiento) {
+                    table.addCell(celda);
+                }
+            }
+
+            documento.add(table);
+
+            documento.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        } catch (BadElementException e) {
+            throw new RuntimeException(e);
+        } catch (DocumentException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public void crearPdfsDatosMovimientosTrabajador(Trabajador selectedTrabajador, ObservableList<Movimiento> movimientos) {
+    private ObservableList<PdfPCell> crearCeldasMovimientos(Movimiento movimiento) throws SQLException {
+        ObservableList<PdfPCell> celdas = FXCollections.observableArrayList();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        PdfPCell celdaNombre = new PdfPCell();
+        celdaNombre.addElement(new Phrase(movimiento.getNombreTipoMovimiento(), timesFont));
+        celdaNombre.setHorizontalAlignment(Element.ALIGN_LEFT);
+        celdaNombre.setBorder(Rectangle.NO_BORDER);
+        celdaNombre.setBorderWidthBottom(1);
+        celdas.add(celdaNombre);
+
+        PdfPCell celdaFechaInicio = new PdfPCell();
+        celdaFechaInicio.addElement(new Phrase(formatter.format(movimiento.getFechaInicio()), timesFont));
+        celdaFechaInicio.setHorizontalAlignment(Element.ALIGN_LEFT);
+        celdaFechaInicio.setBorder(Rectangle.NO_BORDER);
+        celdaFechaInicio.setBorderWidthBottom(1);
+        celdas.add(celdaFechaInicio);
+
+        PdfPCell celdaFechaFin = new PdfPCell();
+        celdaFechaFin.addElement(new Phrase(formatter.format(movimiento.getFechaFin()), timesFont));
+        celdaFechaFin.setHorizontalAlignment(Element.ALIGN_LEFT);
+        celdaFechaFin.setBorder(Rectangle.NO_BORDER);
+        celdaFechaFin.setBorderWidthBottom(1);
+        celdas.add(celdaFechaFin);
+
+        PdfPCell celdaCentro = new PdfPCell();
+        celdaCentro.addElement(new Phrase(movimiento.getNombreCentro(), timesFont));
+        celdaCentro.setHorizontalAlignment(Element.ALIGN_LEFT);
+        celdaCentro.setBorder(Rectangle.NO_BORDER);
+        celdaCentro.setBorderWidthBottom(1);
+        celdas.add(celdaCentro);
+
+        PdfPCell celdaHorario = new PdfPCell();
+        Horario horario = bbdd.obtenerHorarioPorNombre(movimiento.getNombreHorario());
+        celdaHorario.addElement(new Phrase(horario.getHorarioAbreviado(), timesFont));
+        celdaHorario.setHorizontalAlignment(Element.ALIGN_LEFT);
+        celdaHorario.setBorder(Rectangle.NO_BORDER);
+        celdaHorario.setBorderWidthBottom(1);
+        celdas.add(celdaHorario);
+        horario.getHorarioAbreviado();
+
+        return celdas;
     }
+
 }

@@ -4,6 +4,11 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Horario {
 	private IntegerProperty   idHorario;
@@ -63,5 +68,73 @@ public class Horario {
 	}
 	public StringProperty horasProperty(){
 		return horas;
+	}
+
+	public String getHorarioAbreviado(){
+		String horario = this.getHorario();
+		String lines [] = horario.split("\\r?\\n");
+		String cadenaDias [] = new String[9];
+		String cadenaHorarios [] = new String[9];
+
+		for(int i=0; i<9; i++){
+			String separarDia[] = lines[i].split(";");
+			cadenaDias[i] = separarDia[0];
+			cadenaHorarios[i] = separarDia[1];
+		}
+
+		List<String> dias = new ArrayList<>();
+		List<String> horarios = new ArrayList<>();
+
+		for(int i=0; i<9; i++){
+
+			if(horarios.contains(cadenaHorarios[i])){
+				int index = horarios.indexOf(cadenaHorarios[i]);
+				String cadenaD = dias.get(index);
+				String cadenaActualizada = cadenaD+", "+ abreviaturaDia(cadenaDias[i]);
+				dias.set(index,cadenaActualizada);
+			}else{
+				dias.add(abreviaturaDia(cadenaDias[i]));
+				horarios.add(cadenaHorarios[i]);
+			}
+		}
+
+		int tamaño = dias.size();
+		String cadenaHorarioAbrev = "";
+		for(int i=0; i<tamaño;i++){
+			cadenaHorarioAbrev = cadenaHorarioAbrev + dias.get(i)+" : "+horarios.get(i)+"\n";
+		}
+
+		return cadenaHorarioAbrev;
+	}
+
+	public String abreviaturaDia(String dia){
+		if (dia.equals("Lunes")){
+			return "L";
+		}
+		if (dia.equals("Martes")){
+			return "M";
+		}
+		if (dia.equals("Miercoles")){
+			return "Mi";
+		}
+		if (dia.equals("Jueves")){
+			return "J";
+		}
+		if (dia.equals("Viernes")){
+			return "V";
+		}
+		if (dia.equals("Sabado")){
+			return "S";
+		}
+		if (dia.equals("Domingo")){
+			return "D";
+		}
+		if (dia.equals("Visperas")){
+			return "Vi";
+		}
+		if (dia.equals("Festivos")){
+			return "F";
+		}
+		return "";
 	}
 }
