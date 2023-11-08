@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -67,49 +67,41 @@
                   <TextField fx:id="estadoField" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                   <TextField fx:id="vacacionesField" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                   <TextField fx:id="adelantosField" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SELECCIONE LOS DATOS PARA CREAR LA DOCUMENTACIÓN" textAlignment="CENTER" wrappingWidth="321.7609558105469" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="321.7609558105469" GridPane.columnIndex="3" GridPane.rowIndex="5">
                      <font>
                         <Font name="System Italic" size="15.0" />
                      </font>
                   </Text>
                </children>
             </GridPane>
-            <DatePicker fx:id="inicioDatepicker" layoutY="620.0" prefHeight="35.0" prefWidth="150.0" />
-            <DatePicker fx:id="finDatepicker" layoutX="151.0" layoutY="620.0" prefHeight="35.0" prefWidth="150.0" />
-            <ComboBox fx:id="centroSelect" layoutX="302.0" layoutY="619.0" prefHeight="35.0" prefWidth="185.0" />
-            <ComboBox fx:id="categoriaSelect" layoutX="488.0" layoutY="619.0" prefHeight="35.0" prefWidth="185.0" />
-            <RadioButton fx:id="radioButtonTodos" layoutX="733.0" layoutY="624.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="150.0" text="Todos los Trabajadores" />
+            <DatePicker fx:id="inicioDatepicker" layoutY="620.0" prefHeight="35.0" prefWidth="260.0" />
+            <DatePicker fx:id="finDatepicker" layoutX="260.0" layoutY="620.0" prefHeight="35.0" prefWidth="260.0" />
+            <ComboBox fx:id="centroSelect" layoutX="519.0" layoutY="619.0" prefHeight="35.0" prefWidth="192.0" />
+            <ComboBox fx:id="categoriaSelect" layoutX="711.0" layoutY="619.0" prefHeight="35.0" prefWidth="185.0" />
          </children>
       </AnchorPane>
-      <HBox layoutX="482.0" layoutY="656.0" prefHeight="46.0" prefWidth="898.0" AnchorPane.rightAnchor="0.0">
+      <HBox layoutX="482.0" layoutY="656.0" prefHeight="46.0" prefWidth="474.0" AnchorPane.rightAnchor="425.0">
          <children>
             <ComboBox fx:id="nombreSelect" prefHeight="46.0" prefWidth="362.0" />
-            <Button mnemonicParsing="false" onAction="#actualizarTrabajador" prefHeight="46.0" prefWidth="110.0" text="Filtrar">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#crearDocumentacionDatos" prefHeight="46.0" prefWidth="106.0" text="Datos">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#crearDocumentacionMovimientos" prefHeight="46.0" prefWidth="105.0" text="Movs.">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#crearDocumentacionDatosMovimientos" prefHeight="46.0" prefWidth="108.0" text="Ambos">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Button>
-            <Button mnemonicParsing="false" onAction="#handleCancel" prefHeight="46.0" prefWidth="105.0" text="Menu">
+            <Button mnemonicParsing="false" onAction="#actualizarDatosInforme" prefHeight="46.0" prefWidth="110.0" text="Filtrar">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
          </children>
       </HBox>
+      <Button layoutX="788.0" layoutY="656.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="46.0" prefWidth="108.0" text="Menu">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Button>
+      <CheckBox fx:id="checkMovimientos" layoutX="691.0" layoutY="654.0" mnemonicParsing="false" text="Movimientos" />
+      <CheckBox fx:id="checkRegistroHoras" layoutX="571.0" layoutY="654.0" mnemonicParsing="false" text="Registro Horas" />
+      <CheckBox fx:id="checkDatos" layoutX="475.0" layoutY="655.0" mnemonicParsing="false" text="Datos" />
+      <Button layoutX="473.0" layoutY="676.0" mnemonicParsing="false" onAction="#crearDocumentacion" prefHeight="26.0" prefWidth="314.0" text="Crear Documentacion Seleccionada">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

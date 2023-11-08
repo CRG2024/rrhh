@@ -182,23 +182,26 @@ public class LlamamientosCreateController {
 		EmailSender email= new EmailSender();
 
         for (Movimiento mov: movimientos) {
-        	String anexo = creadorPdf.crearAnexoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
-			String llamamiento = creadorPdf.crearLlamamientoRealizadoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
-			String consentimiento = creadorPdf.crearConsentimientoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio());
+			if(creadorExcel.devolverTipoMovimiento(mov.getNombreTipoMovimiento()).equals("ALTA")){
+				String anexo = creadorPdf.crearAnexoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
+				String llamamiento = creadorPdf.crearLlamamientoRealizadoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio(),mov.getFechaFin());
+				String consentimiento = creadorPdf.crearConsentimientoTrabajador(bbdd.obtenerTrabajador(mov.getDni()),mov.getFechaInicio());
 
 
-			List<String> documentos = new ArrayList<>();
-			documentos.add(anexo);
-			documentos.add(llamamiento);
-			documentos.add(consentimiento);
-			bbdd.insertarMovimiento(mov);
+				List<String> documentos = new ArrayList<>();
+				documentos.add(anexo);
+				documentos.add(llamamiento);
+				documentos.add(consentimiento);
+				bbdd.insertarMovimiento(mov);
 
 
-			//TODO MANDAR EMAIL AL TRABAJADOR CON LA DOCUMENTACION
-			String correoTrabajador = bbdd.obtenerTrabajador(mov.getDni()).getEmail();
-			correoTrabajador = "romerogallen@gmail.com";
+				//TODO MANDAR EMAIL AL TRABAJADOR CON LA DOCUMENTACION
+				String correoTrabajador = bbdd.obtenerTrabajador(mov.getDni()).getEmail();
+				correoTrabajador = "romerogallen@gmail.com";
 
-			email.mandarCorreoVariosArchivos(documentos, correoTrabajador);
+				email.mandarCorreoVariosArchivos(documentos, correoTrabajador);
+			}
+
         }
         creadorExcel.crearExcels(movimientos);
 

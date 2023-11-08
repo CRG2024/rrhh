@@ -279,4 +279,14 @@ public class Trabajador {
 		}
 		return apellidos;
     }
+
+	public String getSoloApellidos() {
+		String apellidos ="";
+		if(getApellido2() == null){
+			apellidos = getApellido1();
+		}else{
+			apellidos = getApellido1()  + " " + getApellido2();
+		}
+		return apellidos;
+	}
 }

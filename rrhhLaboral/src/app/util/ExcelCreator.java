@@ -2,7 +2,8 @@ package app.util;
 
 import java.io.*;
 import java.sql.SQLException;
-import org.apache.poi.hssf.usermodel.HSSFFont;
+import java.time.LocalDate;
+
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
@@ -556,10 +557,84 @@ public class ExcelCreator {
 
 		}
 
-        //TODO mandar correo a laboral directamente con los excels
-		
-		
 	}
-	
+
+    public void crearRegistroHorasMes(Trabajador trabajador, LocalDate inicio, LocalDate fin) throws SQLException {
+
+        //PARA OBTENER TODOS LOS MOVIMEINTOS PASAMOS AL METODO SIGUIENTE LAS FECHAS COMO NULL,
+        //CON LO QUE DEVUELVE TODOS LOS MOVIMIENTOS DEL TRABAJADOR
+        ObservableList<Movimiento> movimientosTrab = bbdd.obtenerMovimientoTrabajadorFecha(
+                trabajador.getDni(),
+                null,
+                null
+        );
+
+        ObservableList<Movimiento> movimientosTrabEntreFechas = movimeintosValidosEntreFechas(
+                movimientosTrab,
+                inicio,
+                fin);
+        //TODO
+        //Crear los datos para la hoja en función de los movimientos obtenidos
+
+
+
+
+    }
+
+    public ObservableList<Movimiento> movimeintosValidosEntreFechas(ObservableList<Movimiento> movimientosTrab,
+                                              LocalDate inicio, LocalDate fin){
+        //El método compareTo devuelve:
+        //0: son iguales
+        //Valor Positivo: la primera es mayor que la segunda
+        //Valor negativo: la primera es menor que la segunda
+        ObservableList<Movimiento> movimientosTrabEntreFechas = FXCollections.observableArrayList();
+        for (Movimiento movTrab: movimientosTrab) {
+            if(devolverTipoMovimiento(movTrab.getNombreTipoMovimiento()).equals("ALTA")){
+
+                //Antes de rango buscado
+                if(movTrab.getFechaInicio().compareTo(inicio) <= 0){
+                    movimientosTrabEntreFechas.clear();
+                    movimientosTrabEntreFechas.add(movTrab);
+                }else if(movTrab.getFechaInicio().compareTo(inicio) > 0 &&
+                        movTrab.getFechaInicio().compareTo(fin) <= 0){
+                    //Entre rango buscado
+                    movimientosTrabEntreFechas.add(movTrab);
+                }
+                //Después de rango buscado (no hacer nada)
+            }else{
+
+                if(movTrab.getFechaFin().compareTo(inicio) >= 0 &&
+                        movTrab.getFechaFin().compareTo(fin) <= 0){
+                    movimientosTrabEntreFechas.add(movTrab);
+                }else if(movTrab.getFechaFin().compareTo(inicio) < 0){
+                    movimientosTrabEntreFechas.clear();
+                }
+            }
+            System.out.println("--------");
+            System.out.println(movimientosTrabEntreFechas.size());
+            for (Movimiento mov:movimientosTrabEntreFechas) {
+                System.out.println("--------");
+                System.out.println(mov.getNombreTrabajador());
+                System.out.println(mov.getNombreTipoMovimiento());
+                System.out.println(mov.getFechaInicio());
+                System.out.println(mov.getFechaFin());
+                System.out.println("--------");
+            }
+        }
+
+        return movimientosTrabEntreFechas;
+    }
+
+    public String devolverTipoMovimiento(String nombreTipoMovimiento){
+
+        if(nombreTipoMovimiento.toUpperCase().equals("LLAMAMIENTO")||
+                nombreTipoMovimiento.toUpperCase().equals("ALTA NUEVA")||
+                nombreTipoMovimiento.toUpperCase().equals("CAMBIO CATEGORIA")||
+                nombreTipoMovimiento.toUpperCase().equals("CAMBIO TIPO CONTRATO")||
+                nombreTipoMovimiento.toUpperCase().equals("MODIFICACION")){
+            return "ALTA";
+        }
+        return "BAJA";
+    }
 	
 }
