@@ -68,7 +68,7 @@ public class WorkersEditController {
         this.dialogStage = dialogStage;
     }
 
-    public void setPerson(Trabajador worker, DataBase bbdd) throws SQLException {
+    public void setPerson(Trabajador worker, DataBase bbdd) {
     	this.bbdd = bbdd;
         this.worker = worker;
     	dniField.setText(worker.getDni());
@@ -87,7 +87,6 @@ public class WorkersEditController {
     	telefono2Field.setText(worker.getTelefono2());
     	cuentaField.setText(worker.getCuenta());
 
-
     	if(worker.getCarnet()==null){
     		worker.setCarnet("0");
     		carnetCheckbox.setSelected(false);
@@ -95,9 +94,6 @@ public class WorkersEditController {
     	if(Integer.parseInt(worker.getCarnet())==1){
     		carnetCheckbox.setSelected(true);
     	}
-
-
-
 
     	if(worker.getVehiculo()==null){
     		worker.setVehiculo("0");
@@ -107,9 +103,6 @@ public class WorkersEditController {
     		vehiculoCheckbox.setSelected(true);
     	}
 
-
-
-
     	if(worker.getPermisoTrabajo()==null){
     		worker.setPermisoTrabajo("0");
     		permisoTrabajoCheckbox.setSelected(false);
@@ -117,8 +110,6 @@ public class WorkersEditController {
     	if(Integer.parseInt(worker.getPermisoTrabajo())==1){
     		permisoTrabajoCheckbox.setSelected(true);
     	}
-
-
 
     	if(worker.getDiscapacidades()==null){
     		worker.setDiscapacidades("0");
@@ -133,10 +124,6 @@ public class WorkersEditController {
         return okClicked;
     }
 
-    /**
-     * Called when the user clicks ok.
-     * @throws SQLException
-     */
     @FXML
     private void handleOk() throws SQLException {
 		if(validarCampos()){
@@ -184,7 +171,7 @@ public class WorkersEditController {
     }
 
     @FXML
-    private void nuevoOk() throws SQLException {
+    private void nuevoOk() {
 		if (validarCampos()){
 			if (isInputValid()) {
 				worker.setDni(dniField.getText());
@@ -286,11 +273,6 @@ public class WorkersEditController {
         dialogStage.close();
     }
 
-    /**
-     * Validates the user input in the text fields.
-     *
-     * @return true if the input is valid
-     */
     private boolean isInputValid() {
 
     	return true;
