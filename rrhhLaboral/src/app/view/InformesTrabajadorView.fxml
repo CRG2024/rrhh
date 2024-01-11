@@ -74,15 +74,15 @@
                   </Text>
                </children>
             </GridPane>
-            <DatePicker fx:id="inicioDatepicker" layoutY="620.0" prefHeight="35.0" prefWidth="260.0" />
-            <DatePicker fx:id="finDatepicker" layoutX="260.0" layoutY="620.0" prefHeight="35.0" prefWidth="260.0" />
-            <ComboBox fx:id="centroSelect" layoutX="519.0" layoutY="619.0" prefHeight="35.0" prefWidth="192.0" />
-            <ComboBox fx:id="categoriaSelect" layoutX="711.0" layoutY="619.0" prefHeight="35.0" prefWidth="185.0" />
+            <DatePicker fx:id="inicioDatepicker" layoutY="620.0" prefHeight="35.0" prefWidth="260.0" promptText="Fecha Inicio" />
+            <DatePicker fx:id="finDatepicker" layoutX="260.0" layoutY="620.0" prefHeight="35.0" prefWidth="260.0" promptText="Fecha Fin" />
+            <ComboBox fx:id="centroSelect" layoutX="519.0" layoutY="619.0" prefHeight="35.0" prefWidth="192.0" promptText="Centro de Trabajo" />
+            <ComboBox fx:id="categoriaSelect" layoutX="711.0" layoutY="619.0" prefHeight="35.0" prefWidth="185.0" promptText="Categoría" />
          </children>
       </AnchorPane>
       <HBox layoutX="482.0" layoutY="656.0" prefHeight="46.0" prefWidth="474.0" AnchorPane.rightAnchor="425.0">
          <children>
-            <ComboBox fx:id="nombreSelect" prefHeight="46.0" prefWidth="362.0" />
+            <ComboBox fx:id="nombreSelect" prefHeight="46.0" prefWidth="362.0" promptText="Trabajador" />
             <Button mnemonicParsing="false" onAction="#actualizarDatosInforme" prefHeight="46.0" prefWidth="110.0" text="Filtrar">
                <font>
                   <Font size="19.0" />
