@@ -1,6 +1,7 @@
 package app.view;
 
 
+import app.validators.ValidadorCampos;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
@@ -61,7 +62,6 @@ public class WorkersEditController {
 
     @FXML
     private void initialize() {
-
     }
 
     public void setDialogStage(Stage dialogStage) {
@@ -185,50 +185,106 @@ public class WorkersEditController {
 
     @FXML
     private void nuevoOk() throws SQLException {
-        if (isInputValid()) {
+		if (validarCampos()){
 
-        	worker.setDni(dniField.getText());
-        	worker.setNombre(nombreField.getText());
-        	worker.setApellido1(apellido1Field.getText());
-        	worker.setApellido2(apellido2Field.getText());
-        	worker.setFechaNacimiento(fechaNacimientoDatePicker.getValue());
-        	worker.setNacionalidad(nacionalidadField.getText());
-        	worker.setDomicilio(domicilioField.getText());
-        	worker.setCiudad(ciudadField.getText());
-        	worker.setPoblacion(poblacionField.getText());
-        	worker.setCp(Integer.parseInt(cpField.getText()));
-        	worker.setnss(nssField.getText());
-        	worker.setEmail(emailField.getText());
-        	worker.setTelefono1(telefono1Field.getText());
-        	worker.setTelefono2(telefono2Field.getText());
-        	worker.setCuenta(cuentaField.getText());
-        	if(carnetCheckbox.isSelected()){
-        		worker.setCarnet("1");
-        	}else{
-        		worker.setCarnet("0");
-        	}
-        	if(vehiculoCheckbox.isSelected()){
-        		worker.setVehiculo("1");
-        	}else{
-        		worker.setVehiculo("0");
-        	}
-        	if(permisoTrabajoCheckbox.isSelected()){
-        		worker.setPermisoTrabajo("1");
-        	}else{
-        		worker.setPermisoTrabajo("0");
-        	}
-        	if(discapacidadesCheckbox.isSelected()){
-        		worker.setDiscapacidades("1");
-        	}else{
-        		worker.setDiscapacidades("0");
-        	}
+			if (isInputValid()) {
+				worker.setDni(dniField.getText());
+				worker.setNombre(nombreField.getText());
+				worker.setApellido1(apellido1Field.getText());
+				worker.setApellido2(apellido2Field.getText());
+				worker.setFechaNacimiento(fechaNacimientoDatePicker.getValue());
+				worker.setNacionalidad(nacionalidadField.getText());
+				worker.setDomicilio(domicilioField.getText());
+				worker.setCiudad(ciudadField.getText());
+				worker.setPoblacion(poblacionField.getText());
+				worker.setCp(Integer.parseInt(cpField.getText()));
+				worker.setnss(nssField.getText());
+				worker.setEmail(emailField.getText());
+				worker.setTelefono1(telefono1Field.getText());
+				worker.setTelefono2(telefono2Field.getText());
+				worker.setCuenta(cuentaField.getText());
+				if(carnetCheckbox.isSelected()){
+					worker.setCarnet("1");
+				}else{
+					worker.setCarnet("0");
+				}
+				if(vehiculoCheckbox.isSelected()){
+					worker.setVehiculo("1");
+				}else{
+					worker.setVehiculo("0");
+				}
+				if(permisoTrabajoCheckbox.isSelected()){
+					worker.setPermisoTrabajo("1");
+				}else{
+					worker.setPermisoTrabajo("0");
+				}
+				if(discapacidadesCheckbox.isSelected()){
+					worker.setDiscapacidades("1");
+				}else{
+					worker.setDiscapacidades("0");
+				}
 
-            okClicked = true;
-            bbdd.insertarTrabajador(worker);
-            dialogStage.close();
-        }
+				okClicked = true;
+				bbdd.insertarTrabajador(worker);
+				dialogStage.close();
+			}
+		}
     }
-    @FXML
+
+	private boolean validarCampos() {
+
+		ValidadorCampos validador = new ValidadorCampos();
+		if (!validador.validarDni(this.dniField)){
+			return false;
+		}
+		if (!validador.validarSoloLetras(this.nombreField)){
+			return false;
+		}
+		if (!validador.validarSoloLetras(this.apellido1Field)){
+			return false;
+		}
+		if (!validador.validarSoloLetras(this.apellido2Field)){
+			return false;
+		}
+
+		if (!validador.validarFecha(this.fechaNacimientoDatePicker)){
+			return false;
+		}
+		if (!validador.validarCampoVacío(this.nacionalidadField)){
+			return false;
+		}
+		if (!validador.validarCampoVacío(this.domicilioField)){
+			return false;
+		}
+		if (!validador.validarSoloLetras(this.ciudadField)){
+			return false;
+		}
+		if (!validador.validarSoloLetras(this.poblacionField)){
+			return false;
+		}
+		if (!validador.validarSoloNumeros(this.cpField)){
+			return false;
+		}
+		//TODO NSS FORMATO
+		if (!validador.validarCampoVacío(this.nssField)){
+			return false;
+		}
+		if (!validador.validarEmail(this.emailField)){
+			return false;
+		}
+		if (!validador.validarSoloNumeros(this.telefono1Field)){
+			return false;
+		}
+		if (!validador.soloNumeros(this.telefono2Field.getText().substring(0,telefono2Field.getText().length()))){
+			return false;
+		}
+		if (!validador.validarCuentaBancaria(this.cuentaField)){
+			return false;
+		}
+		return true;
+	}
+
+	@FXML
     private void handleCancel() {
         dialogStage.close();
     }
