@@ -139,54 +139,7 @@ public class WorkersEditController {
      */
     @FXML
     private void handleOk() throws SQLException {
-        if (isInputValid()) {
-
-        	worker.setDni(dniField.getText());
-        	worker.setNombre(nombreField.getText());
-        	worker.setApellido1(apellido1Field.getText());
-        	worker.setApellido2(apellido2Field.getText());
-        	worker.setFechaNacimiento(fechaNacimientoDatePicker.getValue());
-        	worker.setNacionalidad(nacionalidadField.getText());
-        	worker.setDomicilio(domicilioField.getText());
-        	worker.setCiudad(ciudadField.getText());
-        	worker.setPoblacion(poblacionField.getText());
-        	worker.setCp(Integer.parseInt(cpField.getText()));
-        	worker.setnss(nssField.getText());
-        	worker.setEmail(emailField.getText());
-        	worker.setTelefono1(telefono1Field.getText());
-        	worker.setTelefono2(telefono2Field.getText());
-        	worker.setCuenta(cuentaField.getText());
-        	if(carnetCheckbox.isSelected()){
-        		worker.setCarnet("1");
-        	}else{
-        		worker.setCarnet("0");
-        	}
-        	if(vehiculoCheckbox.isSelected()){
-        		worker.setVehiculo("1");
-        	}else{
-        		worker.setVehiculo("0");
-        	}
-        	if(permisoTrabajoCheckbox.isSelected()){
-        		worker.setPermisoTrabajo("1");
-        	}else{
-        		worker.setPermisoTrabajo("0");
-        	}
-        	if(discapacidadesCheckbox.isSelected()){
-        		worker.setDiscapacidades("1");
-        	}else{
-        		worker.setDiscapacidades("0");
-        	}
-
-            okClicked = true;
-            bbdd.actualizarTrabajador(worker, worker.getDni());
-            dialogStage.close();
-        }
-    }
-
-    @FXML
-    private void nuevoOk() throws SQLException {
-		if (validarCampos()){
-
+		if(validarCampos()){
 			if (isInputValid()) {
 				worker.setDni(dniField.getText());
 				worker.setNombre(nombreField.getText());
@@ -223,7 +176,52 @@ public class WorkersEditController {
 				}else{
 					worker.setDiscapacidades("0");
 				}
+				okClicked = true;
+				bbdd.actualizarTrabajador(worker, worker.getDni());
+				dialogStage.close();
+			}
+		}
+    }
 
+    @FXML
+    private void nuevoOk() throws SQLException {
+		if (validarCampos()){
+			if (isInputValid()) {
+				worker.setDni(dniField.getText());
+				worker.setNombre(nombreField.getText());
+				worker.setApellido1(apellido1Field.getText());
+				worker.setApellido2(apellido2Field.getText());
+				worker.setFechaNacimiento(fechaNacimientoDatePicker.getValue());
+				worker.setNacionalidad(nacionalidadField.getText());
+				worker.setDomicilio(domicilioField.getText());
+				worker.setCiudad(ciudadField.getText());
+				worker.setPoblacion(poblacionField.getText());
+				worker.setCp(Integer.parseInt(cpField.getText()));
+				worker.setnss(nssField.getText());
+				worker.setEmail(emailField.getText());
+				worker.setTelefono1(telefono1Field.getText());
+				worker.setTelefono2(telefono2Field.getText());
+				worker.setCuenta(cuentaField.getText());
+				if(carnetCheckbox.isSelected()){
+					worker.setCarnet("1");
+				}else{
+					worker.setCarnet("0");
+				}
+				if(vehiculoCheckbox.isSelected()){
+					worker.setVehiculo("1");
+				}else{
+					worker.setVehiculo("0");
+				}
+				if(permisoTrabajoCheckbox.isSelected()){
+					worker.setPermisoTrabajo("1");
+				}else{
+					worker.setPermisoTrabajo("0");
+				}
+				if(discapacidadesCheckbox.isSelected()){
+					worker.setDiscapacidades("1");
+				}else{
+					worker.setDiscapacidades("0");
+				}
 				okClicked = true;
 				bbdd.insertarTrabajador(worker);
 				dialogStage.close();
@@ -246,7 +244,6 @@ public class WorkersEditController {
 		if (!validador.validarSoloLetras(this.apellido2Field)){
 			return false;
 		}
-
 		if (!validador.validarFecha(this.fechaNacimientoDatePicker)){
 			return false;
 		}
