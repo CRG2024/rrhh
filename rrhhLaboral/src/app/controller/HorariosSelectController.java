@@ -1,4 +1,4 @@
-package app.view;
+package app.controller;
 
 
 import app.model.Horario;

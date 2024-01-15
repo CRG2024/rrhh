@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="682.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.MainMovimientosController">
+<AnchorPane prefHeight="682.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.MainMovimientosController">
    <children>
       <Button layoutX="123.0" layoutY="61.0" mnemonicParsing="false" onAction="#handleButtonLlamamientos" prefHeight="95.0" prefWidth="245.0" text="LLAMAMIENTOS">
          <font>

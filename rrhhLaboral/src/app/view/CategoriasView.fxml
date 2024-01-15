@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="791.0" prefWidth="1113.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.CategoriasOverviewController">
+<AnchorPane prefHeight="791.0" prefWidth="1113.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.CategoriasOverviewController">
    <children>
       <Button layoutX="1199.0" layoutY="748.0" mnemonicParsing="false" onAction="#buttonVolver" prefHeight="43.0" prefWidth="281.0" text="Menu">
          <font>

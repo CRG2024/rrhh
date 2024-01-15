@@ -1,4 +1,4 @@
-package app.view;
+package app.controller;
 
 import app.Main;
 import javafx.event.ActionEvent;
@@ -30,7 +30,7 @@ public class InformesMenuController {
 
     @FXML
     private void buttonVolver(ActionEvent event) throws IOException {
-        Parent home_page_parent = FXMLLoader.load(getClass().getResource("MainView.fxml"));
+        Parent home_page_parent = FXMLLoader.load(getClass().getResource("../view/MainView.fxml"));
         Scene home_page_scene = new Scene(home_page_parent);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide(); //optional
@@ -41,7 +41,7 @@ public class InformesMenuController {
 
     @FXML
     private void buttonInformeTrabajador(ActionEvent event) throws IOException {
-        Parent home_page_parent = FXMLLoader.load(getClass().getResource("InformesTrabajadorView.fxml"));
+        Parent home_page_parent = FXMLLoader.load(getClass().getResource("../view/InformesTrabajadorView.fxml"));
         Scene home_page_scene = new Scene(home_page_parent);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         app_stage.hide(); //optional

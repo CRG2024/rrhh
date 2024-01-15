@@ -1039,4 +1039,8 @@ public class PdfCreator {
         return celdas;
     }
 
+    public void crearPdfRegistroHoras() throws SQLException {
+
+    }
+
 }

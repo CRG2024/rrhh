@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="682.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.view.MainMenuController">
+<AnchorPane prefHeight="682.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.MainMenuController">
    <children>
       <Button layoutX="132.0" layoutY="64.0" mnemonicParsing="false" onAction="#handleButtonTrab" prefHeight="95.0" prefWidth="245.0" text="TRABAJADORES">
          <font>

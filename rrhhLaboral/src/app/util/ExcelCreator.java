@@ -569,7 +569,7 @@ public class ExcelCreator {
                 null
         );
 
-        ObservableList<Movimiento> movimientosTrabEntreFechas = movimeintosValidosEntreFechas(
+        ObservableList<Movimiento> movimientosTrabEntreFechas = movimientosValidosEntreFechas(
                 movimientosTrab,
                 inicio,
                 fin);
@@ -581,8 +581,8 @@ public class ExcelCreator {
 
     }
 
-    public ObservableList<Movimiento> movimeintosValidosEntreFechas(ObservableList<Movimiento> movimientosTrab,
-                                              LocalDate inicio, LocalDate fin){
+    public ObservableList<Movimiento> movimientosValidosEntreFechas(ObservableList<Movimiento> movimientosTrab,
+                                                                    LocalDate inicio, LocalDate fin){
         //El método compareTo devuelve:
         //0: son iguales
         //Valor Positivo: la primera es mayor que la segunda

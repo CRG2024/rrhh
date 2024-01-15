@@ -1,4 +1,4 @@
-package app.view;
+package app.controller;
 
 
 import app.Main;
@@ -265,7 +265,19 @@ public class InformesTrabajadorController {
 			}
 		}
 	}
-	private void crearDocumentacionRegistroHoras() {
+	private void crearDocumentacionRegistroHoras() throws SQLException {
+		SingleSelectionModel selectionModel = nombreSelect.getSelectionModel();
+		int index = selectionModel.getSelectedIndex();
+		if (index > -1){
+			pdfCreator.crearPdfRegistroHoras();
+		}else{
+			for(int ind = 0; ind <= trabajadores.size();ind++){
+				int indexNombre = ind;
+				int indexCategoria = categoriaSelect.getSelectionModel().getSelectedIndex();
+				int indexCentro = centroSelect.getSelectionModel().getSelectedIndex();
+				pdfCreator.crearPdfRegistroHoras();
+			}
+		}
 	}
 
 	public void setDialogStage(Stage dialogStage) {
@@ -280,7 +292,7 @@ public class InformesTrabajadorController {
 
 	@FXML
     private void handleCancel(ActionEvent event) throws IOException {
-    	Parent home_page_parent = FXMLLoader.load(getClass().getResource("InformesView.fxml"));
+    	Parent home_page_parent = FXMLLoader.load(getClass().getResource("../view/InformesView.fxml"));
 	    Scene home_page_scene = new Scene(home_page_parent);
 	    Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 	    app_stage.hide(); 

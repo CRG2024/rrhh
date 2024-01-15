@@ -2,7 +2,7 @@ package app;
 
 import java.io.IOException;
 
-import app.view.MainMenuController;
+import app.controller.MainMenuController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
