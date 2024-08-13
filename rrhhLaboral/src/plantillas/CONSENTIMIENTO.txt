@@ -1,0 +1,14 @@
+**TITULO
+COMUNICACIÓN DE CONSENTIMIENTO DE ALTA EN S.S
+**DATOS_EMPRESA
+VILLA SOFIA S.L.
+C/ LA CORTE Nº 27 (12560 - BENICASSIM)
+CIF: B12981643
+C.C.C. 12/111465062
+**COMUNICADO
+En Benicasim a FECHA_ACTUAL
+Estimados Sres.:
+Don/Doña NOMBRE_TRABAJADOR con DNI/NIE DNI_TRABAJADOR les autorizo a que realicen mi alta en la Seguridad Social con fecha FECHA_MOVIMIENTO.
+Atentamente,
+**FIRMAS
+Firma del trabajador

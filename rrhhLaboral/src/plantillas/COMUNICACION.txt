@@ -1,0 +1,19 @@
+**TITULO
+COMUNICACIÓN LLAMAMIENTO FD
+**DATOS_EMPRESA
+VILLA SOFIA S.L.
+C/ LA CORTE Nº 27 (12560 - BENICASSIM)
+CIF: B12981643
+C.C.C. 12/111465062
+**COMUNICADO
+En Benicasim a FECHA_ACTUAL
+Don/Doña NOMBRE_TRABAJADOR
+con DNI/NIE DNI_TRABAJADOR
+Le comunicamos que, teniendo Vd. la condición de trabajador/a fijo discontinuo de esta empresa, deberá empezar a prestar sus servicios con fecha 4 de enero de 2024, constando como fecha de
+finalización el FECHA_MOVIMIENTO. Fecha, esta última, en la que está prevista concluyan las actividades para las que ha sido contratado.
+OBSERVACIONES: Las fechas comunicadas estarán sujetas a variaciones en la producción, pudiendo ser ampliadas o reducidas si las circunstancias lo requieren.
+Atentamente,
+**FIRMAS
+Firma de la empresa 
+NOMBRE_TRABAJADOR
+DNI_TRABAJADOR
