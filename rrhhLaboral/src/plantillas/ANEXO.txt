@@ -1,10 +1,10 @@
 **TITULO
 COMUNICACIÓN LLAMAMIENTO
 **DATOS_EMPRESA
-VILLA SOFIA S.L.
-C/ LA CORTE Nº 27 (12560 - BENICASSIM)
-CIF: B12981643
-C.C.C. 12/111465062
+NOMBRE EMPRESA
+DIRECCIÓN - CÓDIGO POSTAL - LOCALIDAD -CIUDAD
+IDENTIFICACIÓN FISCAL
+CÓDIGO DE COTIZACIÓN
 **COMUNICADO
 Por la presente se informa que los llamamientos a la actividad de los contratos fijos discontinuos se realizarán por los criterios de categoría, puesto de trabajo y antigüedad en la misma, por ese orden de preferencia.
 Así mismo, se indica que se realizarán los llamamientos de forma telefónica siempre desde los mismos números de teléfono de contacto que han venido siendo hasta ahora, por lo que, si recibe una llamada desde dicho número, mensaje de texto o WhatsApp, y no puede atenderlo en ese momento, póngase en contacto con la empresa para poder indicarle la fecha de incorporación, de no hacerlo en un plazo de máximo 24h se entenderá que rechaza el llamamiento y se procederá a llamar al siguiente en la lista y anotando en su historial el rechazo del mismo.
