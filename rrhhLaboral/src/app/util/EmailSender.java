@@ -21,7 +21,7 @@ public class EmailSender {
     private Properties properties;
     private Session session;
     private BodyPart texto;
-    private String sender = "grupoasbenicasim@gmail.com";
+    private String sender = "************";
     private String pass = "hgbdjvycisorftwj";
 
     public EmailSender(){
