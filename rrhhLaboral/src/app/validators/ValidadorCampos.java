@@ -139,16 +139,19 @@ public class ValidadorCampos {
 	}
 
 	public boolean validarSoloLetras(TextField textoField) {
+
 		if (!validarCampoVacío(textoField)){
 			return false;
 		}
 		String cadena = textoField.getText();
 		for (int x = 0; x < cadena.length(); x++) {
 			char c = cadena.charAt(x);
-			// Si no está entre a y z, ni entre A y Z, ni es un espacio
+			// Si no está entre a y z, ni entre A y Z, ni es un espacio, ni tiene acento, ni es ñ o Ñ
 			if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
-					|| c == ' ' || c == '-')) {
-				mostrarMensajeError(textoField,"El formato es incorrecto. Sólo puede tener letras, espacios y -.");
+					|| c == ' ' || c == '-'
+					|| (c >= 'á' && c <= 'ú') || (c >= 'Á' && c <= 'Ú')
+					|| c == 'ñ' || c == 'Ñ')) {
+				mostrarMensajeError(textoField, "El formato es incorrecto. Sólo puede tener letras, espacios, -, y tildes.");
 				return false;
 			}
 		}
