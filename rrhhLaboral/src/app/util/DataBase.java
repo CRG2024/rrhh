@@ -34,8 +34,8 @@ public class DataBase {
 
 		connection = null;
 		try {
-			connection = DriverManager.getConnection("**********************************",
-			        "********", "****");
+			connection = DriverManager.getConnection("jdbc:postgresql://127.0.0.1:5432/rrhhLaboral",
+					"postgres", "1234");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
