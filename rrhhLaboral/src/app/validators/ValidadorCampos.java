@@ -102,8 +102,10 @@ public class ValidadorCampos {
 	public boolean soloNumeros(String texto) {
 		String[] unoNueve = {"0","1","2","3","4","5","6","7","8","9"};
 		List<String> listaNumeros = Arrays.asList(unoNueve);
-		String[] textoCadena = texto.split("");
-		for(String numero:textoCadena){
+		String texto_sin_espacios = texto.replaceAll("\\s","");
+		String[] textoNum = texto_sin_espacios.split("");
+
+		for(String numero:textoNum){
 			if (!listaNumeros.contains(numero)){
 				return false;
 			}
