@@ -2,6 +2,7 @@ package app.controller;
 
 import java.io.IOException;
 
+import app.util.CreadorVistas;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,12 +16,15 @@ public class MainMenuController {
 
 	  // Reference to the main application.
     private Main mainApp;
+    private CreadorVistas creador;
 
 	public MainMenuController(){
+        initialize();
 	}
 
 	@FXML
     private void initialize() {
+        creador = new CreadorVistas();
     }
 
 	public void setMainApp(Main mainApp) {
@@ -29,45 +33,21 @@ public class MainMenuController {
 
 	@FXML
     private void handleButtonTrab(ActionEvent event) throws IOException {
-        Parent home_page_parent = FXMLLoader.load(getClass().getResource("../view/WorkersView.fxml"));
-        Scene home_page_scene = new Scene(home_page_parent);
-        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        app_stage.hide(); //optional
-        app_stage.setScene(home_page_scene);
-        app_stage.show();
-
+        creador.crearVista("../view/WorkersView.fxml", event);
     }
 
 	@FXML
     private void handleButtonMovimientos(ActionEvent event) throws IOException {
-        Parent home_page_parent = FXMLLoader.load(getClass().getResource("../view/MainMovimientosView.fxml"));
-        Scene home_page_scene = new Scene(home_page_parent);
-        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        app_stage.hide(); //optional
-        app_stage.setScene(home_page_scene);
-        app_stage.show();
-
+        creador.crearVista("../view/MainMovimientosView.fxml", event);
     }
 
     @FXML
     private void handleButtonCreacionDatos(ActionEvent event) throws IOException {
-        Parent home_page_parent = FXMLLoader.load(getClass().getResource("../view/CreacionDatosView.fxml"));
-        Scene home_page_scene = new Scene(home_page_parent);
-        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        app_stage.hide(); //optional
-        app_stage.setScene(home_page_scene);
-        app_stage.show();
-
+        creador.crearVista("../view/CreacionDatosView.fxml", event);
     }
 
     @FXML
     private void handleButtonInformes(ActionEvent event) throws IOException {
-        Parent home_page_parent = FXMLLoader.load(getClass().getResource("../view/InformesView.fxml"));
-        Scene home_page_scene = new Scene(home_page_parent);
-        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        app_stage.hide(); //optional
-        app_stage.setScene(home_page_scene);
-        app_stage.show();
-
+        creador.crearVista("../view/InformesView.fxml", event);
     }
 }
